@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ROBOTO BOLD-->
+    <style name="bold">
+        <item name="fontFamily">sans-serif-black</item>
+    </style>
+    <style name="bold.black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="bold.black.15">
+        <item name="android:textSize">15dp</item>
+    </style>
+    <style name="bold.black.36">
+        <item name="android:textSize">36dp</item>
+    </style>
+
+    <style name="bold.white">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="bold.white.15">
+        <item name="android:textSize">15dp</item>
+    </style>
+
+    <!-- ROBOTO REGULAR -->
+    <style name="regular">
+        <item name="fontFamily">sans-serif</item>
+    </style>
+    <style name="regular.black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="regular.black.15">
+        <item name="android:textSize">15dp</item>
+    </style>
+    <style name="regular.black.24">
+        <item name="android:textSize">24dp</item>
+    </style>
+    <style name="regular.black.36">
+        <item name="android:textSize">36dp</item>
+    </style>
+
+    <style name="regular.white">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="regular.white.15">
+        <item name="android:textSize">15dp</item>
+    </style>
+    <style name="regular.white.24">
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="regular.gray">
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+    <style name="regular.gray.15">
+        <item name="android:textSize">15dp</item>
+    </style>
+    <style name="regular.gray.16">
+        <item name="android:textSize">16dp</item>
+    </style>
+    <style name="regular.gray.13">
+        <item name="android:textSize">13dp</item>
+    </style>
+
+    <!-- ROBOTO LIGHT-->
+    <style name="light">
+        <item name="fontFamily">sans-serif-thin</item>
+    </style>
+    <style name="light.black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="light.black.15">
+        <item name="android:textSize">15dp</item>
+    </style>
+</resources>

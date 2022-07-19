@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomEditText" parent="Base.Widget.MaterialComponents.TextInputLayout">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.MaterialComponents.TextInputEditText.FilledBox
+        </item>
+        <item name="boxBackgroundMode">filled</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="endIconTint">@color/black</item> <!--NO SE-->
+        <item name="startIconTint">@color/background_green_grass</item><!--NO SE-->
+        <item name="boxCollapsedPaddingTop">10dp</item>
+        <item name="boxStrokeColor">@color/purple_700</item><!--UNDERLINE-->
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MaterialComponents.TextInputLayout.FilledBox
+        </item>
+    </style>
+</resources>

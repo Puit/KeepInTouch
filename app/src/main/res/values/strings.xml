@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Keep in touch</string>
+    <string name="file_path" translatable="false">Android/data/com.nunnos.keepintouch/files/Pictures</string>
+
+    <!--ARRAYS-->
+
+    <string-array name="genders">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Nonbinary</item>
+        <item>Trans</item>
+        <item>Unknown</item>
+    </string-array>
+    <string-array name="sexual_orientation">
+        <item>Heterosexual</item>
+        <item>Gay</item>
+        <item>Lesbian</item>
+        <item>Bisexual</item>
+        <item>Pansexual</item>
+        <item>Asexual</item>
+        <item>Unknown</item>
+    </string-array>
+</resources>

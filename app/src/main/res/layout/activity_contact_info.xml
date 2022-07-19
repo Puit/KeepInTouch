@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contact_info_activity_root_coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:filterTouchesWhenObscured="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+        <!--CONTENIDO VISTA-->
+        <FrameLayout
+            android:id="@+id/activity_fragment_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/contact_info_activity_bottom_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+
+        <com.nunnos.keepintouch.presentation.component.BottomMenu
+            android:id="@+id/contact_info_activity_bottom_menu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:image2_selected="@drawable/ic_chat_full"
+            app:image2_unselected="@drawable/ic_chat"
+            app:image3_selected="@drawable/ic_book_full"
+            app:image3_unselected="@drawable/ic_book"
+            app:image4_selected="@drawable/ic_person_full"
+            app:image4_unselected="@drawable/ic_person"
+            app:color_selected="@color/black"
+            app:color_unselected="@color/gray_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="shareviewmodel"
+            type="com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel" />
+    </data>
+</layout>

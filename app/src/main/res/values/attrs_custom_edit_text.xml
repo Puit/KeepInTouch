@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomEditText">
+        <attr name="edit_text_text" format="string" />
+        <attr name="edit_text_hint_text" format="string" />
+        <attr name="edit_text_error_text" format="string" />
+        <attr name="edit_text_text_color" format="reference" />
+        <attr name="edit_text_clickable" format="boolean" />
+        <attr name="edit_text_focusable" format="boolean" />
+        <attr name="edit_text_hint_text_color_at_end_position" format="reference" />
+        <attr name="edit_text_hint_text_color_at_start_position" format="reference" />
+        <attr name="edit_text_underline_color" format="reference" />
+    </declare-styleable>
+</resources>

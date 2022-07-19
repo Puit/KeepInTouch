@@ -1,0 +1,54 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false">
+
+        <TextView
+            android:id="@+id/et_hint"
+            style="@style/regular.gray.13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:clickable="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="My text" />
+
+        <ImageView
+            android:id="@+id/et_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:clickable="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_transgender" />
+
+        <TextView
+            android:id="@+id/et_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:clickable="false"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/et_image"
+            app:layout_constraintTop_toTopOf="@+id/et_image"
+            tools:text="My text" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/underline_gray"
+            android:clickable="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomSwitch">
+        <attr name="custom_switch_text_left" format="string|reference" />
+        <attr name="custom_switch_text_right" format="string|reference" />
+        <attr name="custom_switch_image_left" format="integer" />
+        <attr name="custom_switch_image_right" format="integer" />
+        <attr name="custom_switch_checked_right" format="boolean" />
+        <attr name="custom_switch_selected_background_color" format="reference" />
+        <attr name="custom_switch_unselected_background_color" format="reference" />
+        <attr name="custom_switch_selected_text_color" format="reference" />
+        <attr name="custom_switch_unselected_text_color" format="reference" />
+    </declare-styleable>
+</resources>

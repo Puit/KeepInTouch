@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/new_contact_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/background_gray_light"
+                android:src="@drawable/ic_person_full"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/new_contact_add_image_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@color/purple_700"
+                android:elevation="1dp"
+                android:src="@drawable/ic_chat"
+                app:layout_constraintBottom_toBottomOf="@+id/new_contact_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_contact_image" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_contact_image">
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Name" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_surname1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Surname 1"
+                    tools:edit_text_text="Surname 1" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_surname2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Surname 2"
+                    tools:edit_text_text="Surname 2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.nunnos.keepintouch.presentation.component.recyclerviewitemtext.ExpanableRecyclerView
+                        android:id="@+id/new_contact_gender_expanable"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:expanable_recyclerview_hint_text="Gender"
+                        app:expanable_recyclerview_icon="@drawable/ic_unknown"
+                        app:expanable_recyclerview_text_text="Unknown"
+                        app:layout_constraintEnd_toStartOf="@+id/new_contact_sexual_orientation_expanable"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.nunnos.keepintouch.presentation.component.recyclerviewitemtext.ExpanableRecyclerView
+                        android:id="@+id/new_contact_sexual_orientation_expanable"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:expanable_recyclerview_hint_text="Sexual Orientation"
+                        app:expanable_recyclerview_icon="@drawable/ic_unknown"
+                        app:expanable_recyclerview_text_text="Unknown"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/new_contact_gender_expanable"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- SELECTOR DATA-->
+                <com.nunnos.keepintouch.presentation.component.CustomSwitch
+                    android:id="@+id/new_contact_birthday_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:custom_switch_selected_background_color="@color/purple_700"
+                    app:custom_switch_text_left="Birthday"
+                    app:custom_switch_text_right="Age" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="1"
+                    app:edit_text_clickable="true"
+                    app:edit_text_focusable="false"
+                    app:edit_text_hint_text="Birthday"
+                    app:edit_text_text="DD/MM/YYYY" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="1"
+                    android:visibility="gone"
+                    app:edit_text_hint_text="Age" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_adress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Address"
+                    tools:edit_text_text="Address" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_profession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Profession"
+                    tools:edit_text_text="Profession" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_placeofwork"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Place of work"
+                    tools:edit_text_text="Place of work" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_how_we_met"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="How we met"
+                    tools:edit_text_text="How we met" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Language"
+                    tools:edit_text_text="Language" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_religion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Religion"
+                    app:edit_text_text="Unknown" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_relatives"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Relatives"
+                    tools:edit_text_text="Relatives" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_social_media"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Social media"
+                    tools:edit_text_text="Social media" />
+
+                <com.nunnos.keepintouch.presentation.component.BgPicker
+                    android:id="@+id/new_contact_background_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:color_id="@color/background_purple_dark"
+                    app:edit_text_hint="Background COlor"
+                    app:image_clickable="true"
+                    app:image_focusable="false" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/new_contact_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Go to Second Fragment"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="shareviewmodel"
+            type="com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel" />
+
+        <variable
+            name="viewmodel"
+            type="com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.vm.NewContactViewModel" />
+    </data>
+</layout>

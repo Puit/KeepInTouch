@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/recyclerView_contact_card"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:elevation="1dp"
+        app:cardBackgroundColor="@color/design_default_color_error"
+        app:cardCornerRadius="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/recyclerView_contact_constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/recyclerView_contact_image_rounder"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:elevation="12dp"
+                android:innerRadius="0dp"
+                android:shape="ring"
+                android:thicknessRatio="1.9"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/recyclerView_contact_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@color/white" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/recyclerView_contact_name"
+                style="@style/regular.white.24"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recyclerView_contact_image_rounder"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Josep Puit Rull Rull Rull Rull" />
+
+            <TextView
+                android:id="@+id/recyclerView_contact_profession"
+                style="@style/regular.white.15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="@+id/recyclerView_contact_name"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView_contact_name"
+                app:layout_constraintEnd_toStartOf="@id/recyclerView_contact_star"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_marginEnd="5dp"
+                tools:text="Programador de aplicaciones multiplataforma" />
+
+            <TextView
+                android:id="@+id/recyclerView_contact_age_title"
+                style="@style/regular.white.15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="@+id/recyclerView_contact_name"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView_contact_profession"
+                tools:text="Age" />
+
+            <TextView
+                android:id="@+id/recyclerView_contact_age_value"
+                style="@style/regular.white.15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="@+id/recyclerView_contact_name"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView_contact_age_title"
+                tools:text="25" />
+
+            <TextView
+                android:id="@+id/recyclerView_contact_last_time_title"
+                style="@style/regular.white.15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toEndOf="@id/recyclerView_contact_age_title"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView_contact_profession"
+                tools:text="Last Time" />
+
+            <TextView
+                android:id="@+id/recyclerView_contact_last_time_value"
+                style="@style/regular.white.15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@id/recyclerView_contact_last_time_title"
+                app:layout_constraintStart_toStartOf="@+id/recyclerView_contact_last_time_title"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView_contact_last_time_title"
+                tools:text="25" />
+
+            <View
+                android:id="@+id/recyclerView_contact_left_helper"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/recyclerView_contact_background"
+                android:layout_width="0dp"
+                android:layout_height="500dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_bubble2"
+                app:layout_constraintEnd_toEndOf="@id/recyclerView_contact_right_helper"
+                app:layout_constraintStart_toStartOf="@id/recyclerView_contact_left_helper"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/recyclerView_contact_right_helper"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/recyclerView_contact_star"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:elevation="2dp"
+                android:src="@drawable/ic_star"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView_contact_name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

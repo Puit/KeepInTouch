@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExpanableRecyclerView">
+        <attr name="expanable_recyclerview_text_text" format="string" />
+        <attr name="expanable_recyclerview_hint_text" format="string" />
+        <attr name="expanable_recyclerview_icon" format="reference" />
+    </declare-styleable>
+</resources>

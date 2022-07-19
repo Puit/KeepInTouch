@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/expanable_recycler_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:elevation="2dp"
+        android:focusable="true"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/new_contact_sexual_orientation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.github.florent37.expansionpanel.ExpansionHeader
+            android:id="@+id/expanable_recycler_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:expansion_headerIndicator="@id/expanable_recycler_headerIndicator"
+            app:expansion_layout="@id/expanable_recycler_expansionLayout"
+            app:layout_constraintEnd_toStartOf="@+id/new_contact_sexual_orientation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <!-- HEADER -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <com.nunnos.keepintouch.presentation.component.ExpanableTitle
+                    android:id="@+id/expanable_recycler_custom_editText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:expanable_title_focusable="false"
+                    app:layout_constraintEnd_toEndOf="@+id/expanable_recycler_headerIndicator"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:expanable_title_hint_text="Gender"
+                    tools:expanable_title_text="Surname 2" />
+
+                <!-- HEADER INDICATOR -->
+                <ImageView
+                    android:id="@+id/expanable_recycler_headerIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginLeft="16dp"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_expansion_header_indicator_grey_24dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.github.florent37.expansionpanel.ExpansionHeader>
+
+        <com.github.florent37.expansionpanel.ExpansionLayout
+            android:id="@+id/expanable_recycler_expansionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/purple_700"
+            app:expansion_expanded="false"
+            app:layout_constraintTop_toBottomOf="@+id/expanable_recycler_header">
+            <!-- CONTENT -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/expanable_recycler_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView_fragment_title" />
+
+        </com.github.florent37.expansionpanel.ExpansionLayout>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:background="@color/cardview_light_background"
+        android:paddingBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--************-->
+        <!--FIRST FIELD-->
+        <!--************-->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/background_red"
+            android:elevation="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_pink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_pink"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/bg_color_picker_purple"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_red"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_red" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_purple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_purple"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/bg_color_picker_purple_dark"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_pink"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_red" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_purple_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_purple_dark"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_purple"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_red" />
+
+        <!--************-->
+        <!--SECOND FIELD-->
+        <!--************-->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_blue_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/background_blue_dark"
+            android:elevation="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bg_color_picker_red" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_blue_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_blue_middle"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/bg_color_picker_blue_light"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_blue_dark"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_blue_dark" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_blue_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_blue_light"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/bg_color_picker_aqua_light"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_blue_middle"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_blue_dark" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_aqua_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_aqua_light"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_blue_light"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_blue_dark" />
+
+        <!--************-->
+        <!--Third FIELD-->
+        <!--************-->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_aqua_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/background_aqua_dark"
+            android:elevation="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bg_color_picker_blue_dark" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_green_grass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_green_grass"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/bg_color_picker_green_lime"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_aqua_dark"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_aqua_dark" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_green_lime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_green_lime"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/bg_color_picker_yellow_green"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_green_grass"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_aqua_dark" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_yellow_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_yellow_green"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_green_lime"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_aqua_dark" />
+
+        <!--************-->
+        <!--FOURTH FIELD-->
+        <!--************-->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_yellow_pure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/background_yellow_pure"
+            android:elevation="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bg_color_picker_aqua_dark" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_yellow_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_yellow_dark"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/bg_color_picker_orange"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_yellow_pure"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_yellow_pure" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_orange"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/bg_color_picker_orange_dark"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_yellow_dark"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_yellow_pure" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_orange_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_orange_dark"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_orange"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_yellow_pure" />
+
+        <!--************-->
+        <!--FIFTH FIELD-->
+        <!--************-->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_brown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/background_brown"
+            android:elevation="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bg_color_picker_yellow_pure" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_gray_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_gray_light"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/bg_color_picker_gray_middle"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_brown"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_brown" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_gray_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_gray_middle"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/bg_color_picker_gray_dark"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_gray_light"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_brown" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bg_color_picker_gray_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/background_gray_dark"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bg_color_picker_gray_middle"
+            app:layout_constraintTop_toTopOf="@+id/bg_color_picker_brown" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="shareviewmodel"
+            type="com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel" />
+
+        <variable
+            name="viewmodel"
+            type="com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.vm.NewContactViewModel" />
+    </data>
+</layout>

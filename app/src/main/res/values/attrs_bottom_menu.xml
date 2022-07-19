@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BottomMenuComponent">
+        <attr name="image1_unselected" format="reference"/>
+        <attr name="image2_unselected" format="reference"/>
+        <attr name="image3_unselected" format="reference"/>
+        <attr name="image4_unselected" format="reference"/>
+        <attr name="image1_selected" format="reference"/>
+        <attr name="image2_selected" format="reference"/>
+        <attr name="image3_selected" format="reference"/>
+        <attr name="image4_selected" format="reference"/>
+        <attr name="color_unselected" format="integer"/>
+        <attr name="color_selected" format="reference"/>
+        <attr name="color_dividers" format="reference"/>
+        <attr name="item_selected" format="reference"/>
+    </declare-styleable>
+</resources>
