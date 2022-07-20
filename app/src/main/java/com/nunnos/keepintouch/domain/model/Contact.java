@@ -1,10 +1,13 @@
 package com.nunnos.keepintouch.domain.model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 
 import com.nunnos.keepintouch.data.CustomDate;
 import com.nunnos.keepintouch.data.entities.contactdao.ContactEntity;
 
+import java.io.File;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
@@ -345,5 +348,14 @@ public class Contact {
 
     public int getBgColor() {
         return bgColor;
+    }
+
+    public Bitmap getBitmapPhoto() {
+        //TODO: ASK FOR PERMISSIONS
+        if (photo != null) {
+            File image = new File(photo);
+            return BitmapFactory.decodeFile(image.getAbsolutePath());
+        }
+        return null;
     }
 }

@@ -2,7 +2,7 @@ package com.nunnos.keepintouch.presentation.component.recyclerviewcontactcard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,12 +97,24 @@ public class RVCCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @SuppressLint("UseCompatLoadingForDrawables")
         public void bind(Contact contact) {
-            cardView.setCardBackgroundColor(contact.getBgColor());
+            setUserImage(contact);
+            cardView.setBackgroundResource(contact.getBgColor());
             ageValueTv.setText(String.valueOf(contact.getAge()));
             fullNameTv.setText(contact.getFullName());
             professionTv.setText(contact.getProfession());
             lastTimeValueTv.setText(contact.getDaysSinceLastChat());
             starImage.setImageDrawable(context.getDrawable(contact.isFavorite() ? R.drawable.ic_star_full : R.drawable.ic_star));
+        }
+
+        private void setUserImage(Contact contact) {
+            if (context instanceof MainActivity) {
+                Bitmap bitmap = contact.getBitmapPhoto();
+                if (bitmap == null) {
+                    userImage.setImageDrawable(context.getDrawable(R.drawable.ic_unknown));
+                } else {
+                    userImage.setImageBitmap(bitmap);
+                }
+            }
         }
 
         @Override

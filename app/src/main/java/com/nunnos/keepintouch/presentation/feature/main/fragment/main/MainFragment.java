@@ -1,4 +1,4 @@
-package com.nunnos.keepintouch.presentation.feature.main.fragment;
+package com.nunnos.keepintouch.presentation.feature.main.fragment.main;
 
 import android.os.Bundle;
 import android.view.View;

@@ -69,4 +69,5 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
     public void setNewContactBitmap(Bitmap newContactBitmap) {
         this.newContactBitmap.setValue(newContactBitmap);
     }
+
 }

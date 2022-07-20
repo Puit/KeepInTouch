@@ -1,33 +1,17 @@
 package com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Camera;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
-import com.mukesh.countrypicker.Country;
-import com.nunnos.keepintouch.BuildConfig;
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.data.CustomDate;
@@ -36,37 +20,24 @@ import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.component.CustomSwitch;
 import com.nunnos.keepintouch.presentation.component.recyclerviewitemtext.ImageAndText;
 import com.nunnos.keepintouch.presentation.component.recyclerviewitemtext.RVITAdapter;
-import com.nunnos.keepintouch.presentation.feature.camera.CameraActivity;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.BackgroundColorPickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.vm.NewContactViewModel;
-import com.nunnos.keepintouch.utils.CameraPreview;
-import com.nunnos.keepintouch.utils.CameraUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
+
+import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
 
 public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContactViewModel, MainViewModel, FragmentMainNewContactBinding> {
 
     private static final String TAG = "NewContactFragment";
 
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE = 2;
-    static final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 3;
-    static final int REQUEST_IMAGE_GALLERY = 4;
-
     private RVITAdapter genderAdapter;
     private RVITAdapter sexualOrientationAdapter;
-    private static String BACKGROUND_PICKER_TAG = "BACKGROUND_PICKER_TAG";
 
-    private Camera mCamera;
-    private CameraPreview mPreview;
 
     public NewContactFragment() {
         //Required empty public constructor
@@ -78,12 +49,6 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
         fragment.setArguments(args);
         return fragment;
     }
-
-/*    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initGenderRecyclerView();
-    }*/
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -123,8 +88,6 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
         databinding.newContactLanguage.setText(newContact.getLanguage());
         databinding.newContactReligion.setText(newContact.getReligion());
         databinding.newContactRelatives.setText(newContact.getRelatives());
-        // databinding.newContactBackgroundColor.setText("newContact.getBgColor()");
-
     }
 
     private void initGenderRecyclerView() {
@@ -191,67 +154,11 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
         });
 
         databinding.newContactBackgroundColor.setListener(this::showBgColorickerDialog);
-        //     databinding.newContactAddImageButton.setOnClickListener(v -> CameraUtils.dispatchTakePictureIntent(getActivity()));
-        databinding.newContactAddImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*//TODO: Mostrar banner de que se va a utilizar la camara?
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                // Ensure that there's a camera activity to handle the intent
-                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    // Create the File where the photo should go
-                    File photoFile = null;
-                    try {
-                        photoFile = createImageFile(getActivity());
-                    } catch (IOException ex) {
-                        // Error occurred while creating the File
-                    }
-                    // Continue only if the File was successfully created
-                    if (photoFile != null) {
-                        Uri photoURI = FileProvider.getUriForFile(getContext(), // PETA AQUI
-                                BuildConfig.APPLICATION_ID + ".provider", photoFile);
-                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                        getActivity().startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                    }
-                }*/
-                //CameraUtils.openCameraForResult(getActivity(), REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE);
-                Intent intent=new Intent(getActivity(), CameraActivity.class);
-                startActivityForResult(intent, 2);// Activity is started with requestCode 2
-                //CameraUtils.showGallery(getActivity(),REQUEST_PERMISSION_READ_EXTERNAL_STORAGE, REQUEST_IMAGE_GALLERY);
-            }
+        databinding.newContactAddImageButton.setOnClickListener(v -> {
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            photoPickerIntent.setType("image/*");
+            startActivityForResult(photoPickerIntent, REQUEST_SELECT_IMAGE);
         });
-
-        //TODO: HACER ALGO CON ESTO?
-        Country.getAllCountries("es");
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    CameraUtils.openCameraForResult(getActivity(), REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE);
-                }
-
-                return;
-            }
-        }
-    }
-
-    private File createImageFile(Activity activity) throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        String currentPhotoPath = image.getAbsolutePath();
-        return image;
     }
 
     private void showDatePickerDialog() {
@@ -296,8 +203,8 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
                     databinding.newContactRelatives.getText(),
                     "",
                     false,
-                    ContextCompat.getColor(getContext(), R.color.purple_500),
-                    "picture.getPath()");
+                    shareViewModel.getNewContact().getBgColor(),
+                    shareViewModel.getNewContact().getPhoto());
             shareViewModel.saveContact(getContext(), contact);
             shareViewModel.navigateToMain();
         } else {

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.ContactInfoActivity;
 import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
-import com.nunnos.keepintouch.presentation.feature.main.fragment.MainFragment;
+import com.nunnos.keepintouch.presentation.feature.main.fragment.main.MainFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.NewContactFragment;
 
 import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.CONTACT_INFO;

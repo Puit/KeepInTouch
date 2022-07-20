@@ -6,12 +6,19 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
+import android.util.StateSet;
 
 
 public class App extends Application {
+    private static final String APP_NAME = "KeepInTouch";
     public static final String CHANNEL_ID = "ALARM_SERVICE_CHANNEL";
     private static Context context;
     private static Application sApplication;
+
+    public static String getAppName() {
+        return APP_NAME;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
