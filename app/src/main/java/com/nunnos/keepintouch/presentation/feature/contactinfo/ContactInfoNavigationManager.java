@@ -4,10 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.ContactInfoActivity;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
-import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.chat.ConversationsFragment;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation.ConversationsFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.ContactInfoFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.ContactPersonalDataFragment;
-import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.chat.NewConversationFragment;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation.NewConversationFragment;
 
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONVERSATIONS;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_INFO;

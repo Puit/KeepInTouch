@@ -1,4 +1,4 @@
-package com.nunnos.keepintouch.presentation.component.recyclerviewitemtext;
+package com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext;
 
 import android.graphics.drawable.Drawable;
 

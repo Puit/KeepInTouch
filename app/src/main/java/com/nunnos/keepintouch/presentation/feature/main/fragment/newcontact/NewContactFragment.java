@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
@@ -18,8 +17,8 @@ import com.nunnos.keepintouch.data.CustomDate;
 import com.nunnos.keepintouch.databinding.FragmentMainNewContactBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.component.CustomSwitch;
-import com.nunnos.keepintouch.presentation.component.recyclerviewitemtext.ImageAndText;
-import com.nunnos.keepintouch.presentation.component.recyclerviewitemtext.RVITAdapter;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ImageAndText;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVITAdapter;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.BackgroundColorPickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;

@@ -1,4 +1,4 @@
-package com.nunnos.keepintouch.presentation.component.recyclerviewitemtext;
+package com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.florent37.expansionpanel.ExpansionLayout;
 import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection;
 import com.nunnos.keepintouch.R;
-
-import org.w3c.dom.CDATASection;
 
 import java.util.List;
 

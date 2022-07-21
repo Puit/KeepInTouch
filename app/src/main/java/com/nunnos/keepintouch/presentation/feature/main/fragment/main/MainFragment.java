@@ -2,7 +2,6 @@ package com.nunnos.keepintouch.presentation.feature.main.fragment.main;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,14 +11,14 @@ import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.base.baseviewmodel.EmptyViewModel;
 import com.nunnos.keepintouch.databinding.FragmentMainBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
-import com.nunnos.keepintouch.presentation.component.recyclerviewcontactcard.RVCCAdapter;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.contactcard.RVContactCardAdapter;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
 
 import java.util.List;
 
 public class MainFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, MainViewModel, FragmentMainBinding> {
 
-    private RVCCAdapter adapter;
+    private RVContactCardAdapter adapter;
 
     public MainFragment() {
         //Required empty public constructor
@@ -45,7 +44,6 @@ public class MainFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, 
     }
 
     private void onContactsReceived(List<Contact> contactEntities) {
-        Toast.makeText(getContext(), contactEntities.get(0).getName(), Toast.LENGTH_SHORT).show();
         setView();
     }
 
@@ -54,7 +52,7 @@ public class MainFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, 
     }
 
     private void setView() {
-        adapter = new RVCCAdapter(shareViewModel.getContacts().getValue());
+        adapter = new RVContactCardAdapter(shareViewModel.getContacts().getValue());
         databinding.mainRecyclerView.setAdapter(adapter);
         databinding.mainRecyclerView.setHasFixedSize(false);
     }

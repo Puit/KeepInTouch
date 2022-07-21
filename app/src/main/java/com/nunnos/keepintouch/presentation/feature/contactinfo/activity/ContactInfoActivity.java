@@ -1,6 +1,7 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 
@@ -11,6 +12,10 @@ import com.nunnos.keepintouch.presentation.component.BottomMenu;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigationManager;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_INFO;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_PERSONAL_DATA;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONVERSATIONS;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_CONVERSATION;
 import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
 
 public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactInfoViewModel, ActivityContactInfoBinding> {
@@ -54,7 +59,27 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
     }
 
     private void initObservers() {
-        viewModel.getNavigation().observe(this, navigation -> ContactInfoNavigationManager.goTo(this, navigation, viewModel));
+        viewModel.getNavigation().observe(this, this::onNavigate);
+    }
+
+    private void onNavigate(Integer navigation) {
+        ContactInfoNavigationManager.goTo(this, navigation, viewModel);
+        switch (navigation) {
+            case CONVERSATIONS:
+                dataBinding.contactInfoActivityBottomMenu.setVisibility(View.VISIBLE);
+                break;
+            case CONTACT_INFO:
+                dataBinding.contactInfoActivityBottomMenu.setVisibility(View.VISIBLE);
+                break;
+            case CONTACT_PERSONAL_DATA:
+                dataBinding.contactInfoActivityBottomMenu.setVisibility(View.VISIBLE);
+                break;
+            case NEW_CONVERSATION:
+                dataBinding.contactInfoActivityBottomMenu.setVisibility(View.GONE);
+                break;
+            default:
+                dataBinding.contactInfoActivityBottomMenu.setVisibility(View.VISIBLE);
+        }
     }
 
     private void redirectTo() {
@@ -78,7 +103,17 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
 
     @Override
     public void onBackPressed() {
-        finish();
+        switch (viewModel.getNavigation().getValue()) {
+            case NEW_CONVERSATION:
+                super.onBackPressed();
+                viewModel.getNavigation().setValue(CONVERSATIONS);
+                break;
+            case CONVERSATIONS:
+            case CONTACT_INFO:
+            case CONTACT_PERSONAL_DATA:
+            default:
+                finish();
+        }
     }
 
     @Override

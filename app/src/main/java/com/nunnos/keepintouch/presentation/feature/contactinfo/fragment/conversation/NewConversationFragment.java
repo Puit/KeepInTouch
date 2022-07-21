@@ -1,4 +1,4 @@
-package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.chat;
+package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation;
 
 import android.os.Bundle;
 import android.view.View;
@@ -45,7 +45,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
     private void setListeners() {
         databinding.ncButton.setOnClickListener(v -> {
             newConversation.addContact(shareViewModel.getContact().getValue().getId());
-            newConversation.setChat(databinding.ncConversation.getText());
+            newConversation.setChat(databinding.ncConversation.getText().toString());
             shareViewModel.addNewConversation(getContext(), newConversation);
             shareViewModel.navigateToConversation();
         });

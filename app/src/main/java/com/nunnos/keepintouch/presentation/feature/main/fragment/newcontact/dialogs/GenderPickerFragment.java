@@ -13,8 +13,8 @@ import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.base.baseviewmodel.EmptyViewModel;
 import com.nunnos.keepintouch.databinding.FragmentRecyclerviewBinding;
-import com.nunnos.keepintouch.presentation.component.recyclerviewitemtext.ImageAndText;
-import com.nunnos.keepintouch.presentation.component.recyclerviewitemtext.RVITAdapter;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ImageAndText;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVITAdapter;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.chat;
+package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +11,15 @@ import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.base.baseviewmodel.EmptyViewModel;
 import com.nunnos.keepintouch.databinding.FragmentConversationsBinding;
 import com.nunnos.keepintouch.domain.model.Conversation;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.contactcard.RVContactCardAdapter;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.conversationcard.RVConversationCardAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 
 import java.util.List;
 
 public class ConversationsFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, ContactInfoViewModel, FragmentConversationsBinding> {
 
+    private RVConversationCardAdapter adapter;
     public ConversationsFragment() {
         //Required empty public constructor
     }
@@ -33,7 +36,6 @@ public class ConversationsFragment extends BaseFragmentViewModelLiveData<EmptyVi
         super.onViewCreated(view, savedInstanceState);
         shareViewModel.retrieveConversations(getContext());
         initObservers();
-        setView();
         initListeners();
     }
 
@@ -42,15 +44,13 @@ public class ConversationsFragment extends BaseFragmentViewModelLiveData<EmptyVi
     }
 
     private void onConversationsReceived(List<Conversation> conversations) {
-        //TODO: Add conversations to view
-        if (conversations.size() > 0){
-            for(Conversation conver : conversations){
-                databinding.textPrueba.setText(databinding.textPrueba.getText()+ "\n" + conver.getChat());
-            }
-        }
+        setView();
     }
 
     private void setView() {
+        adapter = new RVConversationCardAdapter(shareViewModel.getConversations().getValue());
+        databinding.conversationsRecyclerView.setAdapter(adapter);
+        databinding.conversationsRecyclerView.setHasFixedSize(false);
     }
 
     private void initListeners() {

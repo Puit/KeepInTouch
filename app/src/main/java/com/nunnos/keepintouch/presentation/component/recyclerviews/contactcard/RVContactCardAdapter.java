@@ -1,4 +1,4 @@
-package com.nunnos.keepintouch.presentation.component.recyclerviewcontactcard;
+package com.nunnos.keepintouch.presentation.component.recyclerviews.contactcard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,11 +21,11 @@ import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
 import java.util.List;
 
 //RecyclerView Contact Card Adapter
-public class RVCCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Contact> items;
     private Context context;
 
-    public RVCCAdapter(List<Contact> items) {
+    public RVContactCardAdapter(List<Contact> items) {
         this.items = items;
     }
 
