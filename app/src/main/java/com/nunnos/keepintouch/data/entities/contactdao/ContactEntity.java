@@ -70,7 +70,7 @@ public class ContactEntity {
     public int bgColor;
 
     public ContactEntity(int id, String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
-                        boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
+                         boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                          String language, String religion, String relatives, String conversations,
                          boolean favorite, int bgColor, String photo) {
         this.id = id;
@@ -125,12 +125,12 @@ public class ContactEntity {
     public static ContactEntity map(Contact c) {
         if (c.getId() != 0) {
             return new ContactEntity(c.getId(), c.getName(), c.getSurname1(), c.getSurname2(), c.getGender(),
-                    c.getSexualOrientation(), c.getBirthday(),c.isRealBirthday(), c.getAddress(), c.getProfession(),
+                    c.getSexualOrientation(), c.getBirthday(), c.isRealBirthday(), c.getAddress(), c.getProfession(),
                     c.getPlaceOfWork(), c.getHowWeMet(), c.getLanguage(), c.getReligion(), c.getRelatives(),
                     c.getConversations(), c.isFavorite(), c.getBgColor(), c.getPhoto());
         } else {
             return new ContactEntity(c.getName(), c.getSurname1(), c.getSurname2(), c.getGender(),
-                    c.getSexualOrientation(), c.getBirthday(),c.isRealBirthday(), c.getAddress(), c.getProfession(),
+                    c.getSexualOrientation(), c.getBirthday(), c.isRealBirthday(), c.getAddress(), c.getProfession(),
                     c.getPlaceOfWork(), c.getHowWeMet(), c.getLanguage(), c.getReligion(), c.getRelatives(),
                     c.getConversations(), c.isFavorite(), c.getBgColor(), c.getPhoto());
         }

@@ -64,6 +64,7 @@ public class RVCCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      * CLASS VIEWHOLDER
      **/
     public class RVCDAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private Contact contact;
         private CardView cardView;
         private ConstraintLayout layout;
         private ImageView userImage;
@@ -97,6 +98,7 @@ public class RVCCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @SuppressLint("UseCompatLoadingForDrawables")
         public void bind(Contact contact) {
+            this.contact = contact;
             setUserImage(contact);
             cardView.setBackgroundResource(contact.getBgColor());
             ageValueTv.setText(String.valueOf(contact.getAge()));
@@ -120,6 +122,7 @@ public class RVCCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @Override
         public void onClick(View v) {
             if (context instanceof MainActivity) {
+                ((MainActivity) context).getShareViewModel().setContactSelectedID(contact.getId());
                 ((MainActivity) context).getShareViewModel().navigateToContactInfo();
             }
         }

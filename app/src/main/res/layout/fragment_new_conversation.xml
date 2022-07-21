@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.nunnos.keepintouch.presentation.component.CustomEditText
+            android:id="@+id/nc_conversation"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            app:edit_text_hint_text="Conversation..."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:edit_text_text="Lorem ipsum" />
+
+        <com.nunnos.keepintouch.presentation.component.CustomEditText
+            android:id="@+id/nc_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:edit_text_hint_text="Place..."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nc_conversation"
+            tools:edit_text_text="Address" />
+
+        <com.nunnos.keepintouch.presentation.component.CustomEditText
+            android:id="@+id/nc_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:maxLines="1"
+            app:edit_text_clickable="true"
+            app:edit_text_focusable="false"
+            app:edit_text_hint_text="Date"
+            app:edit_text_text="DD/MM/YYYY"
+            app:layout_constraintTop_toBottomOf="@+id/nc_place" />
+
+        <com.nunnos.keepintouch.presentation.component.CustomSwitch
+            android:id="@+id/nc_isImportant"
+            android:layout_width="match_parent"
+            app:custom_switch_image_left="@drawable/ic_star"
+            app:custom_switch_image_right="@drawable/ic_star_full"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:custom_switch_selected_background_color="@color/purple_700"
+            app:custom_switch_text_left="Birthday"
+            app:custom_switch_text_right="Age"
+            app:layout_constraintTop_toBottomOf="@+id/nc_date" />
+
+        <com.nunnos.keepintouch.presentation.component.recyclerviewitemtext.ExpanableRecyclerView
+            android:id="@+id/nc_contacts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:expanable_recyclerview_hint_text="Gender"
+            app:expanable_recyclerview_icon="@drawable/ic_unknown"
+            app:expanable_recyclerview_text_text="Unknown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nc_isImportant" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/nc_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="shareviewmodel"
+            type="com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel" />
+
+    </data>
+</layout>

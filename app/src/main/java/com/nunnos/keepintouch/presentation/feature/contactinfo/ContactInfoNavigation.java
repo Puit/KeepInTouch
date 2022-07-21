@@ -7,13 +7,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @IntDef({
-        ContactInfoNavigation.CHATS,
+        ContactInfoNavigation.CONVERSATIONS,
         ContactInfoNavigation.CONTACT_INFO,
-        ContactInfoNavigation.CONTACT_PERSONAL_DATA
+        ContactInfoNavigation.CONTACT_PERSONAL_DATA,
+        ContactInfoNavigation.NEW_CONVERSATION
 })
 @Retention(RetentionPolicy.SOURCE)
 public @interface ContactInfoNavigation {
-    int CHATS = 0;
+    int CONVERSATIONS = 0;
     int CONTACT_INFO = 1;
     int CONTACT_PERSONAL_DATA = 2;
+    int NEW_CONVERSATION = 3;
 }

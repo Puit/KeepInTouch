@@ -11,14 +11,22 @@ import com.nunnos.keepintouch.presentation.component.BottomMenu;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigationManager;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 
+import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
+
 public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactInfoViewModel, ActivityContactInfoBinding> {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getContact();
         setView();
         initObservers();
         redirectTo();
+    }
+
+    private void getContact() {
+        int id = (int) getIntent().getExtras().get(EXTRA_CONTACT_SELECTED_ID);
+        getShareViewModel().retrieveContact(this, id);
     }
 
     private void setView() {
@@ -30,7 +38,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
 
             @Override
             public void onButton2Click() {
-                viewModel.navigateToChat();
+                viewModel.navigateToConversation();
             }
 
             @Override
@@ -50,8 +58,8 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
     }
 
     private void redirectTo() {
-        viewModel.navigateToChat();
-        dataBinding.contactInfoActivityBottomMenu.setItemSelected(2); // Marca el botón de chat
+        viewModel.navigateToContactInfo();
+        dataBinding.contactInfoActivityBottomMenu.setItemSelected(3); // Marca el botón de chat
     }
 
     /*******************************************

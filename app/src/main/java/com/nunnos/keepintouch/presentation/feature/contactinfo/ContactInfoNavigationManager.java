@@ -4,13 +4,15 @@ import androidx.annotation.NonNull;
 
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.ContactInfoActivity;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
-import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.ChatsFragment;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.chat.ConversationsFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.ContactInfoFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.ContactPersonalDataFragment;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.chat.NewConversationFragment;
 
-import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CHATS;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONVERSATIONS;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_INFO;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_PERSONAL_DATA;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_CONVERSATION;
 
 public abstract class ContactInfoNavigationManager {
     private ContactInfoNavigationManager() {
@@ -19,7 +21,7 @@ public abstract class ContactInfoNavigationManager {
 
     public static void goTo(@NonNull ContactInfoActivity activity, @ContactInfoNavigation Integer navigation, ContactInfoViewModel viewModel) {
         switch (navigation) {
-            case CHATS:
+            case CONVERSATIONS:
                 navigateToChats(activity);
                 break;
             case CONTACT_INFO:
@@ -28,13 +30,16 @@ public abstract class ContactInfoNavigationManager {
             case CONTACT_PERSONAL_DATA:
                 navigateToContactPersonalData(activity);
                 break;
+            case NEW_CONVERSATION:
+                showNewConversation(activity);
+                break;
             default:
                 throw new IllegalStateException("ContactInfoNavigationManager error, navigation has not been implementad");
         }
     }
 
     private static void navigateToChats(ContactInfoActivity activity) {
-        activity.overrideSlidingUpTransition(ChatsFragment.newInstance());
+        activity.overrideSlidingUpTransition(ConversationsFragment.newInstance());
     }
 
     private static void navigateToContactInfo(ContactInfoActivity activity) {
@@ -43,6 +48,9 @@ public abstract class ContactInfoNavigationManager {
 
     private static void navigateToContactPersonalData(ContactInfoActivity activity) {
         activity.overrideSlidingUpTransition(ContactPersonalDataFragment.newInstance());
+    }
+    private static void showNewConversation(ContactInfoActivity activity) {
+        activity.overrideSlidingUpTransition(NewConversationFragment.newInstance());
     }
 
 }

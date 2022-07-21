@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.databinding.FragmentContactInfoBinding;
+import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.vm.ContactInfoFragmentViewModel;
 
@@ -28,7 +29,16 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initObservers();
         initListeners();
+    }
+
+    private void initObservers() {
+        shareViewModel.getContact().observe(getViewLifecycleOwner(), this::onContactReceived);
+    }
+
+    private void onContactReceived(Contact contact) {
+        databinding.personalName.setText(contact.getFullName());
     }
 
 

@@ -25,4 +25,8 @@ public interface ConversationDao {
 
     @Query("DELETE FROM " + TABLE_NAME + " WHERE Id = :id")
     void deleteById(int id);
+
+    //TODO: PROBAR
+    @Query("SELECT * FROM " + TABLE_NAME + " WHERE " + TABLE_NAME + ".contacts LIKE :userId ORDER BY Date DESC")
+    List<ConversationEntity> getAllFromContactId(String userId); //DEBE USARSE CON COMMA + ID + COMMA
 }

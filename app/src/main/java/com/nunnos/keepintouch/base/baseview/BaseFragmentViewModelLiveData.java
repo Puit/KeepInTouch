@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModel;
 import com.nunnos.keepintouch.base.baseview.base.viewmodel.BaseViewModel;
 import com.nunnos.keepintouch.base.baseview.base.viewmodel.BaseViewModelFragment;
 
-public abstract class BaseFragmentViewModelLiveData<VM extends BaseViewModel & LifecycleObserver, VMS extends ViewModel, DB extends ViewDataBinding> extends BaseViewModelFragment implements LifecycleObserver {
+public abstract class BaseFragmentViewModelLiveData<VM extends ViewModel, VMS extends ViewModel, DB extends ViewDataBinding> extends BaseViewModelFragment implements LifecycleObserver {
     protected VM viewModel;
     protected VMS shareViewModel;
     protected DB databinding;
@@ -56,18 +56,18 @@ public abstract class BaseFragmentViewModelLiveData<VM extends BaseViewModel & L
 
     @Override
     public void onStart() {
-        super.onStart();
+        super.onStart();/*
         if (viewModel != null) {
             getLifecycle().addObserver(viewModel);
-        }
+        }*/
     }
 
     @Override
     public void onStop() {
-        super.onStop();
+        super.onStop();/*
         if (viewModel != null) {
             getLifecycle().removeObserver(viewModel);
-        }
+        }*/
     }
 
     /**

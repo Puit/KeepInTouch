@@ -2,11 +2,12 @@ package com.nunnos.keepintouch.base.baseviewmodel;
 
 import android.security.identity.ResultData;
 
+import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MutableLiveData;
 
 import com.nunnos.keepintouch.base.baseview.base.viewmodel.BaseViewModel;
 
-public class BaseViewModelLiveData extends BaseViewModel {
+public class BaseViewModelLiveData extends BaseViewModel implements LifecycleObserver {
 
     private static String TAG = "BaseViewModelLiveData";
     private MutableLiveData<Boolean> progress = new MutableLiveData<>();

@@ -19,6 +19,7 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
 
     private ContactDao contactDao;
     private Contact newContact = new Contact();
+    private int contactSelectedID = -1;
     private final MediatorLiveData<Bitmap> newContactBitmap = new MediatorLiveData<>();
 
     private final MediatorLiveData<List<Contact>> contactsMutableLiveData = new MediatorLiveData<>();
@@ -70,4 +71,11 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
         this.newContactBitmap.setValue(newContactBitmap);
     }
 
+    public int getContactSelectedID() {
+        return contactSelectedID;
+    }
+
+    public void setContactSelectedID(int contactSelectedID) {
+        this.contactSelectedID = contactSelectedID;
+    }
 }

@@ -9,7 +9,7 @@ import androidx.room.TypeConverters;
 
 import com.nunnos.keepintouch.data.entities.Converters;
 
-@Database(entities = {ConversationEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {ConversationEntity.class}, version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class ConversationDB extends RoomDatabase {
     public abstract ConversationDao conversationDao();

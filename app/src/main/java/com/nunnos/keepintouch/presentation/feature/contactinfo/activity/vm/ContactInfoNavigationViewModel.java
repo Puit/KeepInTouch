@@ -13,10 +13,12 @@ public class ContactInfoNavigationViewModel extends BaseViewModel {
         return navigation;
     }
 
-    public void navigateToChat() {
-        navigation.setValue(ContactInfoNavigation.CHATS);
+    public void navigateToConversation() {
+        navigation.setValue(ContactInfoNavigation.CONVERSATIONS);
     }
-
+    public void showNewConversationFragment() {
+        navigation.setValue(ContactInfoNavigation.NEW_CONVERSATION);
+    }
     public void navigateToContactInfo() {
         navigation.setValue(ContactInfoNavigation.CONTACT_INFO);
     }

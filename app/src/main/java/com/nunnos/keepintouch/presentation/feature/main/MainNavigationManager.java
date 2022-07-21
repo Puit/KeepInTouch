@@ -13,6 +13,7 @@ import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.NewC
 import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.CONTACT_INFO;
 import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.MAIN;
 import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.NEW_CONTACT;
+import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
 
 public class MainNavigationManager {
     private MainNavigationManager() {
@@ -28,7 +29,7 @@ public class MainNavigationManager {
                 navigateToNewContact(activity);
                 break;
             case CONTACT_INFO:
-                navigateToContactInfo(activity);
+                navigateToContactInfo(activity, viewModel);
                 break;
             default:
                 throw new IllegalStateException("ContactInfoNavigationManager error, navigation has not been implementad");
@@ -43,8 +44,9 @@ public class MainNavigationManager {
         activity.overrideSlidingUpTransition(NewContactFragment.newInstance());
     }
 
-    private static void navigateToContactInfo(MainActivity activity) {
+    private static void navigateToContactInfo(MainActivity activity, MainViewModel viewModel) {
         Intent intent = new Intent(activity.getApplicationContext(), ContactInfoActivity.class);
+        intent.putExtra(EXTRA_CONTACT_SELECTED_ID, viewModel.getContactSelectedID());
 //        intent.putParcelableArrayListExtra( ..., ...);
         activity.launchSlidingUpActivity(intent);
     }

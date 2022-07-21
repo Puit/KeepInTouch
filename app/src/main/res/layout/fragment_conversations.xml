@@ -7,13 +7,19 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/conversations_add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_chat"
             android:layout_margin="20dp"
             android:background="@color/black"
+            android:src="@drawable/ic_chat"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/textPrueba"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -24,9 +30,5 @@
         <variable
             name="shareviewmodel"
             type="com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel" />
-
-        <variable
-            name="viewmodel"
-            type="com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.vm.ChatsViewModel" />
     </data>
 </layout>
