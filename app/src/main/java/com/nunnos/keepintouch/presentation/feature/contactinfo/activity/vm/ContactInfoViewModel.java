@@ -27,7 +27,8 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     private ConversationDao conversationDao;
     private Conversation newConversation = new Conversation();
 
-    private final MediatorLiveData<Contact> contactMD = new MediatorLiveData<>();
+    private final MediatorLiveData<Contact> thisContactMD = new MediatorLiveData<>();
+    private final MediatorLiveData<List<Contact>> contactsMD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Conversation>> conversationsMD = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> newConversationBitmap = new MediatorLiveData<>();
 
@@ -44,7 +45,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
                 //TODO: SHOW ERROR?
                 return;
             }
-            contactMD.postValue(Contact.map(contactEntity));
+            thisContactMD.postValue(Contact.map(contactEntity));
         });
     }
 
@@ -55,9 +56,9 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     public void retrieveConversations(Context context) {
         setConversationDao(context);
-        if (contactMD != null) {
+        if (thisContactMD != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
-                List<ConversationEntity> conversationEntityList = conversationDao.getAllFromContactId(SEPARATOR + contactMD.getValue().getId() + SEPARATOR);
+                List<ConversationEntity> conversationEntityList = conversationDao.getAllFromContactId(SEPARATOR + thisContactMD.getValue().getId() + SEPARATOR);
                 if (conversationEntityList.isEmpty()) {
                     //TODO: SHOW ERROR?
                     return;
@@ -73,9 +74,24 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         }
     }
 
+    public void retrieveContacts(Context context) {
+        setContactDao(context);
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            if (contactDao.getAll().isEmpty()) {
+                //TODO: SHOW ERROR?
+                return;
+            }
+            ArrayList<Contact> contacts = new ArrayList<>();
+            for (ContactEntity entity : contactDao.getAll()) {
+                contacts.add(Contact.map(entity));
+            }
+            contactsMD.postValue(contacts);
+        });
+    }
+
     public void addNewConversation(Context context, Conversation newConversation) {
         setConversationDao(context);
-        if (contactMD != null) {
+        if (thisContactMD != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 conversationDao.insert(ConversationEntity.map(newConversation));
             });
@@ -83,6 +99,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
             //TODO SHOW ERROR
         }
     }
+
     public MediatorLiveData<Bitmap> getNewConversationBitmap() {
         return newConversationBitmap;
     }
@@ -91,8 +108,12 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         this.newConversationBitmap.setValue(newConversationBitmap);
     }
 
-    public MediatorLiveData<Contact> getContact() {
-        return contactMD;
+    public MediatorLiveData<Contact> getThisContact() {
+        return thisContactMD;
+    }
+
+    public MediatorLiveData<List<Contact>> getContactsList() {
+        return contactsMD;
     }
 
     public MediatorLiveData<List<Conversation>> getConversations() {

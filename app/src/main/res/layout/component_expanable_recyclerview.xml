@@ -67,7 +67,7 @@
             android:id="@+id/expanable_recycler_expansionLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple_700"
+            android:background="@color/white"
             app:expansion_expanded="false"
             app:layout_constraintTop_toBottomOf="@+id/expanable_recycler_header">
             <!-- CONTENT -->

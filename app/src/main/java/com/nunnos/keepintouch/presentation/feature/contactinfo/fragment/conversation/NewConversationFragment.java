@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,14 +14,22 @@ import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.base.baseviewmodel.EmptyViewModel;
 import com.nunnos.keepintouch.data.CustomDate;
 import com.nunnos.keepintouch.databinding.FragmentNewConversationBinding;
+import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.component.CustomSwitch;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ImageAndText;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVITAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.TimePickerFragment;
+import com.nunnos.keepintouch.utils.FileManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
 
 public class NewConversationFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, ContactInfoViewModel, FragmentNewConversationBinding> {
+    private RVITAdapter genderAdapter;
 
     public NewConversationFragment() {
         //Required empty public constructor
@@ -36,6 +45,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        shareViewModel.retrieveContacts(getContext());
         setView();
         initObservers();
         setListeners();
@@ -45,8 +55,33 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
         databinding.ncIsImportant.setIsRightClicked(true);
     }
 
+    private void initContactsRecyclerView(List<Contact> contacts) {
+        RVITAdapter.RVITAdapterViewHolder.CustomItemClick contactListener = (name, photo) -> {
+            //Set gender to shareviewModel.contact
+            Toast.makeText(getContext(), name, Toast.LENGTH_SHORT).show();
+            databinding.ncContacts.setText(name);
+            databinding.ncContacts.setIcon(photo);
+            databinding.ncContacts.collapse(true);
+        };
+
+        genderAdapter = new RVITAdapter(createContactList(contacts), contactListener, databinding.ncContacts.getExpansionLayout());
+        databinding.ncContacts.setAdapter(genderAdapter);
+        databinding.ncContacts.setHasFixedSize(false);
+    }
+
+    private List<ImageAndText> createContactList(List<Contact> contacts) {
+        ArrayList<ImageAndText> resultList = new ArrayList<>();
+        for (int i = 0; i < contacts.size(); i++) {
+            if (contacts.get(i).getId() != shareViewModel.getThisContact().getValue().getId())
+                resultList.add(new ImageAndText(FileManager.getBitmapPhoto(contacts.get(i).getPhoto()),
+                        contacts.get(i).getFullName()));
+        }
+        return resultList;
+    }
+
     private void initObservers() {
         shareViewModel.getNewConversationBitmap().observe(getActivity(), this::setPhotoToImageView);
+        shareViewModel.getContactsList().observe(getActivity(), this::initContactsRecyclerView);
     }
 
     private void setPhotoToImageView(Bitmap bitmap) {
@@ -55,7 +90,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
 
     private void setListeners() {
         databinding.ncButton.setOnClickListener(v -> {
-            shareViewModel.getNewConversation().addContact(shareViewModel.getContact().getValue().getId());
+            shareViewModel.getNewConversation().addContact(shareViewModel.getThisContact().getValue().getId());
             shareViewModel.getNewConversation().setChat(databinding.ncConversation.getText().toString());
             shareViewModel.addNewConversation(getContext(), shareViewModel.getNewConversation());
             shareViewModel.navigateToConversation();

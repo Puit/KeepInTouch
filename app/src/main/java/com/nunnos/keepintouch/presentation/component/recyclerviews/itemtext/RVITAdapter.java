@@ -50,7 +50,6 @@ public class RVITAdapter extends RecyclerView.Adapter<RVITAdapter.RVITAdapterVie
         View view = layoutInflater.inflate(R.layout.component_image_and_text, parent, false);
         RVITAdapterViewHolder viewHolder = new RVITAdapterViewHolder(view);
         viewHolder.setListener(listener);
-        /*viewHolder.setIsRecyclable(false);*/
         return viewHolder;
     }
 
@@ -66,7 +65,6 @@ public class RVITAdapter extends RecyclerView.Adapter<RVITAdapter.RVITAdapterVie
         return this.items.size();
     }
 
-
     /**
      * CLASS VIEWHOLDER
      **/
@@ -78,8 +76,6 @@ public class RVITAdapter extends RecyclerView.Adapter<RVITAdapter.RVITAdapterVie
         private ImageView imageView;
         private TextView textView;
         private CustomItemClick listener;
-//        ExpansionLayout expansionLayout;
-
 
         public RVITAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,7 +86,6 @@ public class RVITAdapter extends RecyclerView.Adapter<RVITAdapter.RVITAdapterVie
         private void initView(View itemView) {
             imageView = itemView.findViewById(R.id.image_and_text_image);
             textView = itemView.findViewById(R.id.image_and_text_text);
-//            expansionLayout = itemView.findViewById(R.id.image_and_text_expansionLayout);//TODO: BUSCAR EL DEL FRAGMENT
         }
 
         public void setListener(CustomItemClick listener) {
@@ -98,15 +93,13 @@ public class RVITAdapter extends RecyclerView.Adapter<RVITAdapter.RVITAdapterVie
         }
 
         public void bind(ImageAndText item) {
-            imageView.setImageDrawable(item.getDrawable());
+            if (item.getDrawable() != null) {
+                imageView.setImageDrawable(item.getDrawable());
+            } else {
+                imageView.setImageBitmap(item.getBitmap());
+            }
             textView.setText(item.getText());
-//            expansionLayout.collapse(false);
         }
-
-//        public ExpansionLayout getExpansionLayout() {
-//            return expansionLayout;
-//        }
-
 
         @Override
         public void onClick(View v) {

@@ -3,127 +3,137 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:paddingBottom="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSaveTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/nc_image"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@color/background_gray_light"
-            android:src="@drawable/ic_person_full"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/nc_add_image_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@color/purple_700"
-            android:elevation="1dp"
-            android:src="@drawable/ic_chat"
-            app:layout_constraintBottom_toBottomOf="@+id/nc_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nc_image" />
+            <ImageView
+                android:id="@+id/nc_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/background_gray_light"
+                android:src="@drawable/ic_person_full"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/nc_conversation"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:gravity="top|left"
-            android:hint="You have 280 characters to express what you talked about"
-            android:maxHeight="1000dp"
-            android:minHeight="150dp"
-            app:edit_text_hint_text="Conversation..."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nc_image"
-            tools:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat mas" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/nc_add_image_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@color/purple_700"
+                android:elevation="1dp"
+                android:src="@drawable/ic_chat"
+                app:layout_constraintBottom_toBottomOf="@+id/nc_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nc_image" />
 
-        <com.nunnos.keepintouch.presentation.component.CustomEditText
-            android:id="@+id/nc_place"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            app:edit_text_hint_text="Place..."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nc_conversation"
-            tools:edit_text_text="Address" />
+            <EditText
+                android:id="@+id/nc_conversation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="top|left"
+                android:hint="You have 280 characters to express what you talked about"
+                android:maxHeight="1000dp"
+                android:minHeight="150dp"
+                app:edit_text_hint_text="Conversation..."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nc_image"
+                tools:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat mas" />
 
-        <com.nunnos.keepintouch.presentation.component.CustomEditText
-            android:id="@+id/nc_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="5dp"
-            android:maxLines="1"
-            app:edit_text_clickable="true"
-            app:edit_text_focusable="false"
-            app:edit_text_hint_text="Date"
-            app:edit_text_text="DD/MM/YYYY"
-            app:layout_constraintEnd_toStartOf="@+id/nc_time"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nc_place" />
+            <com.nunnos.keepintouch.presentation.component.CustomEditText
+                android:id="@+id/nc_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:edit_text_hint_text="Place..."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nc_conversation"
+                tools:edit_text_text="Address" />
 
-        <com.nunnos.keepintouch.presentation.component.CustomEditText
-            android:id="@+id/nc_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:maxLines="1"
-            app:edit_text_clickable="true"
-            app:edit_text_focusable="false"
-            app:edit_text_hint_text="Time"
-            app:edit_text_text="DD/MM/YYYY"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/nc_date"
-            app:layout_constraintTop_toBottomOf="@+id/nc_place" />
+            <com.nunnos.keepintouch.presentation.component.CustomEditText
+                android:id="@+id/nc_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="5dp"
+                android:maxLines="1"
+                app:edit_text_clickable="true"
+                app:edit_text_focusable="false"
+                app:edit_text_hint_text="Date"
+                app:edit_text_text="DD/MM/YYYY"
+                app:layout_constraintEnd_toStartOf="@+id/nc_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nc_place" />
 
-        <com.nunnos.keepintouch.presentation.component.CustomSwitch
-            android:id="@+id/nc_isImportant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            app:custom_switch_image_left="@drawable/ic_star_full"
-            app:custom_switch_image_right="@drawable/ic_star"
-            app:custom_switch_selected_background_color="@color/purple_500"
-            app:custom_switch_text_left="Important"
-            app:custom_switch_text_right="Normal"
-            app:custom_switch_unselected_background_color="@color/background_purple_dark"
-            app:layout_constraintTop_toBottomOf="@+id/nc_date" />
+            <com.nunnos.keepintouch.presentation.component.CustomEditText
+                android:id="@+id/nc_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:maxLines="1"
+                app:edit_text_clickable="true"
+                app:edit_text_focusable="false"
+                app:edit_text_hint_text="Time"
+                app:edit_text_text="DD/MM/YYYY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/nc_date"
+                app:layout_constraintTop_toBottomOf="@+id/nc_place" />
 
-        <com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ExpanableRecyclerView
-            android:id="@+id/nc_contacts"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            app:expanable_recyclerview_hint_text="Gender"
-            app:expanable_recyclerview_icon="@drawable/ic_unknown"
-            app:expanable_recyclerview_text_text="Unknown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nc_isImportant" />
+            <com.nunnos.keepintouch.presentation.component.CustomSwitch
+                android:id="@+id/nc_isImportant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:custom_switch_image_left="@drawable/ic_star_full"
+                app:custom_switch_image_right="@drawable/ic_star"
+                app:custom_switch_selected_background_color="@color/purple_500"
+                app:custom_switch_text_left="Important"
+                app:custom_switch_text_right="Normal"
+                app:custom_switch_unselected_background_color="@color/background_purple_dark"
+                app:layout_constraintTop_toBottomOf="@+id/nc_date" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/nc_button"
+            <com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ExpanableRecyclerView
+                android:id="@+id/nc_contacts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:expanable_recyclerview_hint_text="Gender"
+                app:expanable_recyclerview_icon="@drawable/ic_unknown"
+                app:expanable_recyclerview_text_text="Unknown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nc_isImportant" />
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/nc_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nc_contacts" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <data>
 

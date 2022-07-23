@@ -34,7 +34,7 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     }
 
     private void initObservers() {
-        shareViewModel.getContact().observe(getViewLifecycleOwner(), this::onContactReceived);
+        shareViewModel.getThisContact().observe(getViewLifecycleOwner(), this::onContactReceived);
     }
 
     private void onContactReceived(Contact contact) {
