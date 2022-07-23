@@ -7,20 +7,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/nc_image"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/background_gray_light"
+            android:src="@drawable/ic_person_full"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/nc_add_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/purple_700"
+            android:elevation="1dp"
+            android:src="@drawable/ic_chat"
+            app:layout_constraintBottom_toBottomOf="@+id/nc_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nc_image" />
+
         <EditText
             android:id="@+id/nc_conversation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:minHeight="150dp"
-            android:maxHeight="1000dp"
             android:layout_marginHorizontal="20dp"
-            android:hint="You have 280 characters to express what you talked about"
-            android:gravity="top|left"
             android:layout_marginTop="20dp"
+            android:gravity="top|left"
+            android:hint="You have 280 characters to express what you talked about"
+            android:maxHeight="1000dp"
+            android:minHeight="150dp"
             app:edit_text_hint_text="Conversation..."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nc_image"
             tools:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat mas" />
 
         <com.nunnos.keepintouch.presentation.component.CustomEditText
@@ -37,15 +57,34 @@
 
         <com.nunnos.keepintouch.presentation.component.CustomEditText
             android:id="@+id/nc_date"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
             android:maxLines="1"
             app:edit_text_clickable="true"
             app:edit_text_focusable="false"
             app:edit_text_hint_text="Date"
             app:edit_text_text="DD/MM/YYYY"
+            app:layout_constraintEnd_toStartOf="@+id/nc_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nc_place" />
+
+        <com.nunnos.keepintouch.presentation.component.CustomEditText
+            android:id="@+id/nc_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:maxLines="1"
+            app:edit_text_clickable="true"
+            app:edit_text_focusable="false"
+            app:edit_text_hint_text="Time"
+            app:edit_text_text="DD/MM/YYYY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/nc_date"
             app:layout_constraintTop_toBottomOf="@+id/nc_place" />
 
         <com.nunnos.keepintouch.presentation.component.CustomSwitch
@@ -54,8 +93,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            app:custom_switch_image_left="@drawable/ic_star"
-            app:custom_switch_image_right="@drawable/ic_star_full"
+            app:custom_switch_image_left="@drawable/ic_star_full"
+            app:custom_switch_image_right="@drawable/ic_star"
             app:custom_switch_selected_background_color="@color/purple_500"
             app:custom_switch_text_left="Important"
             app:custom_switch_text_right="Normal"

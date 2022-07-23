@@ -1,7 +1,11 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.activity;
 
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -11,6 +15,10 @@ import com.nunnos.keepintouch.databinding.ActivityContactInfoBinding;
 import com.nunnos.keepintouch.presentation.component.BottomMenu;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigationManager;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
+import com.nunnos.keepintouch.utils.FileManager;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_INFO;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_PERSONAL_DATA;
@@ -86,7 +94,23 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         viewModel.navigateToContactInfo();
         dataBinding.contactInfoActivityBottomMenu.setItemSelected(3); // Marca el botón de chat
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            //Data es null porque la imagen se guarda en storage
+            try {
 
+                final Uri imageUri = data.getData();
+                getShareViewModel().getNewConversation().setPhoto(FileManager.getPath(this, imageUri));
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                getShareViewModel().setNewConversationBitmap(BitmapFactory.decodeStream(imageStream));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
     /*******************************************
      * IMPLEMENTATION BASE CLASS
      * *****************************************/

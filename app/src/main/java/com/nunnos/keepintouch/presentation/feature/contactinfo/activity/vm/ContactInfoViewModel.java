@@ -1,6 +1,7 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MediatorLiveData;
@@ -24,9 +25,11 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     private ContactDao contactDao;
     private ConversationDao conversationDao;
+    private Conversation newConversation = new Conversation();
 
     private final MediatorLiveData<Contact> contactMD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Conversation>> conversationsMD = new MediatorLiveData<>();
+    private final MediatorLiveData<Bitmap> newConversationBitmap = new MediatorLiveData<>();
 
     private void setContactDao(Context context) {
         if (contactDao != null) return;
@@ -80,6 +83,13 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
             //TODO SHOW ERROR
         }
     }
+    public MediatorLiveData<Bitmap> getNewConversationBitmap() {
+        return newConversationBitmap;
+    }
+
+    public void setNewConversationBitmap(Bitmap newConversationBitmap) {
+        this.newConversationBitmap.setValue(newConversationBitmap);
+    }
 
     public MediatorLiveData<Contact> getContact() {
         return contactMD;
@@ -89,4 +99,11 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         return conversationsMD;
     }
 
+    public Conversation getNewConversation() {
+        return newConversation;
+    }
+
+    public void setNewConversation(Conversation newConversation) {
+        this.newConversation = newConversation;
+    }
 }
