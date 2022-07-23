@@ -6,9 +6,11 @@ public class Conversation {
     public static final String SEPARATOR = ",";
     private int id;
     private String date;
+    private String time;
     private String chat;
     private String place;
     private boolean isImportant;
+    private String photo;
     private String contacts = SEPARATOR;
 
     public Conversation() {
@@ -19,8 +21,10 @@ public class Conversation {
         this.setId(entity.id);
         this.setChat(entity.chat);
         this.setDate(entity.date);
+        this.setTime(entity.time);
         this.setPlace(entity.place);
         this.setImportant(entity.isImportant);
+        this.setPhoto(entity.photo);
         addContactsFirstTime(entity.contacts);
     }
 
@@ -78,6 +82,22 @@ public class Conversation {
 
     public void setContacts(String contacts) {
         this.contacts = contacts;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public void addContact(int contactId) {

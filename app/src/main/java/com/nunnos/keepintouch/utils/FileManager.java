@@ -2,11 +2,14 @@ package com.nunnos.keepintouch.utils;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,5 +70,14 @@ public class FileManager {
             result = "Not found";
         }
         return result;
+    }
+
+    public static Bitmap getBitmapPhoto(String path) {
+        //TODO: ASK FOR PERMISSIONS
+        if (path != null) {
+            File image = new File(path);
+            return BitmapFactory.decodeFile(image.getAbsolutePath());
+        }
+        return null;
     }
 }

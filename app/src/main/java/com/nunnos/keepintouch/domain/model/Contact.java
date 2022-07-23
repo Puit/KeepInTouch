@@ -350,12 +350,4 @@ public class Contact {
         return bgColor;
     }
 
-    public Bitmap getBitmapPhoto() {
-        //TODO: ASK FOR PERMISSIONS
-        if (photo != null) {
-            File image = new File(photo);
-            return BitmapFactory.decodeFile(image.getAbsolutePath());
-        }
-        return null;
-    }
 }

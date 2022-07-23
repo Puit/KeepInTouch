@@ -29,8 +29,17 @@
     <style name="regular.black">
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="regular.black.10">
+        <item name="android:textSize">10dp</item>
+    </style>
+    <style name="regular.black.14">
+        <item name="android:textSize">14dp</item>
+    </style>
     <style name="regular.black.15">
         <item name="android:textSize">15dp</item>
+    </style>
+    <style name="regular.black.20">
+        <item name="android:textSize">20dp</item>
     </style>
     <style name="regular.black.24">
         <item name="android:textSize">24dp</item>

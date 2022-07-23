@@ -20,6 +20,9 @@ public class ConversationEntity {
     @ColumnInfo(name = "date")
     public String date;
 
+    @ColumnInfo(name = "time")
+    public String time;
+
     @ColumnInfo(name = "chat")
     public String chat;
 
@@ -29,40 +32,49 @@ public class ConversationEntity {
     @ColumnInfo(name = "isimportant")
     public boolean isImportant;
 
+    @ColumnInfo(name = "photo")
+    public String photo;
+
     @ColumnInfo(name = "contacts")
     public String contacts; //Seran los Ids de los implicados en la conversacion
 
-    public ConversationEntity(int id, String date, String chat, String place, boolean isImportant, String contacts) {
+    public ConversationEntity(int id, String date, String time, String chat, String place, boolean isImportant, String contacts, String photo) {
         this.id = id;
         this.date = date;
+        this.time = time;
         this.chat = chat;
         this.place = place;
         this.isImportant = isImportant;
+        this.photo = photo;
         addContacts(contacts);
     }
 
-    public ConversationEntity(String date, String chat, String place, boolean isImportant, String contacts) {
+    public ConversationEntity(String date, String time, String chat, String place, boolean isImportant, String contacts, String photo) {
         this.date = date;
+        this.time = time;
         this.chat = chat;
         this.place = place;
         this.isImportant = isImportant;
+        this.photo = photo;
         addContacts(contacts);
     }
 
     public ConversationEntity() {
         this.id = -2;
         this.date = "";
+        this.time = "";
         this.chat = "";
         this.place = "";
         this.isImportant = false;
         this.contacts = SEPARATOR;
+        this.photo = "";
     }
 
     public static ConversationEntity map(Conversation c) {
         if (c.getId() != 0) {
-            return new ConversationEntity(c.getId(), c.getDate(), c.getChat(), c.getPlace(), c.isImportant(), c.getContacts());
+            return new ConversationEntity(c.getId(), c.getDate(), c.getTime(), c.getChat(), c.getPlace(), c.isImportant(), c.getContacts(), c.getPhoto());
         } else {
-            return new ConversationEntity(c.getDate(), c.getChat(), c.getPlace(), c.isImportant(), c.getContacts());
+            return new ConversationEntity(c.getDate(), c.getTime(), c.getChat(), c.getPlace(), c.isImportant(), c.getContacts(), c.getPhoto());
         }
     }
 

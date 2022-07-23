@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
+import com.nunnos.keepintouch.utils.FileManager;
 
 import java.util.List;
 
@@ -110,7 +111,7 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         private void setUserImage(Contact contact) {
             if (context instanceof MainActivity) {
-                Bitmap bitmap = contact.getBitmapPhoto();
+                Bitmap bitmap = FileManager.getBitmapPhoto(contact.getPhoto());
                 if (bitmap == null) {
                     userImage.setImageDrawable(context.getDrawable(R.drawable.ic_unknown));
                 } else {

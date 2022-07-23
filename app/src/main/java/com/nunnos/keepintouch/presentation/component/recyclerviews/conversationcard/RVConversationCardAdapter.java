@@ -2,6 +2,7 @@ package com.nunnos.keepintouch.presentation.component.recyclerviews.conversation
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.domain.model.Conversation;
 import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
+import com.nunnos.keepintouch.utils.FileManager;
 
 import java.util.List;
 
@@ -61,8 +64,11 @@ public class RVConversationCardAdapter extends RecyclerView.Adapter<RecyclerView
      **/
     public class RVConversationCardAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Conversation conversation;
-        private ImageView starImage;
-        private TextView fullNameTv;
+        private CardView cardView;
+        private ImageView bigImage;
+        private TextView chatTv;
+        private TextView timeTv;
+        private TextView placeTv;
 
         public RVConversationCardAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,8 +78,11 @@ public class RVConversationCardAdapter extends RecyclerView.Adapter<RecyclerView
         }
 
         private void initView(View itemView) {
-            starImage = itemView.findViewById(R.id.recyclerView_conversation_star);
-            fullNameTv = itemView.findViewById(R.id.recyclerView_conversation_name);
+            cardView = itemView.findViewById(R.id.recyclerView_conversation_card);
+            bigImage = itemView.findViewById(R.id.recyclerView_conversation_image);
+            chatTv = itemView.findViewById(R.id.recyclerView_conversation_chat);
+            timeTv = itemView.findViewById(R.id.recyclerView_conversation_time);
+            placeTv = itemView.findViewById(R.id.recyclerView_conversation_place);
         }
 
         private void setView() {
@@ -83,13 +92,41 @@ public class RVConversationCardAdapter extends RecyclerView.Adapter<RecyclerView
         @SuppressLint("UseCompatLoadingForDrawables")
         public void bind(Conversation conversation) {
             this.conversation = conversation;
-            fullNameTv.setText(conversation.getChat());
-            starImage.setImageDrawable(context.getDrawable(conversation.isImportant() ? R.drawable.ic_star_full : R.drawable.ic_star));
+            chatTv.setText(conversation.getChat());
+            setTime(conversation);
+            placeTv.setText(conversation.getPlace());
+            setBigImage(conversation);
+            cardView.setCardBackgroundColor(context.getColor(conversation.isImportant() ? R.color.background_red : R.color.white));
+        }
+
+        private void setTime(Conversation conversation) {
+            String time = "";
+            if (conversation.getTime() != null) {
+                time = conversation.getTime().trim();
+            }
+            if (conversation.getDate() != null) {
+                if (!time.isEmpty()) {
+                    time = time + "\n";
+                }
+                time = time + conversation.getDate().replaceAll(" ", "").trim();
+            }
+            timeTv.setText(time);
+        }
+
+        private void setBigImage(Conversation conversation) {
+            Bitmap bitmap = FileManager.getBitmapPhoto(conversation.getPhoto());
+            if (bitmap == null) {
+                bigImage.setVisibility(View.GONE);
+            } else {
+                bigImage.setImageBitmap(bitmap);
+            }
+
         }
 
         @Override
         public void onClick(View v) {
             if (context instanceof MainActivity) {/*
+            TODO: navigate to edit
                 ((MainActivity) context).getShareViewModel().setContactSelectedID(conversation.getId());
                 ((MainActivity) context).getShareViewModel().navigateToContactInfo();*/
             }
