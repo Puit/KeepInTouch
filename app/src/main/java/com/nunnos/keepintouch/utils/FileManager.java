@@ -82,6 +82,7 @@ public class FileManager {
         }
         return null;
     }
+
     public static ImageView rotateImageView(ImageView imageView, float angle, float pivotX, float pivotY){
         Matrix matrix = new Matrix();
         imageView.setScaleType(ImageView.ScaleType.MATRIX);   //required

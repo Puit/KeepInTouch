@@ -25,6 +25,7 @@ import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewMode
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.BackgroundColorPickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.vm.NewContactViewModel;
+import com.nunnos.keepintouch.utils.ImageHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,6 +67,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
         if (bitmap == null) return;
         shareViewModel.getNewContact().setAngle(0);
         databinding.newContactImage.setImageBitmap(bitmap);
+        ImageHelper.resizeImage(databinding.newContactImage, bitmap);
         databinding.newContactRotateRounder.setVisibility(View.VISIBLE);
     }
 

@@ -18,6 +18,7 @@ import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
 import com.nunnos.keepintouch.utils.FileManager;
+import com.nunnos.keepintouch.utils.ImageHelper;
 
 import java.util.List;
 
@@ -116,6 +117,8 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
                     userImage.setImageDrawable(context.getDrawable(R.drawable.ic_unknown));
                 } else {
                     userImage.setImageBitmap(bitmap);
+//                    userImage.setImageBitmap(getResizedBitmap(userImage, bitmap));
+                    ImageHelper.resizeImage(userImage, bitmap);
                     userImage.setRotation(contact.getAngle());
                 }
             }
