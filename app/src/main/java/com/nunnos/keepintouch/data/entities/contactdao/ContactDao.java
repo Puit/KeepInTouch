@@ -24,9 +24,15 @@ public interface ContactDao {
     @Query("SELECT * FROM " + TABLE_NAME + " ORDER BY Id DESC")
     List<ContactEntity> getAll();
 
+    @Query("SELECT * FROM " + TABLE_NAME + " ORDER BY lastactionindex DESC")
+    List<ContactEntity> getAllOrderByLastIndexDes();
+
     @Query("SELECT * FROM " + TABLE_NAME + " WHERE Id = :id")
     ContactEntity get(int id);
 
     @Query("DELETE FROM " + TABLE_NAME + " WHERE Id = :id")
     void deleteById(int id);
+
+    @Query("SELECT MIN(lastactionindex) FROM " + TABLE_NAME)
+    int getLastIndex();
 }

@@ -1,5 +1,7 @@
 package com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact;
 
+import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,8 +29,6 @@ import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.vm.N
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
 
 public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContactViewModel, MainViewModel, FragmentMainNewContactBinding> {
 
@@ -63,7 +63,10 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
     }
 
     private void setPhotoToImageView(Bitmap bitmap) {
+        if (bitmap == null) return;
+        shareViewModel.getNewContact().setAngle(0);
         databinding.newContactImage.setImageBitmap(bitmap);
+        databinding.newContactRotateRounder.setVisibility(View.VISIBLE);
     }
 
     private void initView() {
@@ -158,6 +161,11 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
             photoPickerIntent.setType("image/*");
             startActivityForResult(photoPickerIntent, REQUEST_SELECT_IMAGE);
         });
+        databinding.newContactRotateRounder.setOnClickListener(v -> {
+            float newAngle = shareViewModel.getNewContact().getAngle() + 90;
+            databinding.newContactImage.setRotation(newAngle);
+            shareViewModel.getNewContact().setAngle(newAngle);
+        });
     }
 
     private void showDatePickerDialog() {
@@ -186,6 +194,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
 
     private void saveContact() {
         if (checkAllRight()) {
+            shareViewModel.setLastIndex(shareViewModel.getLastIndex() + 1);
             Contact contact = new Contact(databinding.newContactName.getText(),
                     databinding.newContactSurname1.getText(),
                     databinding.newContactSurname2.getText(),
@@ -203,7 +212,10 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
                     "",
                     false,
                     shareViewModel.getNewContact().getBgColor(),
-                    shareViewModel.getNewContact().getPhoto());
+                    shareViewModel.getNewContact().getPhoto(),
+                    shareViewModel.getNewContact().getAngle(),
+                    shareViewModel.getLastIndex(),
+                    databinding.newContactAlias.getText());
             shareViewModel.saveContact(getContext(), contact);
             shareViewModel.navigateToMain();
         } else {

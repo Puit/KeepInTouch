@@ -33,4 +33,6 @@
     <color name="background_black_20alpha">#33000000</color>
     <color name="text_gray">#666666</color>
     <color name="underline_gray">#949494</color>
+    <color name="background_transparent">#00FFFFFF</color>
+    <color name="background_white_20">#33FFFFFF</color>
 </resources>

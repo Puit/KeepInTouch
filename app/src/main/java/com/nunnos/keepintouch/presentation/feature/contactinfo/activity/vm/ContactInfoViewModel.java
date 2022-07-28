@@ -77,12 +77,12 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     public void retrieveContacts(Context context) {
         setContactDao(context);
         AppExecutors.getInstance().diskIO().execute(() -> {
-            if (contactDao.getAll().isEmpty()) {
+            if (contactDao.getAllOrderByLastIndexDes().isEmpty()) {
                 //TODO: SHOW ERROR?
                 return;
             }
             ArrayList<Contact> contacts = new ArrayList<>();
-            for (ContactEntity entity : contactDao.getAll()) {
+            for (ContactEntity entity : contactDao.getAllOrderByLastIndexDes()) {
                 contacts.add(Contact.map(entity));
             }
             contactsMD.postValue(contacts);

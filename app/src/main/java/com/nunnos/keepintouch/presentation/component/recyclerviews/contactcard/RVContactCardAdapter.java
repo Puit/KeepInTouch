@@ -116,6 +116,7 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
                     userImage.setImageDrawable(context.getDrawable(R.drawable.ic_unknown));
                 } else {
                     userImage.setImageBitmap(bitmap);
+                    userImage.setRotation(contact.getAngle());
                 }
             }
         }

@@ -19,6 +19,33 @@
                 android:src="@drawable/ic_person_full"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/new_contact_rotate_rounder"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/background_transparent"
+                android:elevation="12dp"
+                android:innerRadius="0dp"
+                android:shape="ring"
+                android:thicknessRatio="1.9"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/new_contact_rotate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/background_white_20"
+                    android:src="@drawable/ic_baseline_rotate_left_24" />
+            </androidx.cardview.widget.CardView>
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/new_contact_add_image_button"
                 android:layout_width="wrap_content"
@@ -61,6 +88,12 @@
                     android:layout_marginTop="20dp"
                     app:edit_text_hint_text="Surname 2"
                     tools:edit_text_text="Surname 2" />
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_alias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Name" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

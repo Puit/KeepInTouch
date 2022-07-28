@@ -1,5 +1,6 @@
 package com.nunnos.keepintouch.presentation.feature.main.fragment.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -35,6 +36,7 @@ public class MainFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         shareViewModel.retrieveContacts(getContext());
+        shareViewModel.retrieveLastIndex(getContext());
         initObservers();
         initListeners();
     }
@@ -48,7 +50,7 @@ public class MainFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, 
     }
 
     private void initListeners() {
-        databinding.mainButton.setOnClickListener(v -> shareViewModel.navigateToNewContact());
+        databinding.mainAddImageButton.setOnClickListener(v -> shareViewModel.navigateToNewContact());
     }
 
     private void setView() {

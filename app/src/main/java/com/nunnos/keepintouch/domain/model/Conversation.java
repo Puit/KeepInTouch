@@ -11,6 +11,7 @@ public class Conversation {
     private String place;
     private boolean isImportant;
     private String photo;
+    private float angle;
     private String contacts = SEPARATOR;
 
     public Conversation() {
@@ -25,6 +26,7 @@ public class Conversation {
         this.setPlace(entity.place);
         this.setImportant(entity.isImportant);
         this.setPhoto(entity.photo);
+        this.setAngle(entity.angle);
         addContactsFirstTime(entity.contacts);
     }
 
@@ -121,5 +123,13 @@ public class Conversation {
         } else {
             this.contacts = SEPARATOR + contacts;
         }
+    }
+
+    public float getAngle() {
+        return angle;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
     }
 }

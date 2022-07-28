@@ -69,10 +69,19 @@ public class ContactEntity {
     @ColumnInfo(name = "bgcolor")
     public int bgColor;
 
+    @ColumnInfo(name = "angle")
+    public float angle;
+
+    @ColumnInfo(name = "lastactionindex")
+    public int lastActionIndex;
+
+    @ColumnInfo(name = "alias")
+    public String alias;
+
     public ContactEntity(int id, String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                          boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                          String language, String religion, String relatives, String conversations,
-                         boolean favorite, int bgColor, String photo) {
+                         boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias) {
         this.id = id;
         this.name = name;
         this.surname1 = surname1;
@@ -92,12 +101,15 @@ public class ContactEntity {
         this.favorite = favorite;
         this.bgColor = bgColor;
         this.photo = photo;
+        this.angle = angle;
+        this.lastActionIndex = lastActionIndex;
+        this.alias = alias;
     }
 
     public ContactEntity(String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                          boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                          String language, String religion, String relatives, String conversations,
-                         boolean favorite, int bgColor, String photo) {
+                         boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias) {
         this.name = name;
         this.surname1 = surname1;
         this.surname2 = surname2;
@@ -116,6 +128,9 @@ public class ContactEntity {
         this.favorite = favorite;
         this.bgColor = bgColor;
         this.photo = photo;
+        this.angle = angle;
+        this.lastActionIndex = lastActionIndex;
+        this.alias = alias;
     }
 
     public ContactEntity() {
@@ -127,12 +142,14 @@ public class ContactEntity {
             return new ContactEntity(c.getId(), c.getName(), c.getSurname1(), c.getSurname2(), c.getGender(),
                     c.getSexualOrientation(), c.getBirthday(), c.isRealBirthday(), c.getAddress(), c.getProfession(),
                     c.getPlaceOfWork(), c.getHowWeMet(), c.getLanguage(), c.getReligion(), c.getRelatives(),
-                    c.getConversations(), c.isFavorite(), c.getBgColor(), c.getPhoto());
+                    c.getConversations(), c.isFavorite(), c.getBgColor(), c.getPhoto(), c.getAngle(),
+                    c.getLastActionIndex(), c.getAlias());
         } else {
             return new ContactEntity(c.getName(), c.getSurname1(), c.getSurname2(), c.getGender(),
                     c.getSexualOrientation(), c.getBirthday(), c.isRealBirthday(), c.getAddress(), c.getProfession(),
                     c.getPlaceOfWork(), c.getHowWeMet(), c.getLanguage(), c.getReligion(), c.getRelatives(),
-                    c.getConversations(), c.isFavorite(), c.getBgColor(), c.getPhoto());
+                    c.getConversations(), c.isFavorite(), c.getBgColor(), c.getPhoto(), c.getAngle(),
+                    c.getLastActionIndex(), c.getAlias());
         }
     }
 }

@@ -4,9 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.ImageView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -79,5 +81,12 @@ public class FileManager {
             return BitmapFactory.decodeFile(image.getAbsolutePath());
         }
         return null;
+    }
+    public static ImageView rotateImageView(ImageView imageView, float angle, float pivotX, float pivotY){
+        Matrix matrix = new Matrix();
+        imageView.setScaleType(ImageView.ScaleType.MATRIX);   //required
+        matrix.postRotate((float) angle, pivotX, pivotY);
+        imageView.setImageMatrix(matrix);
+        return imageView;
     }
 }

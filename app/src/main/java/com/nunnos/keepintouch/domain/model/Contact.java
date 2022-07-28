@@ -1,13 +1,10 @@
 package com.nunnos.keepintouch.domain.model;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 
 import com.nunnos.keepintouch.data.CustomDate;
 import com.nunnos.keepintouch.data.entities.contactdao.ContactEntity;
 
-import java.io.File;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
@@ -34,11 +31,14 @@ public class Contact {
     private String conversations;//Seran los Ids de las conversaciones
     private boolean favorite;//Seran los Ids de las conversaciones
     private int bgColor;
+    private float angle;
+    private int lastActionIndex;
+    private String alias;
 
     public Contact(int id, String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                    boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                    String language, String religion, String relatives, String conversations,
-                   boolean favorite, int bgColor, String photo) {
+                   boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias) {
         this.id = id;
         this.name = name;
         this.surname1 = surname1;
@@ -58,12 +58,15 @@ public class Contact {
         this.favorite = favorite;
         this.bgColor = bgColor;
         this.photo = photo;
+        this.angle = angle;
+        this.lastActionIndex = lastActionIndex;
+        this.alias = alias;
     }
 
     public Contact(String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                    boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                    String language, String religion, String relatives, String conversations,
-                   boolean favorite, int bgColor, String photo) {
+                   boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias) {
         this.name = name;
         this.surname1 = surname1;
         this.surname2 = surname2;
@@ -82,37 +85,21 @@ public class Contact {
         this.favorite = favorite;
         this.bgColor = bgColor;
         this.photo = photo;
+        this.angle = angle;
+        this.lastActionIndex = lastActionIndex;
+        this.alias = alias;
     }
 
     public Contact() {
         //Required
     }
 
-    private Contact(ContactEntity entity) {
-        setId(entity.id);
-        setName(entity.name);
-        setSurname1(entity.surname1);
-        setSurname2(entity.surname2);
-        setGender(entity.gender);
-        setSexualOrientation(entity.sexualOrientation);
-        setBirthday(entity.birthday);
-        setRealBirthday(entity.realBirthday);
-        setAddress(entity.address);
-        setProfession(entity.profession);
-        setPlaceOfWork(entity.placeOfWork);
-        setHowWeMet(entity.howWeMet);
-        setLanguage(entity.language);
-        setReligion(entity.religion);
-        setRelatives(entity.relatives);
-        setConversations(entity.conversations);
-        setPhoto(entity.photo);
-    }
-
     public static Contact map(ContactEntity entity) {
         return new Contact(entity.id, entity.name, entity.surname1, entity.surname2, entity.gender,
                 entity.sexualOrientation, entity.birthday, entity.realBirthday, entity.address, entity.profession,
                 entity.placeOfWork, entity.howWeMet, entity.language, entity.religion, entity.relatives,
-                entity.conversations, entity.favorite, entity.bgColor, entity.photo);
+                entity.conversations, entity.favorite, entity.bgColor, entity.photo, entity.angle,
+                entity.lastActionIndex, entity.alias);
     }
 
     public int getAge() {
@@ -350,4 +337,27 @@ public class Contact {
         return bgColor;
     }
 
+    public float getAngle() {
+        return angle;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
+    public int getLastActionIndex() {
+        return lastActionIndex;
+    }
+
+    public void setLastActionIndex(int lastActionIndex) {
+        this.lastActionIndex = lastActionIndex;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
 }

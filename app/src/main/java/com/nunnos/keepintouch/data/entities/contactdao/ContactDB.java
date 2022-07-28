@@ -2,17 +2,14 @@ package com.nunnos.keepintouch.data.entities.contactdao;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.nunnos.keepintouch.data.entities.Converters;
 
-@Database(entities = {ContactEntity.class}, version = 6, exportSchema = false)
+@Database(entities = {ContactEntity.class}, version = 7, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class ContactDB extends RoomDatabase {
     public abstract ContactDao contactDao();
@@ -23,7 +20,7 @@ public abstract class ContactDB extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     ContactDB.class, ContactsDaoConstants.TABLE_NAME)
-                    .fallbackToDestructiveMigrationFrom(1,2,3,4,5,6)
+                    .fallbackToDestructiveMigrationFrom(1, 2, 3, 4, 5, 6)
                     .build();
         }
         return instance;
