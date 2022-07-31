@@ -28,10 +28,15 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setView();
         initListeners();
     }
 
     private void initListeners() {
+    }
+
+    private void setView() {
+
     }
 
     //Region Base Methods

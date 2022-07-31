@@ -3,11 +3,13 @@ package com.nunnos.keepintouch.presentation.component.recyclerviews.conversation
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -15,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.domain.model.Conversation;
-import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.ContactInfoActivity;
 import com.nunnos.keepintouch.utils.FileManager;
 
 import java.util.List;
@@ -65,7 +67,9 @@ public class RVConversationCardAdapter extends RecyclerView.Adapter<RecyclerView
     public class RVConversationCardAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Conversation conversation;
         private CardView cardView;
+        private CardView cardImageContainer;
         private ImageView bigImage;
+        private ImageView moreImage;
         private TextView chatTv;
         private TextView timeTv;
         private TextView placeTv;
@@ -74,19 +78,31 @@ public class RVConversationCardAdapter extends RecyclerView.Adapter<RecyclerView
             super(itemView);
             initView(itemView);
             setView();
+            setListeners();
             itemView.setOnClickListener(this);
         }
 
         private void initView(View itemView) {
             cardView = itemView.findViewById(R.id.recyclerView_conversation_card);
+            cardImageContainer = itemView.findViewById(R.id.recyclerView_conversation_image_card);
             bigImage = itemView.findViewById(R.id.recyclerView_conversation_image);
             chatTv = itemView.findViewById(R.id.recyclerView_conversation_chat);
             timeTv = itemView.findViewById(R.id.recyclerView_conversation_time);
             placeTv = itemView.findViewById(R.id.recyclerView_conversation_place);
+            moreImage = itemView.findViewById(R.id.recyclerView_conversation_more);
         }
 
         private void setView() {
 
+        }
+
+        private void setListeners() {
+            moreImage.setOnClickListener(v -> {
+                if (context instanceof ContactInfoActivity) {
+                    ((ContactInfoActivity)context).getShareViewModel().setNewConversation(conversation);
+                    ((ContactInfoActivity)context).getShareViewModel().showNewConversationFragment();
+                }
+            });
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
@@ -116,16 +132,18 @@ public class RVConversationCardAdapter extends RecyclerView.Adapter<RecyclerView
         private void setBigImage(Conversation conversation) {
             Bitmap bitmap = FileManager.getBitmapPhoto(conversation.getPhoto());
             if (bitmap == null) {
-                bigImage.setVisibility(View.GONE);
+                cardImageContainer.setVisibility(View.GONE);
             } else {
                 bigImage.setImageBitmap(bitmap);
+                bigImage.setRotation(conversation.getAngle());
             }
-
         }
 
         @Override
         public void onClick(View v) {
-            if (context instanceof MainActivity) {/*
+            if (context instanceof ContactInfoActivity) {
+                Toast.makeText(context, "Click on Layout", Toast.LENGTH_SHORT).show();
+                /*
             TODO: navigate to edit
                 ((MainActivity) context).getShareViewModel().setContactSelectedID(conversation.getId());
                 ((MainActivity) context).getShareViewModel().navigateToContactInfo();*/

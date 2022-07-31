@@ -6,10 +6,13 @@
         <item name="fontFamily">sans-serif-black</item>
     </style>
     <style name="bold.black">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/text_dark_gray</item>
     </style>
     <style name="bold.black.15">
         <item name="android:textSize">15dp</item>
+    </style>
+    <style name="bold.black.24">
+        <item name="android:textSize">24dp</item>
     </style>
     <style name="bold.black.36">
         <item name="android:textSize">36dp</item>
@@ -21,13 +24,19 @@
     <style name="bold.white.15">
         <item name="android:textSize">15dp</item>
     </style>
+    <style name="bold.yellow">
+        <item name="android:textColor">@color/text_accent_yellow</item>
+    </style>
+    <style name="bold.yellow.24">
+        <item name="android:textSize">24dp</item>
+    </style>
 
     <!-- ROBOTO REGULAR -->
     <style name="regular">
         <item name="fontFamily">sans-serif</item>
     </style>
     <style name="regular.black">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/text_light_gray</item>
     </style>
     <style name="regular.black.10">
         <item name="android:textSize">10dp</item>
@@ -71,6 +80,13 @@
         <item name="android:textSize">13dp</item>
     </style>
 
+    <style name="regular.yellow">
+        <item name="android:textColor">@color/text_accent_yellow</item>
+    </style>
+
+    <style name="regular.yellow.24">
+        <item name="android:textSize">24dp</item>
+    </style>
     <!-- ROBOTO LIGHT-->
     <style name="light">
         <item name="fontFamily">sans-serif-thin</item>

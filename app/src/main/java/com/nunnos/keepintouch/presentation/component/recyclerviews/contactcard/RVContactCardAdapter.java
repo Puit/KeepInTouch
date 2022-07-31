@@ -70,7 +70,7 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         private CardView cardView;
         private ConstraintLayout layout;
         private ImageView userImage;
-        private ImageView starImage;
+        private ImageView favImage;
         private TextView fullNameTv;
         private TextView professionTv;
         private TextView ageValueTv;
@@ -87,7 +87,7 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             cardView = itemView.findViewById(R.id.recyclerView_contact_card);
             layout = itemView.findViewById(R.id.recyclerView_contact_constraintLayout);
             userImage = itemView.findViewById(R.id.recyclerView_contact_image);
-            starImage = itemView.findViewById(R.id.recyclerView_contact_star);
+            favImage = itemView.findViewById(R.id.recyclerView_contact_fav);
             fullNameTv = itemView.findViewById(R.id.recyclerView_contact_name);
             professionTv = itemView.findViewById(R.id.recyclerView_contact_profession);
             ageValueTv = itemView.findViewById(R.id.recyclerView_contact_age_value);
@@ -107,7 +107,7 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             fullNameTv.setText(contact.getFullName());
             professionTv.setText(contact.getProfession());
             lastTimeValueTv.setText(contact.getDaysSinceLastChat());
-            starImage.setImageDrawable(context.getDrawable(contact.isFavorite() ? R.drawable.ic_star_full : R.drawable.ic_star));
+            favImage.setVisibility(contact.isFavorite() ? View.VISIBLE : View.GONE);
         }
 
         private void setUserImage(Contact contact) {

@@ -1,5 +1,8 @@
 package com.nunnos.keepintouch.presentation.feature.main.activity;
 
+import static com.nunnos.keepintouch.utils.Constants.EXTRA_UPDATE_MAIN;
+import static com.nunnos.keepintouch.utils.Constants.REQUEST_NAVIGATE_TO_CONTACT_INFO;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +35,10 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myOncreate();
+    }
+
+    private void myOncreate() {
         askForExternalStoragePermissions();
         setView();
         initObservers();
@@ -64,23 +71,28 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            //Data es null porque la imagen se guarda en storage
-            try {
-
-                final Uri imageUri = data.getData();
-                getShareViewModel().getNewContact().setPhoto(FileManager.getPath(this, imageUri));
-                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                getShareViewModel().setNewContactBitmap(BitmapFactory.decodeStream(imageStream));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
+            if (requestCode == REQUEST_NAVIGATE_TO_CONTACT_INFO) {
+                if (data.getBooleanExtra(EXTRA_UPDATE_MAIN, false)) {
+                    myOncreate();
+                }
+            } else {
+                //Data es null porque la imagen se guarda en storage
+                try {
+                    final Uri imageUri = data.getData();
+                    getShareViewModel().getNewContact().setPhoto(FileManager.getPath(this, imageUri));
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    getShareViewModel().setNewContactBitmap(BitmapFactory.decodeStream(imageStream));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
 
     /**
      * permisssions
-     * */
+     */
     // Register the permissions callback, which handles the user's response to the
 // system permissions dialog. Save the return value, an instance of
 // ActivityResultLauncher, as an instance variable.
@@ -97,7 +109,8 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
                     // decision.
                 }
             });
-    private void askForExternalStoragePermissions(){
+
+    private void askForExternalStoragePermissions() {
         if (ContextCompat.checkSelfPermission(
                 this, Manifest.permission.READ_EXTERNAL_STORAGE) ==
                 PackageManager.PERMISSION_GRANTED) {
@@ -110,7 +123,7 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
             // include a "cancel" or "no thanks" button that allows the user to
             // continue using your app without granting the permission.
             *//*showInContextUI(...);*//*
-        } */else {
+        } */ else {
             // You can directly ask for the permission.
             // The registered ActivityResultCallback gets the result of this request.
             requestPermissionLauncher.launch(

@@ -1,5 +1,11 @@
 package com.nunnos.keepintouch.presentation.feature.main;
 
+import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.CONTACT_INFO;
+import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.MAIN;
+import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.NEW_CONTACT;
+import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
+import static com.nunnos.keepintouch.utils.Constants.REQUEST_NAVIGATE_TO_CONTACT_INFO;
+
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
@@ -9,11 +15,6 @@ import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.main.MainFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.NewContactFragment;
-
-import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.CONTACT_INFO;
-import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.MAIN;
-import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.NEW_CONTACT;
-import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
 
 public class MainNavigationManager {
     private MainNavigationManager() {
@@ -48,6 +49,6 @@ public class MainNavigationManager {
         Intent intent = new Intent(activity.getApplicationContext(), ContactInfoActivity.class);
         intent.putExtra(EXTRA_CONTACT_SELECTED_ID, viewModel.getContactSelectedID());
 //        intent.putParcelableArrayListExtra( ..., ...);
-        activity.launchSlidingUpActivity(intent);
+        activity.startActivityForResult(intent, REQUEST_NAVIGATE_TO_CONTACT_INFO);
     }
 }

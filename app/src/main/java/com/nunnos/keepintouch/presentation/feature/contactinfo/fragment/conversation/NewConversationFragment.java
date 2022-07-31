@@ -1,9 +1,13 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation;
 
+import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,14 +26,14 @@ import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.Conta
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.TimePickerFragment;
 import com.nunnos.keepintouch.utils.FileManager;
+import com.nunnos.keepintouch.utils.ImageHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
-
 public class NewConversationFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, ContactInfoViewModel, FragmentNewConversationBinding> {
     private RVITAdapter genderAdapter;
+    private boolean isEdit = false;
 
     public NewConversationFragment() {
         //Required empty public constructor
@@ -52,7 +56,38 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
     }
 
     private void setView() {
-        databinding.ncIsImportant.setIsRightClicked(true);
+        if (shareViewModel.getNewConversation() != null) {
+            setViewForEdit();
+        } else {
+            databinding.ncIsImportant.setIsRightClicked(true);
+        }
+    }
+
+    private void setViewForEdit() {
+        isEdit = true;
+
+        databinding.ncConversation.setText(shareViewModel.getNewConversation().getChat());
+        databinding.ncDate.setText(shareViewModel.getNewConversation().getDate());
+        databinding.ncTime.setText(shareViewModel.getNewConversation().getTime());
+        databinding.ncPlace.setText(shareViewModel.getNewConversation().getPlace());
+        databinding.ncIsImportant.setIsRightClicked(!shareViewModel.getNewConversation().isImportant());
+        setPhotoToImageView(FileManager.getBitmapPhoto(shareViewModel.getNewConversation().getPhoto()));
+    }
+
+    private void setPhotoToImageView(Bitmap bitmap) {
+        if (bitmap != null) {
+            databinding.ncImage.setImageBitmap(bitmap);
+//                    userImage.setImageBitmap(getResizedBitmap(userImage, bitmap));
+            ImageHelper.resizeImage(databinding.ncImage, bitmap);
+            if (shareViewModel.getNewConversation() == null) {
+                databinding.ncImage.setRotation(0);
+                databinding.ncRotateRounder.setVisibility(View.INVISIBLE);
+            } else {
+                databinding.ncImage.setRotation(shareViewModel.getNewConversation().getAngle());
+                databinding.ncRotateRounder.setVisibility(View.VISIBLE);
+            }
+        }
+
     }
 
     private void initContactsRecyclerView(List<Contact> contacts) {
@@ -84,15 +119,18 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
         shareViewModel.getContactsList().observe(getActivity(), this::initContactsRecyclerView);
     }
 
-    private void setPhotoToImageView(Bitmap bitmap) {
-        databinding.ncImage.setImageBitmap(bitmap);
-    }
-
     private void setListeners() {
         databinding.ncButton.setOnClickListener(v -> {
-            shareViewModel.getNewConversation().addContact(shareViewModel.getThisContact().getValue().getId());
-            shareViewModel.getNewConversation().setChat(databinding.ncConversation.getText().toString());
-            shareViewModel.addNewConversation(getContext(), shareViewModel.getNewConversation());
+            if (isEdit) {
+                getAllDataFromFields();
+                shareViewModel.updateConversation(getContext());
+            } else {
+                shareViewModel.getNewConversation().addContact(shareViewModel.getThisContact().getValue().getId());
+                shareViewModel.getNewConversation().setChat(databinding.ncConversation.getText().toString());
+                shareViewModel.addNewConversation(getContext(), shareViewModel.getNewConversation());
+            }
+
+            shareViewModel.setNewConversation(null);
             shareViewModel.navigateToConversation();
         });
         databinding.ncDate.setListener(this::showDatePickerDialog);
@@ -113,6 +151,26 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
             photoPickerIntent.setType("image/*");
             startActivityForResult(photoPickerIntent, REQUEST_SELECT_IMAGE);
         });
+        databinding.ncRotateRounder.setOnClickListener(v -> {
+            float newAngle = 0;
+            if(shareViewModel.getNewConversation().getAngle() < 270) {
+                newAngle = shareViewModel.getNewConversation().getAngle() + 90;
+            }
+            databinding.ncImage.setRotation(newAngle);
+            shareViewModel.getNewConversation().setAngle(newAngle);
+        });
+    }
+
+    private void getAllDataFromFields() {
+        shareViewModel.getNewConversation().setChat(databinding.ncConversation.getText().toString());
+        shareViewModel.getNewConversation().setTime(databinding.ncTime.getText());
+        shareViewModel.getNewConversation().setDate(databinding.ncDate.getText());
+        shareViewModel.getNewConversation().setPlace(databinding.ncPlace.getText());
+//        shareViewModel.getNewConversation().setPhoto(); // es fa a l'activity
+        //TODO: fer botó de rotar
+//        shareViewModel.getNewConversation().setAngle();
+//        shareViewModel.getNewConversation().setContacts();
+        shareViewModel.getNewConversation().setImportant(!databinding.ncIsImportant.getIsRightClicked());
     }
 
     private void showDatePickerDialog() {
@@ -130,8 +188,8 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
     private void showTimePickerDialog() {
         TimePickerFragment newFragment = TimePickerFragment.newInstance((timePicker, hour, minute) -> {
             String time = hour + ":" + minute;
-            shareViewModel.getNewConversation().setDate(time);
-            databinding.ncDate.setText(time);
+            shareViewModel.getNewConversation().setTime(time);
+            databinding.ncTime.setText(time);
         });
 
         newFragment.show(getActivity().getSupportFragmentManager(), "timePicker");

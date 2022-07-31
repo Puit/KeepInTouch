@@ -25,6 +25,7 @@ import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInf
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONVERSATIONS;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_CONVERSATION;
 import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
+import static com.nunnos.keepintouch.utils.Constants.EXTRA_UPDATE_MAIN;
 
 public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactInfoViewModel, ActivityContactInfoBinding> {
 
@@ -102,6 +103,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
             try {
 
                 final Uri imageUri = data.getData();
+                if(getShareViewModel().getNewConversation() == null) return;
                 getShareViewModel().getNewConversation().setPhoto(FileManager.getPath(this, imageUri));
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 getShareViewModel().setNewConversationBitmap(BitmapFactory.decodeStream(imageStream));
@@ -130,12 +132,18 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         switch (viewModel.getNavigation().getValue()) {
             case NEW_CONVERSATION:
                 super.onBackPressed();
+                viewModel.setNewConversation(null);
                 viewModel.getNavigation().setValue(CONVERSATIONS);
                 break;
             case CONVERSATIONS:
             case CONTACT_INFO:
             case CONTACT_PERSONAL_DATA:
             default:
+                if(viewModel.isUpdateOnBack()){
+                    Intent replyIntent = new Intent();
+                    replyIntent.putExtra(EXTRA_UPDATE_MAIN, true);
+                    setResult(RESULT_OK, replyIntent);
+                }
                 finish();
         }
     }

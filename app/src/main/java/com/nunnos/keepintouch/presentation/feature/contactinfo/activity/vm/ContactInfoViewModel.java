@@ -1,7 +1,10 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm;
 
+import static com.nunnos.keepintouch.domain.model.Conversation.SEPARATOR;
+
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MediatorLiveData;
@@ -19,10 +22,9 @@ import com.nunnos.keepintouch.domain.model.Conversation;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.nunnos.keepintouch.domain.model.Conversation.SEPARATOR;
-
 public class ContactInfoViewModel extends ContactInfoNavigationViewModel implements LifecycleObserver {
 
+    private static final String TAG = "ContactInfoViewModel";
     private ContactDao contactDao;
     private ConversationDao conversationDao;
     private Conversation newConversation = new Conversation();
@@ -31,6 +33,8 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     private final MediatorLiveData<List<Contact>> contactsMD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Conversation>> conversationsMD = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> newConversationBitmap = new MediatorLiveData<>();
+
+    private boolean updateOnBack = false;
 
     private void setContactDao(Context context) {
         if (contactDao != null) return;
@@ -126,5 +130,34 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     public void setNewConversation(Conversation newConversation) {
         this.newConversation = newConversation;
+    }
+
+    public void updateThisContact(Context context) {
+        setContactDao(context);
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            if (thisContactMD.getValue() == null) {
+                Log.d(TAG, "updateThisContact: contact not found");
+            }
+            contactDao.update(ContactEntity.map(thisContactMD.getValue()));
+        });
+    }
+
+    public void updateConversation(Context context) {
+        setContactDao(context);
+        ConversationEntity entity = ConversationEntity.map(newConversation);
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            if (conversationsMD.getValue() == null) {
+                Log.d(TAG, "updateConversation: conversations not found");
+            }
+            conversationDao.update(entity);
+        });
+    }
+
+    public void updateOnBack() {
+        updateOnBack = true;
+    }
+
+    public boolean isUpdateOnBack() {
+        return updateOnBack;
     }
 }

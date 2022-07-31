@@ -99,6 +99,7 @@ public abstract class BaseActivityViewModelLiveData<VM extends BaseViewModel & L
     public void finish() {
         super.finish();
         //TODO: Recollir quina animació s'ha fet al cridar-la, fer switch case on es possi l'opossada al tancar
+        if(entranceAnimation == null) return;
         switch (entranceAnimation){
             case SLIDING_UP:
                 overrideSlidingTransition(R.anim.stay, R.anim.slide_out_down);

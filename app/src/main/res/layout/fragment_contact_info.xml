@@ -7,32 +7,181 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
+        <androidx.cardview.widget.CardView
+            android:id="@+id/contact_info_fav_rounder"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/background_transparent"
+            android:elevation="12dp"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            app:cardCornerRadius="40dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/contact_info_fav_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/background_transparent"
+                tools:src="@drawable/ic_baseline_favorite_red" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/contact_info_image"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:background="@drawable/head_box_background"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/personal_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="CONTACT INFO"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Name Surname1 Surname2" />
-
-
-        <com.nunnos.keepintouch.presentation.component.BottomMenu
-            android:id="@+id/second_bottom_menu"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:image1_unselected="@drawable/ic_launcher_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/contact_info_card_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="290dp"
+                android:backgroundTint="@color/white"
+                android:elevation="12dp"
+                android:innerRadius="0dp"
+                android:shape="ring"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                tools:layout_height="200dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/contact_info_name"
+                        style="@style/bold.black.24"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Josep Puit Rull" />
+
+                    <TextView
+                        android:id="@+id/contact_info_alias"
+                        style="@style/regular.black.20"
+                        android:layout_width="0dp"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/contact_info_name"
+                        tools:text="Mr_Puit" />
+
+                    <ImageView
+                        android:id="@+id/contact_info_chat_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:visibility="invisible"
+                        tools:visibility="visible"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/ic_baseline_chat_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/contact_info_alias" />
+
+                    <TextView
+                        android:id="@+id/contact_info_chat_quantity"
+                        style="@style/bold.yellow.24"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:visibility="invisible"
+                        tools:visibility="visible"
+                        android:layout_marginTop="21dp"
+                        app:layout_constraintEnd_toStartOf="@+id/contact_info_separator"
+                        app:layout_constraintStart_toEndOf="@+id/contact_info_chat_icon"
+                        app:layout_constraintTop_toBottomOf="@+id/contact_info_alias"
+                        tools:text="200 chats" />
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/contact_info_separator"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/contact_info_last_chat_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:visibility="invisible"
+                        tools:visibility="visible"
+                        android:src="@drawable/ic_baseline_access_time_24"
+                        app:layout_constraintStart_toEndOf="@+id/contact_info_separator"
+                        app:layout_constraintTop_toTopOf="@+id/contact_info_chat_icon" />
+
+                    <TextView
+                        android:id="@+id/contact_info_last_chat"
+                        style="@style/bold.yellow.24"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:visibility="invisible"
+                        tools:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="@+id/contact_info_last_chat_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/contact_info_last_chat_icon"
+                        app:layout_constraintTop_toTopOf="@+id/contact_info_last_chat_icon"
+                        tools:text="10/12/2012" />
+
+                    <ImageView
+                        android:id="@+id/contact_info_location_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="20dp"
+                        android:visibility="invisible"
+                        tools:visibility="visible"
+                        android:src="@drawable/ic_baseline_location_on_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/contact_info_chat_icon" />
+
+                    <TextView
+                        android:id="@+id/contact_info_location"
+                        style="@style/bold.yellow.24"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="29dp"
+                        android:visibility="invisible"
+                        tools:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/contact_info_location_icon"
+                        app:layout_constraintTop_toBottomOf="@+id/contact_info_chat_quantity"
+                        tools:text="El Prat de Llobregat" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/contact_info_recyclerview_chats"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/contact_info_location">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

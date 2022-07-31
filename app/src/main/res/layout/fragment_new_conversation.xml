@@ -6,8 +6,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:paddingBottom="60dp"
         app:layout_constraintBottom_toTopOf="@+id/btnSaveTime"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -15,15 +13,53 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/nc_image"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/nc_image_card"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
+                android:layout_centerHorizontal="true"
+                android:elevation="12dp"
+                android:innerRadius="0dp"
+                app:cardCornerRadius="0dp"
                 android:background="@color/background_gray_light"
                 android:src="@drawable/ic_person_full"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" >
 
+                <ImageView
+                    android:id="@+id/nc_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@color/white" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/nc_rotate_rounder"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/background_transparent"
+                android:elevation="12dp"
+                android:innerRadius="0dp"
+                android:shape="ring"
+                android:thicknessRatio="1.9"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/nc_rotate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/background_white_20"
+                    android:src="@drawable/ic_baseline_rotate_left_24" />
+            </androidx.cardview.widget.CardView>
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/nc_add_image_button"
                 android:layout_width="wrap_content"
@@ -32,9 +68,9 @@
                 android:background="@color/purple_700"
                 android:elevation="1dp"
                 android:src="@drawable/ic_chat"
-                app:layout_constraintBottom_toBottomOf="@+id/nc_image"
+                app:layout_constraintBottom_toBottomOf="@+id/nc_image_card"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nc_image" />
+                app:layout_constraintTop_toBottomOf="@+id/nc_image_card" />
 
             <EditText
                 android:id="@+id/nc_conversation"
@@ -49,7 +85,7 @@
                 app:edit_text_hint_text="Conversation..."
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nc_image"
+                app:layout_constraintTop_toBottomOf="@+id/nc_image_card"
                 tools:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat mas" />
 
             <com.nunnos.keepintouch.presentation.component.CustomEditText
@@ -91,7 +127,7 @@
                 app:edit_text_clickable="true"
                 app:edit_text_focusable="false"
                 app:edit_text_hint_text="Time"
-                app:edit_text_text="DD/MM/YYYY"
+                app:edit_text_text="hh:mm"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/nc_date"
                 app:layout_constraintTop_toBottomOf="@+id/nc_place" />

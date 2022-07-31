@@ -25,9 +25,7 @@
             app:layout_constraintBottom_toTopOf="@+id/contact_info_activity_bottom_menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </FrameLayout>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.nunnos.keepintouch.presentation.component.BottomMenu
             android:id="@+id/contact_info_activity_bottom_menu"
