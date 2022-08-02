@@ -3,16 +3,18 @@ package com.nunnos.keepintouch.presentation.feature.contactinfo;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_INFO;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_PERSONAL_DATA;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONVERSATIONS;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.EDIT_CONTACT;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_CONVERSATION;
 
 import androidx.annotation.NonNull;
 
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.ContactInfoActivity;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
-import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.ContactInfoFragment;
-import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.ContactPersonalDataFragment;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.info.ContactInfoFragment;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.personaldata.ContactPersonalDataFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation.ConversationsFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation.NewConversationFragment;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.personaldata.EditContactFragment;
 
 public abstract class ContactInfoNavigationManager {
     private ContactInfoNavigationManager() {
@@ -33,6 +35,9 @@ public abstract class ContactInfoNavigationManager {
             case NEW_CONVERSATION:
                 showNewConversation(activity);
                 break;
+            case EDIT_CONTACT:
+                showEditContact(activity);
+                break;
             default:
                 throw new IllegalStateException("ContactInfoNavigationManager error, navigation has not been implementad");
         }
@@ -52,5 +57,8 @@ public abstract class ContactInfoNavigationManager {
 
     private static void showNewConversation(ContactInfoActivity activity) {
         activity.overrideSlidingUpTransition(NewConversationFragment.newInstance());
+    }
+    private static void showEditContact(ContactInfoActivity activity) {
+        activity.overrideSlidingUpTransition(EditContactFragment.newInstance());
     }
 }

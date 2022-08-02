@@ -7,6 +7,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/contact_personal_data_fav_rounder"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/background_transparent"
+            android:elevation="12dp"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            app:cardCornerRadius="40dp"
+            app:cardElevation="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/contact_personal_data_fav_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/background_transparent"
+                tools:src="@drawable/ic_baseline_more_vert_24" />
+        </androidx.cardview.widget.CardView>
         <View
             android:layout_width="match_parent"
             android:layout_height="300dp"

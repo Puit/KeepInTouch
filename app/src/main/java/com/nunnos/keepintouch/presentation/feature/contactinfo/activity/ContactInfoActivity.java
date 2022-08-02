@@ -1,5 +1,13 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.activity;
 
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_INFO;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_PERSONAL_DATA;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONVERSATIONS;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.EDIT_CONTACT;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_CONVERSATION;
+import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
+import static com.nunnos.keepintouch.utils.Constants.EXTRA_UPDATE_MAIN;
+
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -20,18 +28,12 @@ import com.nunnos.keepintouch.utils.FileManager;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_INFO;
-import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_PERSONAL_DATA;
-import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONVERSATIONS;
-import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_CONVERSATION;
-import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
-import static com.nunnos.keepintouch.utils.Constants.EXTRA_UPDATE_MAIN;
-
 public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactInfoViewModel, ActivityContactInfoBinding> {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel.retrieveLastIndex(this);
         getContact();
         setView();
         initObservers();
@@ -84,6 +86,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
                 dataBinding.contactInfoActivityBottomMenu.setVisibility(View.VISIBLE);
                 break;
             case NEW_CONVERSATION:
+            case EDIT_CONTACT:
                 dataBinding.contactInfoActivityBottomMenu.setVisibility(View.GONE);
                 break;
             default:
@@ -95,6 +98,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         viewModel.navigateToContactInfo();
         dataBinding.contactInfoActivityBottomMenu.setItemSelected(3); // Marca el botón de chat
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -102,7 +106,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
             //Data es null porque la imagen se guarda en storage
             try {
                 final Uri imageUri = data.getData();
-                if(getShareViewModel().getNewConversation() == null) return;
+                if (getShareViewModel().getNewConversation() == null) return;
                 getShareViewModel().getNewConversation().setPhoto(FileManager.getPath(this, imageUri));
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 getShareViewModel().setNewConversationBitmap(BitmapFactory.decodeStream(imageStream));
@@ -112,6 +116,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
             }
         }
     }
+
     /*******************************************
      * IMPLEMENTATION BASE CLASS
      * *****************************************/
@@ -134,11 +139,14 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
                 viewModel.setNewConversation(null);
                 viewModel.getNavigation().setValue(CONVERSATIONS);
                 break;
+            case EDIT_CONTACT:
+                viewModel.getNavigation().setValue(CONTACT_PERSONAL_DATA);
+                break;
             case CONVERSATIONS:
             case CONTACT_INFO:
             case CONTACT_PERSONAL_DATA:
             default:
-                if(viewModel.isUpdateOnBack()){
+                if (viewModel.isUpdateOnBack()) {
                     Intent replyIntent = new Intent();
                     replyIntent.putExtra(EXTRA_UPDATE_MAIN, true);
                     setResult(RESULT_OK, replyIntent);

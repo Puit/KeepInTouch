@@ -1,10 +1,7 @@
 package com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +13,8 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nunnos.keepintouch.R;
-import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
 
 public class BackgroundColorPickerFragment extends DialogFragment {
-    private MainActivity activity;
-
     private BGPickerListener listener;
 
     private FloatingActionButton redBtn;
@@ -53,6 +47,7 @@ public class BackgroundColorPickerFragment extends DialogFragment {
         fragment.setListener(listener);
         return fragment;
     }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -180,23 +175,13 @@ public class BackgroundColorPickerFragment extends DialogFragment {
         });
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof Activity) {
-            this.activity = (MainActivity) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractinoListener");
-        }
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    public interface BGPickerListener{
+    public interface BGPickerListener {
         void onSelected(int bgSelected);
     }
 }

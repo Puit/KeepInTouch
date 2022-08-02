@@ -2,6 +2,7 @@ package com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm;
 
 import static com.nunnos.keepintouch.domain.model.Conversation.SEPARATOR;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -28,11 +29,13 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     private ContactDao contactDao;
     private ConversationDao conversationDao;
     private Conversation newConversation = new Conversation();
+    private int lastIndex = 0;
 
     private final MediatorLiveData<Contact> thisContactMD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Contact>> contactsMD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Conversation>> conversationsMD = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> newConversationBitmap = new MediatorLiveData<>();
+    private final MediatorLiveData<Bitmap> thisContactBitmap = new MediatorLiveData<>();
 
     private boolean updateOnBack = false;
 
@@ -103,11 +106,24 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
             //TODO SHOW ERROR
         }
     }
+
     public void deleteConversation(Context context, Conversation newConversation) {
         setConversationDao(context);
         if (thisContactMD != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 conversationDao.deleteById(newConversation.getId());
+            });
+        } else {
+            //TODO SHOW ERROR
+        }
+    }
+
+    public void deleteContact(Activity activity, Contact contact) {
+        setConversationDao(activity);
+        if (thisContactMD != null) {
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                contactDao.deleteById(contact.getId());
+                activity.finish();
             });
         } else {
             //TODO SHOW ERROR
@@ -152,6 +168,16 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         });
     }
 
+    public void updateThisContact(Context context, Contact contact) {
+        setContactDao(context);
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            if (thisContactMD.getValue() == null) {
+                Log.d(TAG, "updateThisContact: contact not found");
+            }
+            contactDao.update(ContactEntity.map(contact));
+        });
+    }
+
     public void updateConversation(Context context) {
         setContactDao(context);
         ConversationEntity entity = ConversationEntity.map(newConversation);
@@ -169,5 +195,28 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     public boolean isUpdateOnBack() {
         return updateOnBack;
+    }
+
+    public MediatorLiveData<Bitmap> getThisContactBitmap() {
+        return thisContactBitmap;
+    }
+
+    public void setThisContactBitmap(Bitmap newContactBitmap) {
+        this.thisContactBitmap.setValue(newContactBitmap);
+    }
+
+    public void retrieveLastIndex(Context context) {
+        setContactDao(context);
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            lastIndex = contactDao.getLastIndex();
+        });
+    }
+
+    public int getLastIndex() {
+        return lastIndex;
+    }
+
+    public void setLastIndex(int lastIndex) {
+        this.lastIndex = lastIndex;
     }
 }

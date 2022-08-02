@@ -1,4 +1,4 @@
-package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment;
+package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.info;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;

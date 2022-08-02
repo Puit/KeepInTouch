@@ -1,4 +1,4 @@
-package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment;
+package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.personaldata;
 
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +33,7 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
     }
 
     private void initListeners() {
+        databinding.contactPersonalDataFavRounder.setOnClickListener(v -> shareViewModel.showEditContactFragment());
     }
 
     private void setView() {

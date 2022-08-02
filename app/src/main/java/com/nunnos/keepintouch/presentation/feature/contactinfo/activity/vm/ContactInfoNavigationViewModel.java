@@ -16,15 +16,21 @@ public class ContactInfoNavigationViewModel extends BaseViewModel {
     public void navigateToConversation() {
         navigation.setValue(ContactInfoNavigation.CONVERSATIONS);
     }
+
     public void showNewConversationFragment() {
         navigation.setValue(ContactInfoNavigation.NEW_CONVERSATION);
     }
+
     public void navigateToContactInfo() {
         navigation.setValue(ContactInfoNavigation.CONTACT_INFO);
     }
 
     public void navigateToContactPersonalData() {
         navigation.setValue(ContactInfoNavigation.CONTACT_PERSONAL_DATA);
+    }
+
+    public void showEditContactFragment() {
+        navigation.setValue(ContactInfoNavigation.EDIT_CONTACT);
     }
 
     @Override

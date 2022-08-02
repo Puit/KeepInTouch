@@ -30,10 +30,10 @@
                 android:innerRadius="0dp"
                 android:shape="ring"
                 android:thicknessRatio="1.9"
+                android:visibility="gone"
                 app:cardCornerRadius="50dp"
                 app:cardElevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
@@ -88,6 +88,7 @@
                     android:layout_marginTop="20dp"
                     app:edit_text_hint_text="Surname 2"
                     tools:edit_text_text="Surname 2" />
+
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
                     android:id="@+id/new_contact_alias"
                     android:layout_width="match_parent"
@@ -228,13 +229,19 @@
                     app:image_focusable="false" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/new_contact_button"
+                    android:id="@+id/new_contact_save_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Go to Second Fragment"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:text="Save" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/new_contact_delete_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/background_red"
+                    android:text="Delete"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -244,8 +251,12 @@
         <import type="android.view.View" />
 
         <variable
-            name="shareviewmodel"
+            name="shareviewmodelmain"
             type="com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel" />
+
+        <variable
+            name="shareviewmodeleditcontact"
+            type="com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel" />
 
         <variable
             name="viewmodel"
