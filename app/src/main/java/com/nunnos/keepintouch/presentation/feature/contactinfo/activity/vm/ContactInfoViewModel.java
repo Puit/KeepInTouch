@@ -103,6 +103,16 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
             //TODO SHOW ERROR
         }
     }
+    public void deleteConversation(Context context, Conversation newConversation) {
+        setConversationDao(context);
+        if (thisContactMD != null) {
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                conversationDao.deleteById(newConversation.getId());
+            });
+        } else {
+            //TODO SHOW ERROR
+        }
+    }
 
     public MediatorLiveData<Bitmap> getNewConversationBitmap() {
         return newConversationBitmap;

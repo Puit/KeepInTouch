@@ -4,10 +4,8 @@ import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +23,7 @@ import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVIT
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.TimePickerFragment;
+import com.nunnos.keepintouch.utils.AlertsManager;
 import com.nunnos.keepintouch.utils.FileManager;
 import com.nunnos.keepintouch.utils.ImageHelper;
 
@@ -56,7 +55,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
     }
 
     private void setView() {
-        if (shareViewModel.getNewConversation() != null) {
+        if (shareViewModel.getNewConversation() != null && !shareViewModel.getNewConversation().isEmpty()) {
             setViewForEdit();
         } else {
             databinding.ncIsImportant.setIsRightClicked(true);
@@ -72,6 +71,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
         databinding.ncPlace.setText(shareViewModel.getNewConversation().getPlace());
         databinding.ncIsImportant.setIsRightClicked(!shareViewModel.getNewConversation().isImportant());
         setPhotoToImageView(FileManager.getBitmapPhoto(shareViewModel.getNewConversation().getPhoto()));
+        databinding.ncDeleteButton.setVisibility(View.VISIBLE);
     }
 
     private void setPhotoToImageView(Bitmap bitmap) {
@@ -120,7 +120,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
     }
 
     private void setListeners() {
-        databinding.ncButton.setOnClickListener(v -> {
+        databinding.ncSaveButton.setOnClickListener(v -> {
             if (isEdit) {
                 getAllDataFromFields();
                 shareViewModel.updateConversation(getContext());
@@ -132,6 +132,28 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
 
             shareViewModel.setNewConversation(null);
             shareViewModel.navigateToConversation();
+        });
+        databinding.ncDeleteButton.setOnClickListener(v ->{
+            AlertsManager.TwoButtonsAlertListener listener = new AlertsManager.TwoButtonsAlertListener() {
+                @Override
+                public void onLeftClick() {
+                    shareViewModel.deleteConversation(getContext(), shareViewModel.getNewConversation());
+
+                    shareViewModel.setNewConversation(null);
+                    shareViewModel.navigateToConversation();
+                    //TODO: FORÇAR QUE REFRESQUI
+                }
+
+                @Override
+                public void onRightClick() {
+                    //Do nothing
+                }
+            };
+            AlertsManager.showTwoButtonsAlert(getActivity(), listener,
+                    "¿Estas seguro de querer borrar este mensaje?",
+                    "Aceptar",
+                    "Cancelar",
+                    true);
         });
         databinding.ncDate.setListener(this::showDatePickerDialog);
         databinding.ncTime.setListener(this::showTimePickerDialog);
@@ -153,7 +175,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
         });
         databinding.ncRotateRounder.setOnClickListener(v -> {
             float newAngle = 0;
-            if(shareViewModel.getNewConversation().getAngle() < 270) {
+            if (shareViewModel.getNewConversation().getAngle() < 270) {
                 newAngle = shareViewModel.getNewConversation().getAngle() + 90;
             }
             databinding.ncImage.setRotation(newAngle);

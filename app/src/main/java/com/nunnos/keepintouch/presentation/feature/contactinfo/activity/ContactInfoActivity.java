@@ -101,7 +101,6 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         if (resultCode == RESULT_OK) {
             //Data es null porque la imagen se guarda en storage
             try {
-
                 final Uri imageUri = data.getData();
                 if(getShareViewModel().getNewConversation() == null) return;
                 getShareViewModel().getNewConversation().setPhoto(FileManager.getPath(this, imageUri));

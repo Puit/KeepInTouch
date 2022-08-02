@@ -132,4 +132,27 @@ public class Conversation {
     public void setAngle(float angle) {
         this.angle = angle;
     }
+
+    public boolean isEmpty() {
+        boolean empty = true;
+        if (id > 0) {
+            empty = false;
+        }
+        if (photo == null) {
+            empty = false;
+        }
+        if (date == null) {
+            empty = false;
+        }
+        if (time == null) {
+            empty = false;
+        }
+        if (chat == null) {
+            empty = false;
+        }
+        if (place == null) {
+            empty = false;
+        }
+        return empty;
+    }
 }
