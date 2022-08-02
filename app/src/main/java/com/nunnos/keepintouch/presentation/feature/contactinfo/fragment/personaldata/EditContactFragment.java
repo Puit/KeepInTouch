@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -78,6 +79,8 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactPe
     private void initView() {
         initRecyclerViews();
         databinding.newContactDeleteButton.setVisibility(View.VISIBLE);
+        databinding.newContactEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        databinding.newContactTelephone.setInputType(InputType.TYPE_CLASS_NUMBER);
     }
 
     private void setView() {
@@ -99,6 +102,8 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactPe
         databinding.newContactRelatives.setText(newContact.getRelatives());
         setPhotoToImageView(FileManager.getBitmapPhoto(newContact.getPhoto()), newContact.getAngle());
         databinding.newContactImage.setRotation(newContact.getAngle());
+        databinding.newContactTelephone.setText(newContact.getTelephone());
+        databinding.newContactEmail.setText(newContact.getEmail());
     }
 
     private void initRecyclerViews() {
@@ -226,7 +231,9 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactPe
                     shareViewModel.getThisContact().getValue().getPhoto(),
                     shareViewModel.getThisContact().getValue().getAngle(),
                     shareViewModel.getLastIndex(),
-                    databinding.newContactAlias.getText());
+                    databinding.newContactAlias.getText(),
+                    databinding.newContactTelephone.getText(),
+                    databinding.newContactEmail.getText());
             shareViewModel.updateThisContact(getContext(), contact);
             shareViewModel.navigateToContactPersonalData();
         } else {

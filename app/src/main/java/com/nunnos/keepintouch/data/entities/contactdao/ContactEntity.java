@@ -1,13 +1,13 @@
 package com.nunnos.keepintouch.data.entities.contactdao;
 
+import static com.nunnos.keepintouch.data.entities.contactdao.ContactsDaoConstants.TABLE_NAME;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.nunnos.keepintouch.domain.model.Contact;
-
-import static com.nunnos.keepintouch.data.entities.contactdao.ContactsDaoConstants.TABLE_NAME;
 
 @Entity(tableName = TABLE_NAME)
 public class ContactEntity {
@@ -78,10 +78,17 @@ public class ContactEntity {
     @ColumnInfo(name = "alias")
     public String alias;
 
+    @ColumnInfo(name = "telephone")
+    public String telephone;
+
+    @ColumnInfo(name = "email")
+    public String email;
+
     public ContactEntity(int id, String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                          boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                          String language, String religion, String relatives, String conversations,
-                         boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias) {
+                         boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias,
+                         String telephone, String email) {
         this.id = id;
         this.name = name;
         this.surname1 = surname1;
@@ -104,12 +111,15 @@ public class ContactEntity {
         this.angle = angle;
         this.lastActionIndex = lastActionIndex;
         this.alias = alias;
+        this.telephone = telephone;
+        this.email = email;
     }
 
     public ContactEntity(String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                          boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                          String language, String religion, String relatives, String conversations,
-                         boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias) {
+                         boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias,
+                         String telephone, String email) {
         this.name = name;
         this.surname1 = surname1;
         this.surname2 = surname2;
@@ -131,6 +141,8 @@ public class ContactEntity {
         this.angle = angle;
         this.lastActionIndex = lastActionIndex;
         this.alias = alias;
+        this.telephone = telephone;
+        this.email = email;
     }
 
     public ContactEntity() {
@@ -143,13 +155,13 @@ public class ContactEntity {
                     c.getSexualOrientation(), c.getBirthday(), c.isRealBirthday(), c.getAddress(), c.getProfession(),
                     c.getPlaceOfWork(), c.getHowWeMet(), c.getLanguage(), c.getReligion(), c.getRelatives(),
                     c.getConversations(), c.isFavorite(), c.getBgColor(), c.getPhoto(), c.getAngle(),
-                    c.getLastActionIndex(), c.getAlias());
+                    c.getLastActionIndex(), c.getAlias(), c.getTelephone(), c.getEmail());
         } else {
             return new ContactEntity(c.getName(), c.getSurname1(), c.getSurname2(), c.getGender(),
                     c.getSexualOrientation(), c.getBirthday(), c.isRealBirthday(), c.getAddress(), c.getProfession(),
                     c.getPlaceOfWork(), c.getHowWeMet(), c.getLanguage(), c.getReligion(), c.getRelatives(),
                     c.getConversations(), c.isFavorite(), c.getBgColor(), c.getPhoto(), c.getAngle(),
-                    c.getLastActionIndex(), c.getAlias());
+                    c.getLastActionIndex(), c.getAlias(), c.getTelephone(), c.getEmail());
         }
     }
 }

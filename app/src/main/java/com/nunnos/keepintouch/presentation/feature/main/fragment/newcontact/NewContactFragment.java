@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewMode
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.BackgroundColorPickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.vm.NewContactViewModel;
+import com.nunnos.keepintouch.utils.Constants;
 import com.nunnos.keepintouch.utils.ImageHelper;
 
 import java.util.ArrayList;
@@ -73,6 +75,10 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
 
     private void initView() {
         initRecyclerViews();
+        shareViewModel.getNewContact().setBgColor(Constants.DEFAULT_CARD_BG_COLOR);
+        databinding.newContactBackgroundColor.setColorId(Constants.DEFAULT_CARD_BG_COLOR);
+        databinding.newContactEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        databinding.newContactTelephone.setInputType(InputType.TYPE_CLASS_NUMBER);
     }
 
     private void setView() {
@@ -217,7 +223,9 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
                     shareViewModel.getNewContact().getPhoto(),
                     shareViewModel.getNewContact().getAngle(),
                     shareViewModel.getLastIndex(),
-                    databinding.newContactAlias.getText());
+                    databinding.newContactAlias.getText(),
+                    databinding.newContactTelephone.getText(),
+                    databinding.newContactEmail.getText());
             shareViewModel.saveContact(getContext(), contact);
             shareViewModel.navigateToMain();
         } else {

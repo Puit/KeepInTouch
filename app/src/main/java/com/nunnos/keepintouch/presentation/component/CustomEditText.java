@@ -106,6 +106,12 @@ public class CustomEditText extends ConstraintLayout {
         databinding.etTitle.setText(text);
     }
 
+    public void setInputType(int... types) {
+        for (int t : types) {
+            databinding.etTitle.setInputType(t);
+        }
+    }
+
     public interface CustomListener {
         void onItemClick();
     }

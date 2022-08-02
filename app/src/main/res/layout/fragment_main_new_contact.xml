@@ -94,7 +94,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Name" />
+                    app:edit_text_hint_text="Alias" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_telephone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Telephone" />
+
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                    android:id="@+id/new_contact_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:edit_text_hint_text="Email" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
