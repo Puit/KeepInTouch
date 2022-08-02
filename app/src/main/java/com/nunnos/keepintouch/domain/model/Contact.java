@@ -133,49 +133,49 @@ public class Contact {
         if (id > 0) {
             empty = false;
         }
-        if (photo == null) {
+        if (photo != null) {
             empty = false;
         }
-        if (name == null) {
+        if (name != null) {
             empty = false;
         }
-        if (surname1 == null) {
+        if (surname1 != null) {
             empty = false;
         }
-        if (surname2 == null) {
+        if (surname2 != null) {
             empty = false;
         }
-        if (gender == null) {
+        if (gender != null) {
             empty = false;
         }
-        if (sexualOrientation == null) {
+        if (sexualOrientation != null) {
             empty = false;
         }
-        if (birthday == null) {
+        if (birthday != null) {
             empty = false;
         }
-        if (address == null) {
+        if (address != null) {
             empty = false;
         }
-        if (profession == null) {
+        if (profession != null) {
             empty = false;
         }
-        if (placeOfWork == null) {
+        if (placeOfWork != null) {
             empty = false;
         }
-        if (howWeMet == null) {
+        if (howWeMet != null) {
             empty = false;
         }
-        if (language == null) {
+        if (language != null) {
             empty = false;
         }
-        if (religion == null) {
+        if (religion != null) {
             empty = false;
         }
-        if (relatives == null) {
+        if (relatives != null) {
             empty = false;
         }
-        if (conversations == null) {
+        if (conversations != null) {
             empty = false;
         }
         return empty;

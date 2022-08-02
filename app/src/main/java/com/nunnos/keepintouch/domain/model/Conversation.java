@@ -138,19 +138,19 @@ public class Conversation {
         if (id > 0) {
             empty = false;
         }
-        if (photo == null) {
+        if (photo != null) {
             empty = false;
         }
-        if (date == null) {
+        if (date != null) {
             empty = false;
         }
-        if (time == null) {
+        if (time != null) {
             empty = false;
         }
-        if (chat == null) {
+        if (chat != null) {
             empty = false;
         }
-        if (place == null) {
+        if (place != null) {
             empty = false;
         }
         return empty;

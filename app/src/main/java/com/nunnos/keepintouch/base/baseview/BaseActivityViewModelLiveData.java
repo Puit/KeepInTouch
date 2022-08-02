@@ -21,7 +21,6 @@ public abstract class BaseActivityViewModelLiveData<VM extends BaseViewModel & L
     private enum Animation {
         NO_ANIMATION,
         SLIDING_UP;
-
     }
 
     private static final String TAG = "BaseActivityVMLiveData";

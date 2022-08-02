@@ -50,7 +50,9 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
     }
 
     private void initObservers() {
-        viewModel.getNavigation().observe(this, navigation -> MainNavigationManager.goTo(this, navigation, viewModel));
+        viewModel.getNavigation().observe(this, navigation -> {
+            MainNavigationManager.goTo(this, navigation, viewModel);
+        });
     }
 
     private Context getFragmentContext() {

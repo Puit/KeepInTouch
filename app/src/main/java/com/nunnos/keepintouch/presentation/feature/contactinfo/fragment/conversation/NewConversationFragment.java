@@ -55,7 +55,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
     }
 
     private void setView() {
-        if (shareViewModel.getNewConversation() != null && !shareViewModel.getNewConversation().isEmpty()) {
+        if (shareViewModel.getNewConversation() != null  && !shareViewModel.getNewConversation().isEmpty()) {
             setViewForEdit();
         } else {
             databinding.ncIsImportant.setIsRightClicked(true);

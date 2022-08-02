@@ -30,7 +30,7 @@ public class MainNavigationManager {
                 navigateToNewContact(activity);
                 break;
             case CONTACT_INFO:
-                navigateToContactInfo(activity, viewModel);
+                navigateToContactInfoActivity(activity, viewModel);
                 break;
             default:
                 throw new IllegalStateException("ContactInfoNavigationManager error, navigation has not been implementad");
@@ -45,10 +45,9 @@ public class MainNavigationManager {
         activity.overrideSlidingUpTransition(NewContactFragment.newInstance());
     }
 
-    private static void navigateToContactInfo(MainActivity activity, MainViewModel viewModel) {
+    private static void navigateToContactInfoActivity(MainActivity activity, MainViewModel viewModel) {
         Intent intent = new Intent(activity.getApplicationContext(), ContactInfoActivity.class);
         intent.putExtra(EXTRA_CONTACT_SELECTED_ID, viewModel.getContactSelectedID());
-//        intent.putParcelableArrayListExtra( ..., ...);
-        activity.startActivityForResult(intent, REQUEST_NAVIGATE_TO_CONTACT_INFO);
+        activity.launchSlidingUpActivity(intent);
     }
 }
