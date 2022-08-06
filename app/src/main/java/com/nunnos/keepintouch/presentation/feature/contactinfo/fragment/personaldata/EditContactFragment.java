@@ -233,7 +233,8 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactPe
                     shareViewModel.getLastIndex(),
                     databinding.newContactAlias.getText(),
                     databinding.newContactTelephone.getText(),
-                    databinding.newContactEmail.getText());
+                    databinding.newContactEmail.getText(),
+                    "");
             shareViewModel.updateThisContact(getContext(), contact);
             shareViewModel.navigateToContactPersonalData();
         } else {
