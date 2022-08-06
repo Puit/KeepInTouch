@@ -18,9 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
-            android:background="@color/purple_700"
+            android:backgroundTint="@color/text_accent_yellow"
             android:elevation="1dp"
-            android:src="@drawable/ic_chat"
+            android:src="@drawable/ic_baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

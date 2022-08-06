@@ -67,9 +67,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:background="@color/purple_700"
+                android:backgroundTint="@color/text_accent_yellow"
                 android:elevation="1dp"
-                android:src="@drawable/ic_chat"
+                android:src="@drawable/ic_baseline_add_photo_alternate_24"
                 app:layout_constraintBottom_toBottomOf="@+id/nc_image_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nc_image_card" />
