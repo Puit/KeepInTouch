@@ -63,7 +63,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     public void retrieveConversations(Context context) {
         setConversationDao(context);
-        if (thisContactMD != null) {
+        if (thisContactMD != null && thisContactMD.getValue() != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 List<ConversationEntity> conversationEntityList = conversationDao.getAllFromContactId(SEPARATOR + thisContactMD.getValue().getId() + SEPARATOR);
                 if (conversationEntityList.isEmpty()) {

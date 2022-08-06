@@ -36,12 +36,13 @@ public class Contact {
     private String alias;
     private String telephone;
     private String email;
+    private String comments;
 
     public Contact(int id, String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                    boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                    String language, String religion, String relatives, String conversations,
                    boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias,
-                   String telephone, String email) {
+                   String telephone, String email, String comments) {
         this.id = id;
         this.name = name;
         this.surname1 = surname1;
@@ -66,13 +67,14 @@ public class Contact {
         this.alias = alias;
         this.telephone = telephone;
         this.email = email;
+        this.comments = comments;
     }
 
     public Contact(String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                    boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                    String language, String religion, String relatives, String conversations,
                    boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias,
-                   String telephone, String email) {
+                   String telephone, String email, String comments) {
         this.name = name;
         this.surname1 = surname1;
         this.surname2 = surname2;
@@ -96,6 +98,7 @@ public class Contact {
         this.alias = alias;
         this.telephone = telephone;
         this.email = email;
+        this.comments = comments;
     }
 
     public Contact() {
@@ -107,7 +110,7 @@ public class Contact {
                 entity.sexualOrientation, entity.birthday, entity.realBirthday, entity.address, entity.profession,
                 entity.placeOfWork, entity.howWeMet, entity.language, entity.religion, entity.relatives,
                 entity.conversations, entity.favorite, entity.bgColor, entity.photo, entity.angle,
-                entity.lastActionIndex, entity.alias, entity.telephone, entity.email);
+                entity.lastActionIndex, entity.alias, entity.telephone, entity.email, entity.comments);
     }
 
     public int getAge() {
@@ -389,5 +392,13 @@ public class Contact {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 }

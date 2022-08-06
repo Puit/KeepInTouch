@@ -26,7 +26,10 @@ public interface ConversationDao {
     @Query("DELETE FROM " + TABLE_NAME + " WHERE Id = :id")
     void deleteById(int id);
 
-    //TODO: PROBAR
     @Query("SELECT * FROM " + TABLE_NAME + " WHERE " + TABLE_NAME + ".contacts LIKE :userId ORDER BY Date DESC")
     List<ConversationEntity> getAllFromContactId(String userId); //DEBE USARSE CON COMMA + ID + COMMA
+
+    //TODO: PROBAR, per borrar tots els chats que només influeixin a un usuari quan aquest es borrat
+    @Query("DELETE FROM " + TABLE_NAME + " WHERE " + TABLE_NAME + ".contacts IS :userId")
+    void deleteAllFromUser(String userId); //DEBE USARSE CON COMMA + ID + COMMA
 }

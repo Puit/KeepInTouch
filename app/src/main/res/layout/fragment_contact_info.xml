@@ -130,7 +130,7 @@
                         app:layout_constraintTop_toTopOf="@+id/contact_info_chat_icon" />
 
                     <TextView
-                        android:id="@+id/contact_info_last_chat"
+                        android:id="@+id/contact_info_last_chat_date"
                         style="@style/bold.yellow.24"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

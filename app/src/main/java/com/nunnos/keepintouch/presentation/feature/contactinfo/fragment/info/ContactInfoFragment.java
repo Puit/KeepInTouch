@@ -38,19 +38,44 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        shareViewModel.retrieveConversations(getContext());
         initObservers();
         initListeners();
     }
 
     private void initObservers() {
         shareViewModel.getThisContact().observe(getViewLifecycleOwner(), this::onContactReceived);
+        shareViewModel.getConversations().observe(getViewLifecycleOwner(), this::onConversationsReceived);
     }
 
     private void onContactReceived(Contact contact) {
-        setView(contact);
+        setContactInfo(contact);
     }
 
-    private void setView(Contact contact) {
+    private void onConversationsReceived(List<Conversation> conversations) {
+        setConversationsInfo(conversations);
+    }
+
+    private void setConversationsInfo(List<Conversation> conversations) {
+        if (conversations != null && conversations.size() > 0) {
+            Conversation mostRecentConversation = getMostRecentConverstion(conversations);
+            if(mostRecentConversation == null) return;
+            databinding.contactInfoLastChatIcon.setVisibility(View.VISIBLE);
+            databinding.contactInfoChatIcon.setVisibility(View.VISIBLE);
+            databinding.contactInfoChatQuantity.setVisibility(View.VISIBLE);
+            databinding.contactInfoLastChatDate.setVisibility(View.VISIBLE);
+            databinding.contactInfoLastChatDate.setText(mostRecentConversation.getDate());
+            databinding.contactInfoChatQuantity.setText(String.valueOf(conversations.size()));
+            if (!mostRecentConversation.getPlace().isEmpty()) {
+                databinding.contactInfoLocation.setVisibility(View.VISIBLE);
+                databinding.contactInfoLocationIcon.setVisibility(View.VISIBLE);
+                databinding.contactInfoLocation.setText(mostRecentConversation.getPlace());
+
+            }
+        }
+    }
+
+    private void setContactInfo(Contact contact) {
         setFavImage();
         setUserImage(contact);
         databinding.contactInfoName.setText(contact.getName());
@@ -58,26 +83,21 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
             databinding.contactInfoAlias.setText(contact.getAlias());
             databinding.contactInfoAlias.setVisibility(View.VISIBLE);
         }
-        if (shareViewModel.getConversations().getValue() != null && shareViewModel.getConversations().getValue().size() > 0) {
-            databinding.contactInfoChatIcon.setVisibility(View.VISIBLE);
-            databinding.contactInfoChatQuantity.setVisibility(View.VISIBLE);
-            databinding.contactInfoLastChatIcon.setVisibility(View.VISIBLE);
-            databinding.contactInfoLastChat.setVisibility(View.VISIBLE);
-            databinding.contactInfoLastChat.setText(getLastChatDate(shareViewModel.getConversations().getValue()));
-            databinding.contactInfoChatQuantity.setText(String.valueOf(shareViewModel.getConversations().getValue().size()));
-        }
     }
 
-    private String getLastChatDate(List<Conversation> conversations) {
+    private Conversation getMostRecentConverstion(List<Conversation> conversations) {
         Date lastChatDate = null;
+        Conversation mostRecentConversation = null;
         try {
             for (Conversation c : conversations) {
                 Date cDate = new SimpleDateFormat("dd/MM/yyyy").parse(c.getDate());
                 if (lastChatDate == null) {
                     lastChatDate = cDate;
+                    mostRecentConversation = c;
                 } else {
                     if (lastChatDate.compareTo(cDate) < 0) {
                         lastChatDate = cDate;
+                        mostRecentConversation = c;
                     }
                 }
             }
@@ -85,9 +105,9 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
             e.printStackTrace();
         }
         if (lastChatDate == null) {
-            return "";
+            return null; //ENTRA AQUI
         }
-        return lastChatDate.toString(); //TODO: MIRAR FORMAT
+        return mostRecentConversation;
     }
 
     private void setUserImage(Contact contact) {
