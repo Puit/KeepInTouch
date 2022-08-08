@@ -59,7 +59,7 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     private void setConversationsInfo(List<Conversation> conversations) {
         if (conversations != null && conversations.size() > 0) {
             Conversation mostRecentConversation = getMostRecentConverstion(conversations);
-            if(mostRecentConversation == null) return;
+            if (mostRecentConversation == null) return;
             databinding.contactInfoLastChatIcon.setVisibility(View.VISIBLE);
             databinding.contactInfoChatIcon.setVisibility(View.VISIBLE);
             databinding.contactInfoChatQuantity.setVisibility(View.VISIBLE);
@@ -112,9 +112,14 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
 
     private void setUserImage(Contact contact) {
         Bitmap bitmap = FileManager.getBitmapPhoto(contact.getPhoto());
-        databinding.contactInfoImage.setImageBitmap(bitmap);
-        ImageHelper.resizeImage(databinding.contactInfoImage, FileManager.getBitmapPhoto(contact.getPhoto()));
-        databinding.contactInfoImage.setRotation(contact.getAngle());
+        if (bitmap == null) {
+            databinding.contactInfoImage.setImageDrawable(getContext().getDrawable(R.drawable.ic_person_full));
+            databinding.contactInfoImage.setBackgroundColor(getContext().getColor(R.color.text_gray));
+        } else {
+            databinding.contactInfoImage.setImageBitmap(bitmap);
+            ImageHelper.resizeImage(databinding.contactInfoImage, FileManager.getBitmapPhoto(contact.getPhoto()));
+            databinding.contactInfoImage.setRotation(contact.getAngle());
+        }
     }
 
     private void setFavImage() {
