@@ -37,12 +37,14 @@ public class Contact {
     private String telephone;
     private String email;
     private String comments;
+    private int daysToCall;
+    private String dayOfDeath;
 
     public Contact(int id, String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                    boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                    String language, String religion, String relatives, String conversations,
                    boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias,
-                   String telephone, String email, String comments) {
+                   String telephone, String email, String comments, int daysToCall, String dayOfDeath) {
         this.id = id;
         this.name = name;
         this.surname1 = surname1;
@@ -68,13 +70,15 @@ public class Contact {
         this.telephone = telephone;
         this.email = email;
         this.comments = comments;
+        this.daysToCall = daysToCall;
+        this.dayOfDeath = dayOfDeath;
     }
 
     public Contact(String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                    boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                    String language, String religion, String relatives, String conversations,
                    boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias,
-                   String telephone, String email, String comments) {
+                   String telephone, String email, String comments, int daysToCall, String dayOfDeath) {
         this.name = name;
         this.surname1 = surname1;
         this.surname2 = surname2;
@@ -99,6 +103,8 @@ public class Contact {
         this.telephone = telephone;
         this.email = email;
         this.comments = comments;
+        this.daysToCall = daysToCall;
+        this.dayOfDeath = dayOfDeath;
     }
 
     public Contact() {
@@ -110,10 +116,12 @@ public class Contact {
                 entity.sexualOrientation, entity.birthday, entity.realBirthday, entity.address, entity.profession,
                 entity.placeOfWork, entity.howWeMet, entity.language, entity.religion, entity.relatives,
                 entity.conversations, entity.favorite, entity.bgColor, entity.photo, entity.angle,
-                entity.lastActionIndex, entity.alias, entity.telephone, entity.email, entity.comments);
+                entity.lastActionIndex, entity.alias, entity.telephone, entity.email, entity.comments,
+                entity.daysToCall, entity.dayOfDeath);
     }
 
     public int getAge() {
+        //TODO: Comprobar si ha muerto
         CustomDate customDate = CustomDate.dateFromString(birthday);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, customDate.getDay());
@@ -193,6 +201,9 @@ public class Contact {
             empty = false;
         }
         if (email != null) {
+            empty = false;
+        }
+        if (dayOfDeath != null){
             empty = false;
         }
         return empty;
@@ -400,5 +411,21 @@ public class Contact {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public int getDaysToCall() {
+        return daysToCall;
+    }
+
+    public void setDaysToCall(int daysToCall) {
+        this.daysToCall = daysToCall;
+    }
+
+    public String getDayOfDeath() {
+        return dayOfDeath;
+    }
+
+    public void setDayOfDeath(String dayOfDeath) {
+        this.dayOfDeath = dayOfDeath;
     }
 }

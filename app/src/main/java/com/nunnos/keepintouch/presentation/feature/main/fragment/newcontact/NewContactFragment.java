@@ -226,6 +226,8 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
                     databinding.newContactAlias.getText(),
                     databinding.newContactTelephone.getText(),
                     databinding.newContactEmail.getText(),
+                    "",
+                    -1,
                     "");
             shareViewModel.saveContact(getContext(), contact);
             shareViewModel.navigateToMain();

@@ -2,6 +2,7 @@ package com.nunnos.keepintouch.data.entities.contactdao;
 
 import android.content.Context;
 
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -9,7 +10,10 @@ import androidx.room.TypeConverters;
 
 import com.nunnos.keepintouch.data.entities.Converters;
 
-@Database(entities = {ContactEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {ContactEntity.class}, version = 1, exportSchema = true,
+autoMigrations = {
+        @AutoMigration(from = 1, to = 2)
+})
 @TypeConverters({Converters.class})
 public abstract class ContactDB extends RoomDatabase {
     public abstract ContactDao contactDao();
@@ -20,7 +24,6 @@ public abstract class ContactDB extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     ContactDB.class, ContactsDaoConstants.TABLE_NAME)
-                    .fallbackToDestructiveMigrationFrom(1, 2, 3, 4, 5, 6,7,8,9,10) //aixó fa que es borri tot d'una versió a una altra
                     .build();
         }
         return instance;

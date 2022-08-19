@@ -170,9 +170,16 @@ public class MainFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, 
     }
 
     private void setNormalView(List<Contact> contactList) {
-        adapter = new RVContactCardAdapter(contactList);
-        databinding.mainRecyclerView.setAdapter(adapter);
-        databinding.mainRecyclerView.setHasFixedSize(false);
+        if (contactList.size() < 1) {
+            databinding.mainSearcher.setVisibility(View.GONE);
+            databinding.mainNoContactTv.setVisibility(View.VISIBLE);
+        } else {
+            databinding.mainSearcher.setVisibility(View.VISIBLE);
+            databinding.mainNoContactTv.setVisibility(View.GONE);
+            adapter = new RVContactCardAdapter(contactList);
+            databinding.mainRecyclerView.setAdapter(adapter);
+            databinding.mainRecyclerView.setHasFixedSize(false);
+        }
     }
 
     private void setSearchView(List<Contact> contactList, String title) {

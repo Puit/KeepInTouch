@@ -83,14 +83,21 @@ public class ContactEntity {
 
     @ColumnInfo(name = "email")
     public String email;
+
     @ColumnInfo(name = "comments")
     public String comments;
+
+    @ColumnInfo(name = "daystocall")
+    public int daysToCall;
+
+    @ColumnInfo(name = "dayofdeath")
+    public String dayOfDeath;
 
     public ContactEntity(int id, String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                          boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                          String language, String religion, String relatives, String conversations,
                          boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias,
-                         String telephone, String email, String comments) {
+                         String telephone, String email, String comments, int daysToCall, String dayOfDeath) {
         this.id = id;
         this.name = name;
         this.surname1 = surname1;
@@ -116,13 +123,15 @@ public class ContactEntity {
         this.telephone = telephone;
         this.email = email;
         this.comments = comments;
+        this.daysToCall = daysToCall;
+        this.dayOfDeath = dayOfDeath;
     }
 
     public ContactEntity(String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                          boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                          String language, String religion, String relatives, String conversations,
                          boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias,
-                         String telephone, String email, String comments) {
+                         String telephone, String email, String comments, int daysToCall, String dayOfDeath) {
         this.name = name;
         this.surname1 = surname1;
         this.surname2 = surname2;
@@ -147,6 +156,8 @@ public class ContactEntity {
         this.telephone = telephone;
         this.email = email;
         this.comments = comments;
+        this.daysToCall = daysToCall;
+        this.dayOfDeath = dayOfDeath;
     }
 
     public ContactEntity() {
@@ -159,13 +170,15 @@ public class ContactEntity {
                     c.getSexualOrientation(), c.getBirthday(), c.isRealBirthday(), c.getAddress(), c.getProfession(),
                     c.getPlaceOfWork(), c.getHowWeMet(), c.getLanguage(), c.getReligion(), c.getRelatives(),
                     c.getConversations(), c.isFavorite(), c.getBgColor(), c.getPhoto(), c.getAngle(),
-                    c.getLastActionIndex(), c.getAlias(), c.getTelephone(), c.getEmail(), c.getComments());
+                    c.getLastActionIndex(), c.getAlias(), c.getTelephone(), c.getEmail(), c.getComments(),
+                    c.getDaysToCall(), c.getDayOfDeath());
         } else {
             return new ContactEntity(c.getName(), c.getSurname1(), c.getSurname2(), c.getGender(),
                     c.getSexualOrientation(), c.getBirthday(), c.isRealBirthday(), c.getAddress(), c.getProfession(),
                     c.getPlaceOfWork(), c.getHowWeMet(), c.getLanguage(), c.getReligion(), c.getRelatives(),
                     c.getConversations(), c.isFavorite(), c.getBgColor(), c.getPhoto(), c.getAngle(),
-                    c.getLastActionIndex(), c.getAlias(), c.getTelephone(), c.getEmail(), c.getComments());
+                    c.getLastActionIndex(), c.getAlias(), c.getTelephone(), c.getEmail(), c.getComments(),
+                    c.getDaysToCall(), c.getDayOfDeath());
         }
     }
 }

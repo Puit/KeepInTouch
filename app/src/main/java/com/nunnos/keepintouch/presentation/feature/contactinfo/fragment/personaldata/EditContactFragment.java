@@ -234,6 +234,8 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactPe
                     databinding.newContactAlias.getText(),
                     databinding.newContactTelephone.getText(),
                     databinding.newContactEmail.getText(),
+                    "",
+                    -1,
                     "");
             shareViewModel.updateThisContact(getContext(), contact);
             shareViewModel.navigateToContactPersonalData();
