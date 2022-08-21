@@ -55,7 +55,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
     }
 
     private void setView() {
-        if (shareViewModel.getNewConversation() != null  && !shareViewModel.getNewConversation().isEmpty()) {
+        if (shareViewModel.getNewConversation() != null && !shareViewModel.getNewConversation().isEmpty()) {
             setViewForEdit();
         } else {
             databinding.ncIsImportant.setIsRightClicked(true);
@@ -121,19 +121,17 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
 
     private void setListeners() {
         databinding.ncSaveButton.setOnClickListener(v -> {
+            getAllDataFromFields();
             if (isEdit) {
-                getAllDataFromFields();
                 shareViewModel.updateConversation(getContext());
             } else {
-                shareViewModel.getNewConversation().addContact(shareViewModel.getThisContact().getValue().getId());
-                shareViewModel.getNewConversation().setChat(databinding.ncConversation.getText().toString());
                 shareViewModel.addNewConversation(getContext(), shareViewModel.getNewConversation());
             }
 
             shareViewModel.setNewConversation(null);
             shareViewModel.navigateToConversation();
         });
-        databinding.ncDeleteButton.setOnClickListener(v ->{
+        databinding.ncDeleteButton.setOnClickListener(v -> {
             AlertsManager.TwoButtonsAlertListener listener = new AlertsManager.TwoButtonsAlertListener() {
                 @Override
                 public void onLeftClick() {
@@ -185,13 +183,22 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
 
     private void getAllDataFromFields() {
         shareViewModel.getNewConversation().setChat(databinding.ncConversation.getText().toString());
-        shareViewModel.getNewConversation().setTime(databinding.ncTime.getText());
-        shareViewModel.getNewConversation().setDate(databinding.ncDate.getText());
+        if (databinding.ncTime.getText().equals("hh:mm")) {
+            shareViewModel.getNewConversation().setTime("");
+        } else {
+            shareViewModel.getNewConversation().setTime(databinding.ncTime.getText());
+        }
+        if (databinding.ncDate.getText().equals("DD/MM/YYYY")) {
+            shareViewModel.getNewConversation().setDate("");
+        } else {
+            shareViewModel.getNewConversation().setDate(databinding.ncDate.getText());
+        }
         shareViewModel.getNewConversation().setPlace(databinding.ncPlace.getText());
 //        shareViewModel.getNewConversation().setPhoto(); // es fa a l'activity
         //TODO: fer botó de rotar
 //        shareViewModel.getNewConversation().setAngle();
 //        shareViewModel.getNewConversation().setContacts();
+        shareViewModel.getNewConversation().addContact(shareViewModel.getThisContact().getValue().getId());
         shareViewModel.getNewConversation().setImportant(!databinding.ncIsImportant.getIsRightClicked());
     }
 
@@ -209,7 +216,15 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
 
     private void showTimePickerDialog() {
         TimePickerFragment newFragment = TimePickerFragment.newInstance((timePicker, hour, minute) -> {
-            String time = hour + ":" + minute;
+            String time = "";
+            if (hour < 10) {
+                time = "0";
+            }
+            time += hour + ":";
+            if (minute < 10) {
+                time += "0";
+            }
+            time += minute;
             shareViewModel.getNewConversation().setTime(time);
             databinding.ncTime.setText(time);
         });
