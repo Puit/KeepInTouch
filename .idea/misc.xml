@@ -9,6 +9,7 @@
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_bg_picker.xml" value="0.24048913043478262" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_bottom_menu.xml" value="0.24048913043478262" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_conversations_recyclerview_conversation.xml" value="0.176" />
+        <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_custom_edit_text.xml" value="0.2391304347826087" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_expanable_recyclerview.xml" value="0.14945652173913043" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_main_recyclerview_contact.xml" value="0.1" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_searched_recyclerview_contact.xml" value="0.264" />
@@ -18,7 +19,8 @@
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/fragment_conversations.xml" value="0.25" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/fragment_main.xml" value="0.18432971014492755" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/fragment_main_new_contact.xml" value="0.20288461538461539" />
-        <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/fragment_new_conversation.xml" value="0.1480978260869565" />
+        <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/fragment_new_comment.xml" value="0.4" />
+        <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/fragment_new_conversation.xml" value="0.176" />
       </map>
     </option>
   </component>

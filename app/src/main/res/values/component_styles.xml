@@ -15,4 +15,12 @@
             @style/ShapeAppearanceOverlay.MaterialComponents.TextInputLayout.FilledBox
         </item>
     </style>
+    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorOnSurface">@color/text_accent_yellow</item>
+        <item name="colorSecondary">@color/background_yellow_dark</item>
+    </style>
 </resources>

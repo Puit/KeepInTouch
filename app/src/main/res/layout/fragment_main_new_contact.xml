@@ -245,6 +245,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/new_contact_save_button"
                     android:layout_width="match_parent"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_height="wrap_content"
                     android:text="Save" />
 
@@ -252,6 +253,7 @@
                     android:id="@+id/new_contact_delete_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
                     android:backgroundTint="@color/background_red"
                     android:text="Delete"
                     android:visibility="gone"

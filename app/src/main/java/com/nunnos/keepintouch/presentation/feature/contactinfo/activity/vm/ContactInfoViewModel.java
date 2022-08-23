@@ -11,12 +11,16 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MediatorLiveData;
 
 import com.nunnos.keepintouch.data.AppExecutors;
+import com.nunnos.keepintouch.data.entities.comment.CommentDB;
+import com.nunnos.keepintouch.data.entities.comment.CommentDao;
+import com.nunnos.keepintouch.data.entities.comment.CommentEntity;
 import com.nunnos.keepintouch.data.entities.contactdao.ContactDB;
 import com.nunnos.keepintouch.data.entities.contactdao.ContactDao;
 import com.nunnos.keepintouch.data.entities.contactdao.ContactEntity;
 import com.nunnos.keepintouch.data.entities.conversation.ConversationDB;
 import com.nunnos.keepintouch.data.entities.conversation.ConversationDao;
 import com.nunnos.keepintouch.data.entities.conversation.ConversationEntity;
+import com.nunnos.keepintouch.domain.model.Comment;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.domain.model.Conversation;
 
@@ -28,12 +32,15 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     private static final String TAG = "ContactInfoViewModel";
     private ContactDao contactDao;
     private ConversationDao conversationDao;
+    private CommentDao commentDao;
     private Conversation newConversation = new Conversation();
+    private Comment newComment = new Comment();
     private int lastIndex = 0;
 
     private final MediatorLiveData<Contact> thisContactMD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Contact>> contactsMD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Conversation>> conversationsMD = new MediatorLiveData<>();
+    private final MediatorLiveData<List<Comment>> commentsMD = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> newConversationBitmap = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> thisContactBitmap = new MediatorLiveData<>();
 
@@ -61,6 +68,11 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         conversationDao = ConversationDB.getInstance(context).conversationDao();
     }
 
+    private void setCommentDao(Context context) {
+        if (commentDao != null) return;
+        commentDao = CommentDB.getInstance(context).commentDao();
+    }
+
     public void retrieveConversations(Context context) {
         setConversationDao(context);
         if (thisContactMD != null && thisContactMD.getValue() != null) {
@@ -75,6 +87,26 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
                     conversations.add(Conversation.map(entity));
                 }
                 conversationsMD.postValue(conversations);
+            });
+        } else {
+            //TODO SHOW ERROR
+        }
+    }
+
+    public void retrieveComments(Context context) {
+        setConversationDao(context);
+        if (thisContactMD != null && thisContactMD.getValue() != null) {
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                List<CommentEntity> commentEntityList = commentDao.getAllFromWhoToldId(SEPARATOR + thisContactMD.getValue().getId() + SEPARATOR);
+                if (commentEntityList.isEmpty()) {
+                    //TODO: SHOW ERROR?
+                    return;
+                }
+                ArrayList<Comment> comments = new ArrayList<>();
+                for (CommentEntity entity : commentEntityList) {
+                    comments.add(Comment.map(entity));
+                }
+                commentsMD.postValue(comments);
             });
         } else {
             //TODO SHOW ERROR
@@ -101,6 +133,17 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         if (thisContactMD != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 conversationDao.insert(ConversationEntity.map(newConversation));
+            });
+        } else {
+            //TODO SHOW ERROR
+        }
+    }
+
+    public void addNewComment(Context context, Comment newComment) {
+        setCommentDao(context);
+        if (thisContactMD != null) {
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                commentDao.insert(CommentEntity.map(newComment));
             });
         } else {
             //TODO SHOW ERROR
@@ -158,6 +201,14 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         this.newConversation = newConversation;
     }
 
+    public Comment getNewComment() {
+        return newComment;
+    }
+
+    public void setNewComment(Comment newComment) {
+        this.newComment = newComment;
+    }
+
     public void updateThisContact(Context context) {
         setContactDao(context);
         AppExecutors.getInstance().diskIO().execute(() -> {
@@ -186,6 +237,17 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
                 Log.d(TAG, "updateConversation: conversations not found");
             }
             conversationDao.update(entity);
+        });
+    }
+
+    public void updateComment(Context context) {
+        setContactDao(context);
+        CommentEntity entity = CommentEntity.map(newComment);
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            if (commentsMD.getValue() == null) {
+                Log.d(TAG, "updateComment: comment not found");
+            }
+            commentDao.update(entity);
         });
     }
 

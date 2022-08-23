@@ -32,6 +32,9 @@ public class ContactInfoNavigationViewModel extends BaseViewModel {
     public void showEditContactFragment() {
         navigation.setValue(ContactInfoNavigation.EDIT_CONTACT);
     }
+    public void showNewComment() {
+        navigation.setValue(ContactInfoNavigation.NEW_COMMENT);
+    }
 
     @Override
     public void resume() {

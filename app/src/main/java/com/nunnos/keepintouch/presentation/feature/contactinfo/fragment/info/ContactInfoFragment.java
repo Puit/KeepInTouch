@@ -134,6 +134,7 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
 
     private void initListeners() {
         databinding.contactInfoFavRounder.setOnClickListener(v -> favContact());
+        databinding.contactInfoAddComment.setOnClickListener(v -> shareViewModel.showNewComment());
     }
 
     private void favContact() {

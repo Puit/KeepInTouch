@@ -1,10 +1,13 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation;
 
+import static com.nunnos.keepintouch.utils.Constants.COVERSATION_MAX_CHARS;
 import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
@@ -31,8 +34,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewConversationFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, ContactInfoViewModel, FragmentNewConversationBinding> {
-    private RVITAdapter genderAdapter;
+    private RVITAdapter contactsAdapter;
     private boolean isEdit = false;
+    private final TextWatcher mTextEditorWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            checkLengthAndSetStyle(s);
+        }
+
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     public NewConversationFragment() {
         //Required empty public constructor
@@ -60,6 +74,17 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
         } else {
             databinding.ncIsImportant.setIsRightClicked(true);
         }
+        checkLengthAndSetStyle(databinding.ncConversation.getText());
+    }
+
+    private void checkLengthAndSetStyle(CharSequence s) {
+        if (s.length() <= COVERSATION_MAX_CHARS) {
+            databinding.ncCounter.setTextColor(getContext().getColor(R.color.text_gray));
+        } else {
+            databinding.ncCounter.setTextColor(getContext().getColor(R.color.background_red));
+        }
+        //This sets a textview to the current length
+        databinding.ncCounter.setText(s.length() + "/" + COVERSATION_MAX_CHARS);
     }
 
     private void setViewForEdit() {
@@ -99,8 +124,8 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
             databinding.ncContacts.collapse(true);
         };
 
-        genderAdapter = new RVITAdapter(createContactList(contacts), contactListener, databinding.ncContacts.getExpansionLayout());
-        databinding.ncContacts.setAdapter(genderAdapter);
+        contactsAdapter = new RVITAdapter(createContactList(contacts), contactListener, databinding.ncContacts.getExpansionLayout());
+        databinding.ncContacts.setAdapter(contactsAdapter);
         databinding.ncContacts.setHasFixedSize(false);
     }
 
@@ -121,15 +146,26 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
 
     private void setListeners() {
         databinding.ncSaveButton.setOnClickListener(v -> {
-            getAllDataFromFields();
-            if (isEdit) {
-                shareViewModel.updateConversation(getContext());
-            } else {
-                shareViewModel.addNewConversation(getContext(), shareViewModel.getNewConversation());
-            }
+            if (databinding.ncConversation.getText().length() <= COVERSATION_MAX_CHARS) {
+                getAllDataFromFields();
+                if (isEdit) {
+                    shareViewModel.updateConversation(getContext());
+                } else {
+                    shareViewModel.addNewConversation(getContext(), shareViewModel.getNewConversation());
+                }
 
-            shareViewModel.setNewConversation(null);
-            shareViewModel.navigateToConversation();
+                shareViewModel.setNewConversation(null);
+                shareViewModel.navigateToConversation();
+            } else {
+                AlertsManager.OneButtonAlertListener listener = () -> {
+                    //Do Nothing
+                };
+                AlertsManager.showOneButtonAlert(getActivity(),
+                        listener,
+                        "The conversation can't exceed 280 characters",
+                        "Accept",
+                        true);
+            }
         });
         databinding.ncDeleteButton.setOnClickListener(v -> {
             AlertsManager.TwoButtonsAlertListener listener = new AlertsManager.TwoButtonsAlertListener() {
@@ -179,6 +215,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
             databinding.ncImage.setRotation(newAngle);
             shareViewModel.getNewConversation().setAngle(newAngle);
         });
+        databinding.ncConversation.addTextChangedListener(mTextEditorWatcher);
     }
 
     private void getAllDataFromFields() {
@@ -211,7 +248,6 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Empty
         });
 
         newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
-
     }
 
     private void showTimePickerDialog() {

@@ -4,6 +4,7 @@ import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInf
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_PERSONAL_DATA;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONVERSATIONS;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.EDIT_CONTACT;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_COMMENT;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_CONVERSATION;
 import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
 import static com.nunnos.keepintouch.utils.Constants.EXTRA_UPDATE_MAIN;
@@ -87,6 +88,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
                 break;
             case NEW_CONVERSATION:
             case EDIT_CONTACT:
+            case NEW_COMMENT:
                 dataBinding.contactInfoActivityBottomMenu.setVisibility(View.GONE);
                 break;
             default:
@@ -141,6 +143,9 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
                 break;
             case EDIT_CONTACT:
                 viewModel.getNavigation().setValue(CONTACT_PERSONAL_DATA);
+                break;
+            case NEW_COMMENT:
+                viewModel.getNavigation().setValue(CONTACT_INFO);
                 break;
             case CONVERSATIONS:
             case CONTACT_INFO:

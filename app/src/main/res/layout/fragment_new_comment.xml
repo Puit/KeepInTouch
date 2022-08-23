@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/new_comment_message_title"
+                style="@style/CustomEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:layout_marginTop="10dp"
+                android:hint="Comment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/new_comment_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_gravity="start|top"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:textSize="20dp"
+                    tools:text="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/new_comment_counter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="100/280"
+                android:textAlignment="textEnd" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/new_comment_isImportant"
+                style="@style/Widget.App.Switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="Is important"
+                android:textColor="@color/text_dark_gray"
+                tools:checked="true" />
+
+            <com.nunnos.keepintouch.presentation.component.CustomEditText
+                android:id="@+id/new_comment_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:maxLines="1"
+                app:edit_text_clickable="true"
+                app:edit_text_focusable="false"
+                app:edit_text_hint_text="Date"
+                app:edit_text_text="DD/MM/YYYY" />
+
+            <com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ExpanableRecyclerView
+                android:id="@+id/new_comment_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:expanable_recyclerview_hint_text="Who told you"
+                app:expanable_recyclerview_icon="@drawable/ic_unknown"
+                app:expanable_recyclerview_text_text="Unknown" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/new_comment_save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="shareviewmodel"
+            type="com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel" />
+
+        <variable
+            name="viewmodel"
+            type="com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.vm.ContactInfoFragmentViewModel" />
+    </data>
+</layout>

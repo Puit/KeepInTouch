@@ -141,7 +141,6 @@ public class RVConversationCardAdapter extends RecyclerView.Adapter<RecyclerView
         @Override
         public void onClick(View v) {
             if (context instanceof ContactInfoActivity) {
-                Toast.makeText(context, "Click on Layout", Toast.LENGTH_SHORT).show();
                 /*
             TODO: navigate to edit
                 ((MainActivity) context).getShareViewModel().setContactSelectedID(conversation.getId());

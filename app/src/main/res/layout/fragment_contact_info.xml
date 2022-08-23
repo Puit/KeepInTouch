@@ -76,25 +76,25 @@
                         android:id="@+id/contact_info_alias"
                         style="@style/regular.black.20"
                         android:layout_width="0dp"
-                        android:visibility="gone"
-                        tools:visibility="visible"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/contact_info_name"
-                        tools:text="Mr_Puit" />
+                        tools:text="Mr_Puit"
+                        tools:visibility="visible" />
 
                     <ImageView
                         android:id="@+id/contact_info_chat_icon"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:visibility="invisible"
-                        tools:visibility="visible"
                         android:layout_marginTop="20dp"
                         android:src="@drawable/ic_baseline_chat_24"
+                        android:visibility="invisible"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/contact_info_alias" />
+                        app:layout_constraintTop_toBottomOf="@+id/contact_info_alias"
+                        tools:visibility="visible" />
 
                     <TextView
                         android:id="@+id/contact_info_chat_quantity"
@@ -102,13 +102,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:visibility="invisible"
-                        tools:visibility="visible"
                         android:layout_marginTop="21dp"
+                        android:visibility="invisible"
                         app:layout_constraintEnd_toStartOf="@+id/contact_info_separator"
                         app:layout_constraintStart_toEndOf="@+id/contact_info_chat_icon"
                         app:layout_constraintTop_toBottomOf="@+id/contact_info_alias"
-                        tools:text="200 chats" />
+                        tools:text="200 chats"
+                        tools:visibility="visible" />
 
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/contact_info_separator"
@@ -123,11 +123,11 @@
                         android:id="@+id/contact_info_last_chat_icon"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:visibility="invisible"
-                        tools:visibility="visible"
                         android:src="@drawable/ic_baseline_access_time_24"
+                        android:visibility="invisible"
                         app:layout_constraintStart_toEndOf="@+id/contact_info_separator"
-                        app:layout_constraintTop_toTopOf="@+id/contact_info_chat_icon" />
+                        app:layout_constraintTop_toTopOf="@+id/contact_info_chat_icon"
+                        tools:visibility="visible" />
 
                     <TextView
                         android:id="@+id/contact_info_last_chat_date"
@@ -136,23 +136,23 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:visibility="invisible"
-                        tools:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="@+id/contact_info_last_chat_icon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/contact_info_last_chat_icon"
                         app:layout_constraintTop_toTopOf="@+id/contact_info_last_chat_icon"
-                        tools:text="10/12/2012" />
+                        tools:text="10/12/2012"
+                        tools:visibility="visible" />
 
                     <ImageView
                         android:id="@+id/contact_info_location_icon"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginTop="20dp"
-                        android:visibility="invisible"
-                        tools:visibility="visible"
                         android:src="@drawable/ic_baseline_location_on_24"
+                        android:visibility="invisible"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/contact_info_chat_icon" />
+                        app:layout_constraintTop_toBottomOf="@+id/contact_info_chat_icon"
+                        tools:visibility="visible" />
 
                     <TextView
                         android:id="@+id/contact_info_location"
@@ -162,17 +162,17 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="29dp"
                         android:visibility="invisible"
-                        tools:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/contact_info_location_icon"
                         app:layout_constraintTop_toBottomOf="@+id/contact_info_chat_quantity"
-                        tools:text="El Prat de Llobregat" />
+                        tools:text="El Prat de Llobregat"
+                        tools:visibility="visible" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="20dp"
                         android:id="@+id/contact_info_recyclerview_chats"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/contact_info_location">
@@ -182,7 +182,16 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </androidx.core.widget.NestedScrollView>
-
+        <!--TODO: Temporal-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/contact_info_add_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/text_accent_yellow"
+            android:src="@drawable/ic_baseline_add_comment_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>

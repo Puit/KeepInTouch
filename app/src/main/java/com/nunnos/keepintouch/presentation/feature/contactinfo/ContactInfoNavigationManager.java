@@ -4,6 +4,7 @@ import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInf
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONTACT_PERSONAL_DATA;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.CONVERSATIONS;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.EDIT_CONTACT;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_COMMENT;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_CONVERSATION;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.ContactInfoActivity;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.info.ContactInfoFragment;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.info.NewCommentFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.personaldata.ContactPersonalDataFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation.ConversationsFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation.NewConversationFragment;
@@ -38,6 +40,9 @@ public abstract class ContactInfoNavigationManager {
             case EDIT_CONTACT:
                 showEditContact(activity);
                 break;
+            case NEW_COMMENT:
+                showNewComment(activity);
+                break;
             default:
                 throw new IllegalStateException("ContactInfoNavigationManager error, navigation has not been implementad");
         }
@@ -60,5 +65,8 @@ public abstract class ContactInfoNavigationManager {
     }
     private static void showEditContact(ContactInfoActivity activity) {
         activity.overrideSlidingUpTransition(EditContactFragment.newInstance());
+    }
+    private static void showNewComment(ContactInfoActivity activity) {
+        activity.overrideSlidingUpTransition(NewCommentFragment.newInstance());
     }
 }
