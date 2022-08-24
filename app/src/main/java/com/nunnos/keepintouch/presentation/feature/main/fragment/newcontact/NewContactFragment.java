@@ -208,7 +208,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
                     databinding.newContactSurname2.getText(),
                     databinding.newContactGenderExpanable.getText(),
                     databinding.newContactSexualOrientationExpanable.getText(),
-                    databinding.newContactBirthday.getText(),
+                    databinding.newContactBirthdaySwitch.getIsRightClicked() ? databinding.newContactAge.getText() : databinding.newContactBirthday.getText(),
                     databinding.newContactBirthdaySwitch.getIsRightClicked(),
                     databinding.newContactAdress.getText(),
                     databinding.newContactProfession.getText(),

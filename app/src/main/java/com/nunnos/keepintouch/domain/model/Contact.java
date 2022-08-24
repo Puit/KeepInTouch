@@ -122,14 +122,23 @@ public class Contact {
 
     public int getAge() {
         //TODO: Comprobar si ha muerto
-        CustomDate customDate = CustomDate.dateFromString(birthday);
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH, customDate.getDay());
-        calendar.set(Calendar.MONTH, customDate.getMonth());
-        calendar.set(Calendar.YEAR, customDate.getYear());
-        LocalDate birthdayLocalDate = Instant.ofEpochMilli(calendar.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate();
-        Period period = Period.between(LocalDate.from(birthdayLocalDate), LocalDate.now());
-        return period.getYears();
+        if(isRealBirthday()){
+            CustomDate customDate = CustomDate.dateFromString(birthday);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_MONTH, customDate.getDay());
+            calendar.set(Calendar.MONTH, customDate.getMonth());
+            calendar.set(Calendar.YEAR, customDate.getYear());
+            LocalDate birthdayLocalDate = Instant.ofEpochMilli(calendar.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate();
+            Period period = Period.between(LocalDate.from(birthdayLocalDate), LocalDate.now());
+            return period.getYears();
+        }else {
+            try {
+               return Integer.parseInt(birthday);
+            } catch (NumberFormatException nfe) {
+                return -1;
+            }
+        }
     }
 
     public String getFullName() {

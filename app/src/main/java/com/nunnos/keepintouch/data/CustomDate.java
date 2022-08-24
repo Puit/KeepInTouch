@@ -33,6 +33,7 @@ public class CustomDate {
 
     public static CustomDate dateFromString(String text) {
         CustomDate date = new CustomDate();
+        text = text.replaceAll(" ", "").trim();
         try {
             date.day = Integer.parseInt(text.substring(0, 2));
             date.month = Integer.parseInt(text.substring(3, 5));

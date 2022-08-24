@@ -92,7 +92,16 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactPe
         databinding.newContactSurname2.setText(newContact.getSurname2());
         databinding.newContactGenderExpanable.setText(newContact.getGender());
         databinding.newContactSexualOrientationExpanable.setText(newContact.getSexualOrientation());
-        databinding.newContactBirthday.setText(newContact.getBirthday());
+        databinding.newContactBirthdaySwitch.setIsRightClicked(!newContact.isRealBirthday());
+        if (newContact.isRealBirthday()) {
+            databinding.newContactBirthday.setText(newContact.getBirthday());
+            databinding.newContactBirthday.setVisibility(View.VISIBLE);
+            databinding.newContactAge.setVisibility(View.GONE);
+        } else {
+            databinding.newContactAge.setText(newContact.getBirthday());
+            databinding.newContactBirthday.setVisibility(View.GONE);
+            databinding.newContactAge.setVisibility(View.VISIBLE);
+        }
         databinding.newContactAdress.setText(newContact.getAddress());
         databinding.newContactProfession.setText(newContact.getProfession());
         databinding.newContactPlaceofwork.setText(newContact.getPlaceOfWork());
@@ -216,8 +225,8 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactPe
                     databinding.newContactSurname2.getText(),
                     databinding.newContactGenderExpanable.getText(),
                     databinding.newContactSexualOrientationExpanable.getText(),
-                    databinding.newContactBirthday.getText(),
-                    databinding.newContactBirthdaySwitch.getIsRightClicked(),
+                    databinding.newContactBirthdaySwitch.getIsRightClicked() ? databinding.newContactAge.getText() : databinding.newContactBirthday.getText(),
+                    !databinding.newContactBirthdaySwitch.getIsRightClicked(),
                     databinding.newContactAdress.getText(),
                     databinding.newContactProfession.getText(),
                     databinding.newContactPlaceofwork.getText(),
@@ -225,8 +234,8 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactPe
                     databinding.newContactLanguage.getText(),
                     databinding.newContactReligion.getText(),
                     databinding.newContactRelatives.getText(),
-                    "",
-                    false,
+                    shareViewModel.getThisContact().getValue().getConversations(),
+                    shareViewModel.getThisContact().getValue().isFavorite(),
                     shareViewModel.getThisContact().getValue().getBgColor(),
                     shareViewModel.getThisContact().getValue().getPhoto(),
                     shareViewModel.getThisContact().getValue().getAngle(),
@@ -234,9 +243,9 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactPe
                     databinding.newContactAlias.getText(),
                     databinding.newContactTelephone.getText(),
                     databinding.newContactEmail.getText(),
-                    "",
-                    -1,
-                    "");
+                    shareViewModel.getThisContact().getValue().getComments(),
+                    shareViewModel.getThisContact().getValue().getDaysToCall(),
+                    shareViewModel.getThisContact().getValue().getDayOfDeath());
             shareViewModel.updateThisContact(getContext(), contact);
             shareViewModel.navigateToContactPersonalData();
         } else {

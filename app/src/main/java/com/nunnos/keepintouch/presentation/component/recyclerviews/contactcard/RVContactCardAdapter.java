@@ -103,7 +103,12 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             this.contact = contact;
             setUserImage(contact);
             cardView.setBackgroundResource(contact.getBgColor());
-            ageValueTv.setText(String.valueOf(contact.getAge()));
+            if(contact.getAge() == -1){
+                ageValueTv.setVisibility(View.GONE);
+            }else {
+                ageValueTv.setText(String.valueOf(contact.getAge()));
+
+            }
             fullNameTv.setText(contact.getFullName());
             professionTv.setText(contact.getProfession());
             lastTimeValueTv.setText(contact.getDaysSinceLastChat());
