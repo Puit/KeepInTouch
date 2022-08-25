@@ -63,10 +63,10 @@
 
                 <TextView
                     android:id="@+id/contact_personal_data_alias"
-                    style="@style/regular.black.24"
+                    style="@style/regular.black.20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     app:edit_text_hint_text="Alias"
                     tools:text="Pep" />
 

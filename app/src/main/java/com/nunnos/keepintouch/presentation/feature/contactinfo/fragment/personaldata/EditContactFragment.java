@@ -90,6 +90,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactPe
         databinding.newContactName.setText(newContact.getName());
         databinding.newContactSurname1.setText(newContact.getSurname1());
         databinding.newContactSurname2.setText(newContact.getSurname2());
+        databinding.newContactAlias.setText(newContact.getAlias());
         databinding.newContactGenderExpanable.setText(newContact.getGender());
         databinding.newContactSexualOrientationExpanable.setText(newContact.getSexualOrientation());
         databinding.newContactBirthdaySwitch.setIsRightClicked(!newContact.isRealBirthday());

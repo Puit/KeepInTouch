@@ -2,6 +2,7 @@ package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.persona
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,6 +10,7 @@ import androidx.annotation.Nullable;
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.databinding.FragmentContactPersonalDataBinding;
+import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.vm.ContactPersonalDataViewModel;
 
@@ -37,7 +39,36 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
     }
 
     private void setView() {
+        Contact c = shareViewModel.getThisContact().getValue();
 
+        if (c.getFullName().isEmpty() && !c.getAlias().isEmpty()) {
+            setTextOrHide(databinding.contactPersonalDataName, c.getAlias());
+            databinding.contactPersonalDataAlias.setVisibility(View.GONE);
+        } else {
+            setTextOrHide(databinding.contactPersonalDataName, c.getFullName());
+            setTextOrHide(databinding.contactPersonalDataAlias, c.getAlias());
+        }
+        setTextOrHide(databinding.contactPersonalDataTelephone, c.getTelephone());
+        setTextOrHide(databinding.contactPersonalDataEmail, c.getEmail());
+        setTextOrHide(databinding.contactPersonalDataEmail, c.getEmail());
+        setTextOrHide(databinding.contactPersonalDataBirthday, c.getBirthday());
+        setTextOrHide(databinding.contactPersonalDataAdress, c.getAddress());
+        setTextOrHide(databinding.contactPersonalDataProfession, c.getProfession());
+        setTextOrHide(databinding.contactPersonalDataPlaceofwork, c.getPlaceOfWork());
+        setTextOrHide(databinding.contactPersonalDataHowWeMet, c.getHowWeMet());
+        setTextOrHide(databinding.contactPersonalDataLanguage, c.getLanguage());
+        setTextOrHide(databinding.contactPersonalDataReligion, c.getReligion());
+        setTextOrHide(databinding.contactPersonalDataRelatives, c.getRelatives());
+        setTextOrHide(databinding.contactPersonalDataSocialMedia, c.getSexualOrientation());
+    }
+
+    private void setTextOrHide(TextView tv, String text) {
+        if (text.isEmpty()) {
+            tv.setVisibility(View.GONE);
+        } else {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(text);
+        }
     }
 
     //Region Base Methods
