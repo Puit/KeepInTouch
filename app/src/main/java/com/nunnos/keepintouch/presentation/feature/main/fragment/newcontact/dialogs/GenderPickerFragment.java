@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,16 +43,6 @@ public class GenderPickerFragment extends BaseFragmentViewModelLiveData<EmptyVie
 
     private void setView() {
         databinding.recyclerViewFragmentTitle.setText("Gender");
-        RVITAdapter.RVITAdapterViewHolder.CustomItemClick listener = new RVITAdapter.RVITAdapterViewHolder.CustomItemClick() {
-            @Override
-            public void onItemClick(String gender, Drawable icon) {
-                //Set gender to shareviewModel.contact
-                Toast.makeText(getContext(), gender, Toast.LENGTH_SHORT).show();
-                getActivity().onBackPressed();
-            }
-        };
-
-//        adapter = new RVITAdapter(createGendersList(), listener, databinding.);
         databinding.recyclerViewFragmentRecyclerView.setAdapter(adapter);
         databinding.recyclerViewFragmentRecyclerView.setHasFixedSize(false);
 

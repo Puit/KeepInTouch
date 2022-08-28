@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomTextView">
+        <attr name="text_view_text" format="string" />
+        <attr name="text_view_hint_text" format="string" />
+        <attr name="text_view_text_color" format="reference" />
+        <attr name="text_view_underline_color" format="reference" />
+    </declare-styleable>
+</resources>

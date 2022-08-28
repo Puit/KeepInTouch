@@ -97,4 +97,7 @@
     <style name="light.black.15">
         <item name="android:textSize">15dp</item>
     </style>
+    <style name="light.black.24">
+        <item name="android:textSize">24dp</item>
+    </style>
 </resources>

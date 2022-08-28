@@ -2,6 +2,7 @@ package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.persona
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,8 +12,12 @@ import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.databinding.FragmentContactPersonalDataBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
+import com.nunnos.keepintouch.presentation.component.CustomTextView;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.vm.ContactPersonalDataViewModel;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<ContactPersonalDataViewModel, ContactInfoViewModel, FragmentContactPersonalDataBinding> {
 
@@ -50,8 +55,15 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
         }
         setTextOrHide(databinding.contactPersonalDataTelephone, c.getTelephone());
         setTextOrHide(databinding.contactPersonalDataEmail, c.getEmail());
-        setTextOrHide(databinding.contactPersonalDataEmail, c.getEmail());
-        setTextOrHide(databinding.contactPersonalDataBirthday, c.getBirthday());
+        setTextOrHide(databinding.contactPersonalDataGender, c.getGender());
+        setTextOrHide(databinding.contactPersonalDataSexualOrientation, c.getSexualOrientation());
+        if(c.isRealBirthday()){
+            setTextOrHide(databinding.contactPersonalDataBirthday, c.getBirthday());
+            setTextOrHide(databinding.contactPersonalDataAge, String.valueOf(c.getAge()));
+        }else{
+            databinding.contactPersonalDataBirthday.setVisibility(View.GONE);
+            setTextOrHide(databinding.contactPersonalDataAge, c.getBirthday());
+        }
         setTextOrHide(databinding.contactPersonalDataAdress, c.getAddress());
         setTextOrHide(databinding.contactPersonalDataProfession, c.getProfession());
         setTextOrHide(databinding.contactPersonalDataPlaceofwork, c.getPlaceOfWork());
@@ -63,11 +75,28 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
     }
 
     private void setTextOrHide(TextView tv, String text) {
-        if (text.isEmpty()) {
+        if (text.isEmpty() || text.equals("Unknown")|| text.equals("DD/MM/YYYY")) {
             tv.setVisibility(View.GONE);
         } else {
             tv.setVisibility(View.VISIBLE);
             tv.setText(text);
+        }
+    }
+    private void setTextOrHide(CustomTextView tv, String text) {
+        if (text.isEmpty() || text.equals("Unknown")|| text.equals("DD/MM/YYYY")) {
+            tv.setVisibility(View.GONE);
+        } else {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(text);
+        }
+    }
+    private void setTextOrHide(CustomTextView tv, String text, int src) {
+        if (text.isEmpty() || text.equals("Unknown")|| text.equals("DD/MM/YYYY")) {
+            tv.setVisibility(View.GONE);
+        } else {
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(text);
+            tv.setImage(src);
         }
     }
 

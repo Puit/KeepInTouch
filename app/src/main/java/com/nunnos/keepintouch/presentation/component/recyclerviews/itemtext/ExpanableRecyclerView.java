@@ -6,9 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,13 +69,7 @@ public class ExpanableRecyclerView extends LinearLayout {
     }
 
     private void setListeners() {
-        OnClickListener listener = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), String.valueOf(v.getClass().getSimpleName()), Toast.LENGTH_SHORT).show();
-                databinding.expanableRecyclerHeader.setToggleOnClick(!databinding.expanableRecyclerHeader.isToggleOnClick());
-            }
-        };
+        OnClickListener listener = v -> databinding.expanableRecyclerHeader.setToggleOnClick(!databinding.expanableRecyclerHeader.isToggleOnClick());
         databinding.expanableRecyclerLinearLayout.setOnClickListener(listener);
         databinding.expanableRecyclerHeader.setOnClickListener(listener);
         databinding.expanableRecyclerCustomEditText.setListener(new ExpanableTitle.CustomListener() {

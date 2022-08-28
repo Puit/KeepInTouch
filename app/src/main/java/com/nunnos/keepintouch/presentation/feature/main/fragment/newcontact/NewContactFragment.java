@@ -103,7 +103,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
     private void initRecyclerViews() {
         RVITAdapter.RVITAdapterViewHolder.CustomItemClick genderListener = (gender, icon) -> {
             //Set gender to shareviewModel.contact
-            Toast.makeText(getContext(), gender, Toast.LENGTH_SHORT).show();
+
             databinding.newContactGenderExpanable.setText(gender);
             databinding.newContactGenderExpanable.setIcon(icon);
             databinding.newContactGenderExpanable.collapse(true);
@@ -115,7 +115,6 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
 
         RVITAdapter.RVITAdapterViewHolder.CustomItemClick sexualOrientationListener = (gender, icon) -> {
             //Set gender to shareviewModel.contact
-            Toast.makeText(getContext(), gender, Toast.LENGTH_SHORT).show();
             databinding.newContactSexualOrientationExpanable.setText(gender);
             databinding.newContactSexualOrientationExpanable.setIcon(icon);
             databinding.newContactSexualOrientationExpanable.collapse(true);

@@ -41,7 +41,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:background="@color/background_transparent"
-                    tools:src="@drawable/ic_baseline_more_vert_24" />
+                    android:src="@drawable/ic_baseline_more_vert_24" />
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
@@ -70,146 +70,164 @@
                     app:edit_text_hint_text="Alias"
                     tools:text="Pep" />
 
-                <TextView
+                <com.nunnos.keepintouch.presentation.component.CustomTextView
                     android:id="@+id/contact_personal_data_telephone"
                     style="@style/bold.black.24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Telephone"
-                    tools:text="682554893" />
+                    app:text_view_hint_text="Telephone"
+                    tools:text_view_text="682554893" />
 
-                <TextView
+                <com.nunnos.keepintouch.presentation.component.CustomTextView
                     android:id="@+id/contact_personal_data_email"
                     style="@style/bold.black.24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Email"
-                    tools:text="keepintouch@keepintouch.com" />
+                    app:text_view_hint_text="Email"
+                    tools:text_view_text="keepintouch@keepintouch.com" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ExpanableRecyclerView
-                        android:id="@+id/contact_personal_data_gender_expanable"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:expanable_recyclerview_hint_text="Gender"
-                        app:expanable_recyclerview_icon="@drawable/ic_unknown"
-                        app:expanable_recyclerview_text_text="Unknown"
-                        app:layout_constraintEnd_toStartOf="@+id/contact_personal_data_sexual_orientation_expanable"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ExpanableRecyclerView
-                        android:id="@+id/contact_personal_data_sexual_orientation_expanable"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:expanable_recyclerview_hint_text="Sexual Orientation"
-                        app:expanable_recyclerview_icon="@drawable/ic_unknown"
-                        app:expanable_recyclerview_text_text="Unknown"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/contact_personal_data_gender_expanable"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <!-- SELECTOR DATA-->
 
-                <TextView
-                    android:id="@+id/contact_personal_data_birthday"
-                    style="@style/bold.black.24"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:maxLines="1"
-                    app:edit_text_clickable="true"
-                    app:edit_text_focusable="false"
-                    app:edit_text_hint_text="Birthday"
-                    app:edit_text_text="DD/MM/YYYY"
-                    tools:text="22/12/1985" />
+                    android:layout_marginTop="20dp">
 
-                <TextView
+                    <com.nunnos.keepintouch.presentation.component.CustomTextView
+                        android:id="@+id/contact_personal_data_birthday"
+                        style="@style/bold.black.24"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        app:edit_text_clickable="true"
+                        app:edit_text_focusable="false"
+                        app:edit_text_text="DD/MM/YYYY"
+                        app:layout_constraintEnd_toStartOf="@+id/contact_personal_data_age"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:text_view_hint_text="Birthday" />
+
+                    <com.nunnos.keepintouch.presentation.component.CustomTextView
+                        android:id="@+id/contact_personal_data_age"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:edit_text_text=""
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/contact_personal_data_birthday"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:text_view_hint_text="Age" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.nunnos.keepintouch.presentation.component.CustomTextView
                     android:id="@+id/contact_personal_data_adress"
                     style="@style/bold.black.24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     app:edit_text_hint_text="Address"
-                    tools:edit_text_text="Address"
-                    tools:text="C/ Narcís Monturiol 22, 4t 2a, El Prat de Llobregat 08820" />
+                    app:text_view_hint_text="Address"
+                    tools:text_view_text="C/ Narcís Monturiol 22, 4t 2a, El Prat de Llobregat 08820" />
 
-                <TextView
+                <com.nunnos.keepintouch.presentation.component.CustomTextView
                     android:id="@+id/contact_personal_data_profession"
                     style="@style/bold.black.24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     app:edit_text_hint_text="Profession"
-                    tools:edit_text_text="Profession"
-                    tools:text="Programmer" />
+                    app:text_view_hint_text="Profession"
+                    tools:text_view_text="Programmer" />
 
-                <TextView
+                <com.nunnos.keepintouch.presentation.component.CustomTextView
                     android:id="@+id/contact_personal_data_placeofwork"
                     style="@style/bold.black.24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     app:edit_text_hint_text="Place of work"
-                    tools:edit_text_text="Place of work"
-                    tools:text="Keep in touch S.A." />
+                    app:text_view_hint_text="Place of work"
+                    tools:text_view_text="Keep in touch S.A." />
 
-                <TextView
+                <com.nunnos.keepintouch.presentation.component.CustomTextView
                     android:id="@+id/contact_personal_data_how_we_met"
                     style="@style/bold.black.24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     app:edit_text_hint_text="How we met"
-                    tools:edit_text_text="How we met"
-                    tools:text="Alinyà" />
+                    app:text_view_hint_text="How we met"
+                    tools:text_view_text="Alinyà" />
 
-                <TextView
+                <com.nunnos.keepintouch.presentation.component.CustomTextView
                     android:id="@+id/contact_personal_data_language"
                     style="@style/bold.black.24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     app:edit_text_hint_text="Language"
-                    tools:edit_text_text="Language"
-                    tools:text="Català" />
+                    app:text_view_hint_text="Language"
+                    tools:text_view_text="Català" />
 
-                <TextView
+                <com.nunnos.keepintouch.presentation.component.CustomTextView
                     android:id="@+id/contact_personal_data_religion"
                     style="@style/bold.black.24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Religion"
                     app:edit_text_text="Unknown"
-                    tools:text="Ateism" />
+                    app:text_view_hint_text="Religion"
+                    tools:text_view_text="Ateism" />
 
-                <TextView
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <com.nunnos.keepintouch.presentation.component.CustomTextView
+                        android:id="@+id/contact_personal_data_gender"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:edit_text_text="Unknown"
+                        app:layout_constraintEnd_toStartOf="@+id/contact_personal_data_sexual_orientation"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:text_view_hint_text="Gender" />
+
+                    <com.nunnos.keepintouch.presentation.component.CustomTextView
+                        android:id="@+id/contact_personal_data_sexual_orientation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:edit_text_text="Unknown"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/contact_personal_data_gender"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:text_view_hint_text="Sexual Orientation" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.nunnos.keepintouch.presentation.component.CustomTextView
                     android:id="@+id/contact_personal_data_relatives"
                     style="@style/bold.black.24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     app:edit_text_hint_text="Relatives"
-                    tools:edit_text_text="Relatives"
-                    tools:text="Mother, Father" />
+                    app:text_view_hint_text="Relatives"
+                    tools:text_view_text="Mother, Father" />
 
-                <TextView
+                <com.nunnos.keepintouch.presentation.component.CustomTextView
                     android:id="@+id/contact_personal_data_social_media"
                     style="@style/bold.black.24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     app:edit_text_hint_text="Social media"
-                    tools:edit_text_text="Social media"
-                    tools:text="www.facebook.com/Puit" />
+                    app:text_view_hint_text="Social media"
+                    tools:text_view_text="www.facebook.com/Puit" />
 
             </LinearLayout>
 

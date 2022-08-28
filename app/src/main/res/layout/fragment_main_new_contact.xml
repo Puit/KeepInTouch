@@ -214,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     app:edit_text_hint_text="Religion"
-                    app:edit_text_text="Unknown" />
+                    tools:edit_text_text="Unknown" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
                     android:id="@+id/new_contact_relatives"
