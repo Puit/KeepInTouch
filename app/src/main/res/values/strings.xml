@@ -1,6 +1,28 @@
 <resources>
     <string name="app_name">Keep in touch</string>
     <string name="file_path" translatable="false">Android/data/com.nunnos.keepintouch/files/Pictures</string>
+    <string name="image">Image</string>
+    <string name="name">Name</string>
+    <string name="surname1">Surname 1</string>
+    <string name="surname2">Surname 2</string>
+    <string name="gender">Gender</string>
+    <string name="sexual_orientation">Sexual orientation</string>
+    <string name="birthday">Birthday</string>
+    <string name="age">Age</string>
+    <string name="address">Address</string>
+    <string name="profession">Profession</string>
+    <string name="place_of_work">Place of work</string>
+    <string name="how_we_met">How we met</string>
+    <string name="language">Language</string>
+    <string name="religion">Religion</string>
+    <string name="relatives">Relatives</string>
+    <string name="conversations">Conversations</string>
+    <string name="favorite">Favorite</string>
+    <string name="alias">Alias</string>
+    <string name="telephone">Telephone</string>
+    <string name="email">Email</string>
+    <string name="comments">Comments</string>
+    <string name="day_of_death">Day of death</string>
 
     <!--ARRAYS-->
 

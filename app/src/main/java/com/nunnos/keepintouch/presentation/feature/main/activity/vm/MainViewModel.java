@@ -279,6 +279,25 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
             contactsFoundByCommentsLD.postValue(contacts);
         });
     }
+    public void clearSearch(){
+        contactsMutableLiveData.postValue(null);
+        contactsFoundByNameLD.postValue(null);
+        contactsFoundByGenderLD.postValue(null);
+        contactsFoundBySexualOrientationLD.postValue(null);
+        contactsFoundByBirthdayLD.postValue(null);
+        contactsFoundByAddressLD.postValue(null);
+        contactsFoundByProfessionLD.postValue(null);
+        contactsFoundByPlaceOfWorkLD.postValue(null);
+        contactsFoundByHowWeMetLD.postValue(null);
+        contactsFoundByLanguageLD.postValue(null);
+        contactsFoundByReligionLD.postValue(null);
+        contactsFoundByRelativesLD.postValue(null);
+        contactsFoundByConversationsLD.postValue(null);
+        contactsFoundByAliasLD.postValue(null);
+        contactsFoundByTelephoneLD.postValue(null);
+        contactsFoundByEmailLD.postValue(null);
+        contactsFoundByCommentsLD.postValue(null);
+    }
 
     public MediatorLiveData<List<Contact>> getContactsFoundByNameLD() {
         return contactsFoundByNameLD;

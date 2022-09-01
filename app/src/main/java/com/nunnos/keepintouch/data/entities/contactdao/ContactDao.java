@@ -7,6 +7,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.nunnos.keepintouch.utils.TextUtils;
+
 import java.util.List;
 
 
@@ -40,7 +42,9 @@ public interface ContactDao {
      * Normal Search
      */
     //TODO: Que busqui per nom i cognoms
-    @Query("SELECT * FROM " + TABLE_NAME + " WHERE UPPER(Name) LIKE '%' || UPPER(:name) || '%'")
+    @Query("SELECT * FROM " + TABLE_NAME + " WHERE UPPER(Name) COLLATE Latin1_General_CI_AI LIKE '%' || UPPER(:name) || '%' COLLATE Latin1_General_CI_AI OR"
+            + "  UPPER(Surname1) LIKE '%' COLLATE Latin1_General_CI_AI || UPPER(:name) || '%' COLLATE Latin1_General_CI_AI OR"
+            + " UPPER(Surname2) LIKE '%' COLLATE Latin1_General_CI_AI || UPPER(:name) || '%' COLLATE Latin1_General_CI_AI")
     List<ContactEntity> searchByName(String name);
 
     @Query("SELECT * FROM " + TABLE_NAME + " WHERE UPPER(Gender) LIKE '%' || UPPER(:gender) || '%'")

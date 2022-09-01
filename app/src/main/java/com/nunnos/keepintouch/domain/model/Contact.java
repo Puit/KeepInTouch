@@ -142,8 +142,10 @@ public class Contact {
     }
 
     public String getFullName() {
-        String fullName = name.trim();
-        if (!TextUtils.isEmpty(surname1)) {
+        String fullName = "";
+        if (!TextUtils.isEmpty(name)) {
+            fullName = fullName + name.trim();
+        }if (!TextUtils.isEmpty(surname1)) {
             fullName = fullName + " " + surname1.trim();
         }
         if (!TextUtils.isEmpty(surname2)) {

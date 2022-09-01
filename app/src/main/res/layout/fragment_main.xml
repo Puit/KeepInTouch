@@ -7,21 +7,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
+        <com.nunnos.keepintouch.presentation.component.CustomEditText
             android:id="@+id/main_searcher"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:hint="Search"
-            android:imeOptions="actionSend"
-            android:inputType="text"
             android:maxLines="1"
-            android:visibility="gone"
+            app:edit_text_clickable="true"
+            app:edit_text_focusable="false"
+            app:edit_text_hint_text=""
+            app:edit_text_text="@string/search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/main_no_contact_tv"

@@ -72,7 +72,7 @@ public abstract class BaseActivityViewModelLiveData<VM extends BaseViewModel & L
         }
     }
 
-    private void overrideSlidingTransition(Fragment fragment, @AnimatorRes @AnimRes int enter, @AnimatorRes @AnimRes int exit) {
+    public void overrideSlidingTransition(Fragment fragment, @AnimatorRes @AnimRes int enter, @AnimatorRes @AnimRes int exit) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(enter, exit);
         transaction.addToBackStack(null);
@@ -86,6 +86,10 @@ public abstract class BaseActivityViewModelLiveData<VM extends BaseViewModel & L
 
     public void overrideSlidingUpTransition(Fragment fragment) {
         overrideSlidingTransition(fragment, R.anim.slide_in_up, R.anim.slide_out_down);
+    }
+
+    public void overridePopTransition(Fragment fragment) {
+        overrideSlidingTransition(fragment, R.anim.pop_in_animation, R.anim.pop_in_animation);
     }
 
     public void launchSlidingUpActivity(Intent intent) {

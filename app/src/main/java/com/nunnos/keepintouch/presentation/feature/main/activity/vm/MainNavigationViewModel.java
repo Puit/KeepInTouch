@@ -23,6 +23,10 @@ public class MainNavigationViewModel extends BaseViewModel {
         navigation.setValue(MainNavigation.CONTACT_INFO);
     }
 
+    public void navigateToSearchContact() {
+        navigation.setValue(MainNavigation.SEARCH_CONTACT);
+    }
+
     @Override
     public void resume() {
 
