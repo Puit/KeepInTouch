@@ -70,7 +70,7 @@ public class RVSearchCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public interface CustomItemClick {
-        void onItemClick();
+        void onItemClick(int contactId);
     }
     /**
      * CLASS VIEWHOLDER
@@ -119,7 +119,7 @@ public class RVSearchCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         @Override
         public void onClick(View v) {
-            listener.onItemClick();
+            listener.onItemClick(contact.getId());
             /*if (context instanceof MainActivity) {
                 ((MainActivity) context).getShareViewModel().setContactSelectedID(contact.getId());
                 ((MainActivity) context).getShareViewModel().navigateToContactInfo();

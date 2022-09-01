@@ -176,8 +176,11 @@ public class SearchContactFragment extends BaseFragmentViewModelLiveData<EmptyVi
         recyclerView.setVisibility(View.VISIBLE);
         textView.setVisibility(View.VISIBLE);
         if (searchCardAdapter == null) {
-            RVSearchCardAdapter.CustomItemClick contactListener = () ->{
-
+            RVSearchCardAdapter.CustomItemClick contactListener = (contactId) -> {
+                shareViewModel.setContactSelectedID(contactId);
+                shareViewModel.navigateToContactInfo();
+                shareViewModel.clearSearch();
+                getActivity().onBackPressed();
             };
 
             searchCardAdapter = new RVSearchCardAdapter(contactList, contactListener);
@@ -188,7 +191,8 @@ public class SearchContactFragment extends BaseFragmentViewModelLiveData<EmptyVi
         searchCardAdapter.notifyDataSetChanged();
         recyclerView.setHasFixedSize(false);
     }
-    private void clearAll(){
+
+    private void clearAll() {
         clearAndHide(databinding.searchContactRvName, databinding.searchContactName);
         clearAndHide(databinding.searchContactRvGender, databinding.searchContactGender);
         clearAndHide(databinding.searchContactRvSexualOrientation, databinding.searchContactSexualOrientation);
