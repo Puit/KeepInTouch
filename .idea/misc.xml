@@ -5,10 +5,12 @@
       <map>
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.1" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.233" />
+        <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.188" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/activity_contact_info.xml" value="0.23867753623188406" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/activity_main.xml" value="0.2391304347826087" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_bg_picker.xml" value="0.24048913043478262" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_bottom_menu.xml" value="0.24048913043478262" />
+        <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_conversation_important.xml" value="0.25" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_conversations_recyclerview_conversation.xml" value="0.176" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_custom_edit_text.xml" value="0.2391304347826087" />
         <entry key="..\:/Projectes/Apps/Cernunnos/Keep in touch/app/src/main/res/layout/component_custom_switch.xml" value="0.2391304347826087" />

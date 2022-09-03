@@ -11,7 +11,6 @@ import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.base.baseviewmodel.EmptyViewModel;
 import com.nunnos.keepintouch.databinding.FragmentConversationsBinding;
 import com.nunnos.keepintouch.domain.model.Conversation;
-import com.nunnos.keepintouch.presentation.component.recyclerviews.contactcard.RVContactCardAdapter;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.conversationcard.RVConversationCardAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 
@@ -20,6 +19,7 @@ import java.util.List;
 public class ConversationsFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, ContactInfoViewModel, FragmentConversationsBinding> {
 
     private RVConversationCardAdapter adapter;
+
     public ConversationsFragment() {
         //Required empty public constructor
     }
@@ -34,9 +34,9 @@ public class ConversationsFragment extends BaseFragmentViewModelLiveData<EmptyVi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        shareViewModel.retrieveConversations(getContext());
         initObservers();
         initListeners();
+        shareViewModel.retrieveConversations(getContext());
     }
 
     private void initObservers() {

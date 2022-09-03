@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Keep in touch</string>
     <string name="file_path" translatable="false">Android/data/com.nunnos.keepintouch/files/Pictures</string>
+    <string name="lorem_ipsum_280" translatable="false">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat mas</string>
     <string name="image">Image</string>
     <string name="name">Name</string>
     <string name="surname1">Surname 1</string>

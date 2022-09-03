@@ -12,6 +12,7 @@ import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.databinding.FragmentContactInfoBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.domain.model.Conversation;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.conversationcard.RVConversationCardAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.vm.ContactInfoFragmentViewModel;
 import com.nunnos.keepintouch.utils.FileManager;
@@ -23,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactInfoFragmentViewModel, ContactInfoViewModel, FragmentContactInfoBinding> {
+    private RVConversationCardAdapter adapter;
 
     public ContactInfoFragment() {
         //Required empty public constructor
@@ -70,9 +72,15 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
                 databinding.contactInfoLocation.setVisibility(View.VISIBLE);
                 databinding.contactInfoLocationIcon.setVisibility(View.VISIBLE);
                 databinding.contactInfoLocation.setText(mostRecentConversation.getPlace());
-
             }
+            setConversationToRecyclerView(conversations);
         }
+    }
+
+    private void setConversationToRecyclerView(List<Conversation> conversations) {
+        adapter = new RVConversationCardAdapter(conversations);
+        databinding.contactInfoRecyclerviewChats.setAdapter(adapter);
+        databinding.contactInfoRecyclerviewChats.setHasFixedSize(false);
     }
 
     private void setContactInfo(Contact contact) {
@@ -90,14 +98,16 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
         Conversation mostRecentConversation = null;
         try {
             for (Conversation c : conversations) {
-                Date cDate = new SimpleDateFormat("dd/MM/yyyy").parse(c.getDate());
-                if (lastChatDate == null) {
-                    lastChatDate = cDate;
-                    mostRecentConversation = c;
-                } else {
-                    if (lastChatDate.compareTo(cDate) < 0) {
+                if (!c.getDate().isEmpty()) {
+                    Date cDate = new SimpleDateFormat("dd/MM/yyyy").parse(c.getDate().replaceAll(" ", "").trim());
+                    if (lastChatDate == null) {
                         lastChatDate = cDate;
                         mostRecentConversation = c;
+                    } else {
+                        if (lastChatDate.compareTo(cDate) < 0) {
+                            lastChatDate = cDate;
+                            mostRecentConversation = c;
+                        }
                     }
                 }
             }

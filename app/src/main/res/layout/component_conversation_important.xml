@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/converation_important_card_container"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/converation_important_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:scaleType="centerCrop"
+                tools:src="@color/text_dark_gray" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/converation_important_edit"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_baseline_more_vert_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/converation_important_text"
+            style="@style/regular.black.14"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="5dp"
+            android:ellipsize="marquee"
+            android:maxLines="4"
+            android:singleLine="false"
+            android:text="@string/lorem_ipsum_280"
+            app:layout_constraintBottom_toTopOf="@+id/converation_important_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/converation_important_card_container"
+            app:layout_constraintTop_toTopOf="@+id/converation_important_card_container" />
+
+        <TextView
+            android:id="@+id/converation_important_date"
+            style="@style/regular.gray.13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/converation_important_card_container"
+            app:layout_constraintEnd_toStartOf="@+id/converation_important_dot"
+            app:layout_constraintStart_toStartOf="@+id/converation_important_text"
+            tools:text="20/12/2022" />
+
+        <ImageView
+            android:id="@+id/converation_important_dot"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:src="@drawable/ic_baseline_circle_24"
+            app:layout_constraintBottom_toBottomOf="@+id/converation_important_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.33"
+            app:layout_constraintStart_toEndOf="@+id/converation_important_card_container"
+            app:layout_constraintTop_toTopOf="@+id/converation_important_date" />
+
+        <ImageView
+            android:id="@+id/converation_important_location"
+            style="@style/regular.gray.13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/converation_important_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/converation_important_dot"
+            tools:text="El Prat de Llobregat" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
