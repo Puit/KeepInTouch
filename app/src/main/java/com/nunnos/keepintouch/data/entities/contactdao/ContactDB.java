@@ -11,9 +11,9 @@ import androidx.room.TypeConverters;
 import com.nunnos.keepintouch.data.entities.Converters;
 
 @Database(entities = {ContactEntity.class}, version = 1, exportSchema = true,
-autoMigrations = {
-        @AutoMigration(from = 1, to = 2)
-})
+        autoMigrations = {
+                @AutoMigration(from = 1, to = 2)
+        })
 @TypeConverters({Converters.class})
 public abstract class ContactDB extends RoomDatabase {
     public abstract ContactDao contactDao();
@@ -23,7 +23,7 @@ public abstract class ContactDB extends RoomDatabase {
     public static synchronized ContactDB getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    ContactDB.class, ContactsDaoConstants.TABLE_NAME)
+                            ContactDB.class, ContactsDaoConstants.TABLE_NAME)
                     .build();
         }
         return instance;

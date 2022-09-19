@@ -24,7 +24,7 @@
     <string name="email">Email</string>
     <string name="comments">Comments</string>
     <string name="day_of_death">Day of death</string>
-
+    <string name="search">Search…</string>
     <!--ARRAYS-->
 
     <string-array name="genders">

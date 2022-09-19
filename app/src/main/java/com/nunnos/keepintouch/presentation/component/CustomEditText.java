@@ -73,7 +73,7 @@ public class CustomEditText extends ConstraintLayout {
 
     }
 
-    public void onFocusChanged(View.OnFocusChangeListener l) {
+    public void onFocusChanged(OnFocusChangeListener l) {
         databinding.etTitle.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

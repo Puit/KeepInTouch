@@ -63,7 +63,7 @@ public class BgPicker extends ConstraintLayout {
         databinding.bgPickerImage.setFocusable(focusable);
     }
 
-    public void onFocusChanged(View.OnFocusChangeListener l) {
+    public void onFocusChanged(OnFocusChangeListener l) {
         databinding.bgPickerImage.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

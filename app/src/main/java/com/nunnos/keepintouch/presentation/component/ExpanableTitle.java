@@ -21,7 +21,7 @@ import com.nunnos.keepintouch.databinding.ComponentExpanableTitleBinding;
 public class ExpanableTitle extends ConstraintLayout {
 
     ComponentExpanableTitleBinding databinding;
-    private ExpanableTitle.CustomListener listener;
+    private CustomListener listener;
     private int errorColor;
     private int successColor;
     private Drawable icon;

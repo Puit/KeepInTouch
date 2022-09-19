@@ -19,7 +19,7 @@ public abstract class ConversationDB extends RoomDatabase {
     public static synchronized ConversationDB getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    ConversationDB.class, ConversationDaoConstants.TABLE_NAME)
+                            ConversationDB.class, ConversationDaoConstants.TABLE_NAME)
                     .fallbackToDestructiveMigration()
                     .build();
         }
