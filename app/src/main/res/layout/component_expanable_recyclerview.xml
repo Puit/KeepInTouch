@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.github.florent37.expansionpanel.ExpansionHeader
+        <com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.base.ExpansionHeader
             android:id="@+id/expanable_recycler_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,22 +48,22 @@
                 <!-- HEADER INDICATOR -->
                 <ImageView
                     android:id="@+id/expanable_recycler_headerIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginLeft="16dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="16dp"
                     android:adjustViewBounds="true"
+                    android:layout_marginTop="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_expansion_header_indicator_grey_24dp" />
+                    app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </com.github.florent37.expansionpanel.ExpansionHeader>
+        </com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.base.ExpansionHeader>
 
-        <com.github.florent37.expansionpanel.ExpansionLayout
+        <com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.base.ExpansionLayout
             android:id="@+id/expanable_recycler_expansionLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,6 +80,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerView_fragment_title" />
 
-        </com.github.florent37.expansionpanel.ExpansionLayout>
+        </com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.base.ExpansionLayout>
     </LinearLayout>
 </layout>

@@ -11,10 +11,10 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.florent37.expansionpanel.ExpansionLayout;
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.databinding.ComponentExpanableRecyclerviewBinding;
 import com.nunnos.keepintouch.presentation.component.ExpanableTitle;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.base.ExpansionLayout;
 
 public class ExpanableRecyclerView extends LinearLayout {
 

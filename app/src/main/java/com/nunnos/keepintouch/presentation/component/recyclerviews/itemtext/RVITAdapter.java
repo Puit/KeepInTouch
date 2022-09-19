@@ -11,9 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.florent37.expansionpanel.ExpansionLayout;
-import com.github.florent37.expansionpanel.viewgroup.ExpansionLayoutCollection;
 import com.nunnos.keepintouch.R;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.base.ExpansionLayout;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.base.ExpansionLayoutCollection;
 
 import java.util.List;
 
