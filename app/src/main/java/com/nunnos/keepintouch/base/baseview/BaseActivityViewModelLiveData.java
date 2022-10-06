@@ -12,12 +12,12 @@ import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.ViewModel;
 
 import com.nunnos.keepintouch.R;
-import com.nunnos.keepintouch.base.baseview.base.viewmodel.BaseViewModel;
 import com.nunnos.keepintouch.base.baseview.base.viewmodel.BaseViewModelActivity;
 
-public abstract class BaseActivityViewModelLiveData<VM extends BaseViewModel & LifecycleObserver, DB extends ViewDataBinding> extends BaseViewModelActivity implements LifecycleObserver {
+public abstract class BaseActivityViewModelLiveData<VM extends ViewModel & LifecycleObserver, DB extends ViewDataBinding> extends BaseViewModelActivity implements LifecycleObserver {
     private enum Animation {
         NO_ANIMATION,
         SLIDING_UP;
@@ -51,7 +51,7 @@ public abstract class BaseActivityViewModelLiveData<VM extends BaseViewModel & L
         dataBinding = DataBindingUtil.setContentView(this, layout());
         dataBinding.setLifecycleOwner(this);
         dataBindingViewModel();
-        if(getIntent().hasExtra(ENTRANCE_ANIMATION)){
+        if (getIntent().hasExtra(ENTRANCE_ANIMATION)) {
             entranceAnimation = (Animation) getIntent().getSerializableExtra(ENTRANCE_ANIMATION);
         }
     }
@@ -102,8 +102,8 @@ public abstract class BaseActivityViewModelLiveData<VM extends BaseViewModel & L
     public void finish() {
         super.finish();
         //TODO: Recollir quina animació s'ha fet al cridar-la, fer switch case on es possi l'opossada al tancar
-        if(entranceAnimation == null) return;
-        switch (entranceAnimation){
+        if (entranceAnimation == null) return;
+        switch (entranceAnimation) {
             case SLIDING_UP:
                 overrideSlidingTransition(R.anim.stay, R.anim.slide_out_down);
                 break;

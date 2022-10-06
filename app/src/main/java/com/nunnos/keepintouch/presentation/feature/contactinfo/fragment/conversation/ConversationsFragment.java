@@ -16,7 +16,7 @@ import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.Conta
 
 import java.util.List;
 
-public class ConversationsFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, ContactInfoViewModel, FragmentConversationsBinding> {
+public class ConversationsFragment extends BaseFragmentViewModelLiveData<ContactInfoViewModel, FragmentConversationsBinding> {
 
     private RVConversationCardAdapter adapter;
 

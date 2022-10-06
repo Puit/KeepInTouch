@@ -17,11 +17,10 @@ import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.data.CustomDate;
 import com.nunnos.keepintouch.databinding.FragmentNewCommentBinding;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
-import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.vm.ContactInfoFragmentViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
 import com.nunnos.keepintouch.utils.AlertsManager;
 
-public class NewCommentFragment extends BaseFragmentViewModelLiveData<ContactInfoFragmentViewModel, ContactInfoViewModel, FragmentNewCommentBinding> {
+public class NewCommentFragment extends BaseFragmentViewModelLiveData<ContactInfoViewModel, FragmentNewCommentBinding> {
     private final int MAX_LENGHT = 280;
     private boolean isEdit = false;
 

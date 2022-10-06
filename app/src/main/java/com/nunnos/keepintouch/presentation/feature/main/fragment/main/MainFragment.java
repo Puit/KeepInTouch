@@ -19,7 +19,7 @@ import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewMode
 
 import java.util.List;
 
-public class MainFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, MainViewModel, FragmentMainBinding> {
+public class MainFragment extends BaseFragmentViewModelLiveData<MainViewModel, FragmentMainBinding> {
 
     private RVContactCardAdapter adapter;
 

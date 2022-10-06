@@ -1,11 +1,11 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-import com.nunnos.keepintouch.base.baseview.base.viewmodel.BaseViewModel;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation;
 
-public class ContactInfoNavigationViewModel extends BaseViewModel {
+public class ContactInfoNavigationViewModel extends ViewModel {
 
     protected MutableLiveData<Integer> navigation = new MutableLiveData<>();
 
@@ -36,23 +36,4 @@ public class ContactInfoNavigationViewModel extends BaseViewModel {
         navigation.setValue(ContactInfoNavigation.NEW_COMMENT);
     }
 
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
-    @Override
-    public void onCleared() {
-
-    }
 }

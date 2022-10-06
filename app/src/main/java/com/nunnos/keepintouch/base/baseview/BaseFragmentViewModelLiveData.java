@@ -10,15 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.ViewModel;
 
-import com.nunnos.keepintouch.base.baseview.base.viewmodel.BaseViewModel;
 import com.nunnos.keepintouch.base.baseview.base.viewmodel.BaseViewModelFragment;
 
-public abstract class BaseFragmentViewModelLiveData<VM extends ViewModel, VMS extends ViewModel, DB extends ViewDataBinding> extends BaseViewModelFragment implements LifecycleObserver {
-    protected VM viewModel;
+public abstract class BaseFragmentViewModelLiveData<VMS extends ViewModel, DB extends ViewDataBinding> extends BaseViewModelFragment implements LifecycleObserver {
     protected VMS shareViewModel;
     protected DB databinding;
 
@@ -28,13 +25,6 @@ public abstract class BaseFragmentViewModelLiveData<VM extends ViewModel, VMS ex
     protected abstract void dataBindingViewModel();
 
     protected abstract boolean isShareViewModel();
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        viewModel = (VM) getViewModel();
-    }
 
     @Nullable
     @Override
@@ -56,18 +46,12 @@ public abstract class BaseFragmentViewModelLiveData<VM extends ViewModel, VMS ex
 
     @Override
     public void onStart() {
-        super.onStart();/*
-        if (viewModel != null) {
-            getLifecycle().addObserver(viewModel);
-        }*/
+        super.onStart();
     }
 
     @Override
     public void onStop() {
-        super.onStop();/*
-        if (viewModel != null) {
-            getLifecycle().removeObserver(viewModel);
-        }*/
+        super.onStop();
     }
 
     /**

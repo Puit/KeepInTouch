@@ -23,7 +23,6 @@ import com.nunnos.keepintouch.presentation.component.CustomSwitch;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ImageAndText;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVITAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
-import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.vm.ContactPersonalDataViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.BackgroundColorPickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
 import com.nunnos.keepintouch.utils.FileManager;
@@ -33,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactPersonalDataViewModel, ContactInfoViewModel, FragmentMainNewContactBinding> {
+public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactInfoViewModel, FragmentMainNewContactBinding> {
     private static final String TAG = "EditContactFragment";
 
     private RVITAdapter genderAdapter;

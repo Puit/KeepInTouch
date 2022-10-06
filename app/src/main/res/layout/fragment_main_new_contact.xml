@@ -273,9 +273,5 @@
         <variable
             name="shareviewmodeleditcontact"
             type="com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel" />
-
-        <variable
-            name="viewmodel"
-            type="com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.vm.NewContactViewModel" />
     </data>
 </layout>

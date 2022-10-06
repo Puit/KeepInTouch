@@ -33,7 +33,7 @@ import com.nunnos.keepintouch.utils.ImageHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewConversationFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, ContactInfoViewModel, FragmentNewConversationBinding> {
+public class NewConversationFragment extends BaseFragmentViewModelLiveData<ContactInfoViewModel, FragmentNewConversationBinding> {
     private RVITAdapter contactsAdapter;
     private boolean isEdit = false;
     private final TextWatcher mTextEditorWatcher = new TextWatcher() {

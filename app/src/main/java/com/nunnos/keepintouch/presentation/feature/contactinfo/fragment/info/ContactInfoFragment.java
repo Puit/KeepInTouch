@@ -16,7 +16,6 @@ import com.nunnos.keepintouch.domain.model.complements.Comment;
 import com.nunnos.keepintouch.domain.model.complements.Conversation;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.conversationimportant.RVConversationImportantAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
-import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.vm.ContactInfoFragmentViewModel;
 import com.nunnos.keepintouch.utils.FileManager;
 import com.nunnos.keepintouch.utils.ImageHelper;
 
@@ -25,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactInfoFragmentViewModel, ContactInfoViewModel, FragmentContactInfoBinding> {
+public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactInfoViewModel, FragmentContactInfoBinding> {
     private RVConversationImportantAdapter adapter;
 
     public ContactInfoFragment() {

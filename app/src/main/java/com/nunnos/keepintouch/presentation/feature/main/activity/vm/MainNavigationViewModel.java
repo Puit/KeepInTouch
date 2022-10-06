@@ -1,11 +1,11 @@
 package com.nunnos.keepintouch.presentation.feature.main.activity.vm;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-import com.nunnos.keepintouch.base.baseview.base.viewmodel.BaseViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.MainNavigation;
 
-public class MainNavigationViewModel extends BaseViewModel {
+public class MainNavigationViewModel extends ViewModel {
 
     protected MutableLiveData<Integer> navigation = new MutableLiveData<>();
 
@@ -27,25 +27,6 @@ public class MainNavigationViewModel extends BaseViewModel {
         navigation.setValue(MainNavigation.SEARCH_CONTACT);
     }
 
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
-    @Override
-    public void onCleared() {
-
-    }
 
 /*    protected <U extends BaseUseCaseLiveData, T, Params> void updateOnSuccess(U usecase, MediatorLiveData<T> model, Params params, boolean loading, boolean continueProgressWhenSuccess){
         LiveData<ResultData<T>> source = LiveDataReactiveStreams.fromPublisher(((Flowable<ResultData<T>>) usecase.doWork(params)))

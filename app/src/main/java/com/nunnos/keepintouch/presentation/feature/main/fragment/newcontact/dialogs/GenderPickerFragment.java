@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GenderPickerFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, MainViewModel, FragmentRecyclerviewBinding> {
+public class GenderPickerFragment extends BaseFragmentViewModelLiveData<MainViewModel, FragmentRecyclerviewBinding> {
 
     private RVITAdapter adapter;
 

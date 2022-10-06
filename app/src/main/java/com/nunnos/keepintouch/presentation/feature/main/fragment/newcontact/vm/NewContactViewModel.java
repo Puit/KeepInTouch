@@ -1,11 +1,11 @@
 package com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.vm;
 
 import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.ViewModel;
 
-import com.nunnos.keepintouch.base.baseview.base.viewmodel.BaseViewModel;
 import com.nunnos.keepintouch.domain.model.Contact;
 
-public class NewContactViewModel extends BaseViewModel implements LifecycleObserver {
+public class NewContactViewModel extends ViewModel implements LifecycleObserver {
     private Contact contact;
 
     public Contact getContact() {
@@ -159,28 +159,5 @@ public class NewContactViewModel extends BaseViewModel implements LifecycleObser
 
     public int getContactBgColor() {
         return contact.getBgColor();
-    }
-
-
-
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
-    @Override
-    public void onCleared() {
-
     }
 }

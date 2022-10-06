@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
-import com.nunnos.keepintouch.base.baseviewmodel.EmptyViewModel;
 import com.nunnos.keepintouch.databinding.FragmentSearchContactBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.searchcard.RVSearchCardAdapter;
@@ -21,7 +20,7 @@ import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewMode
 
 import java.util.List;
 
-public class SearchContactFragment extends BaseFragmentViewModelLiveData<EmptyViewModel, MainViewModel, FragmentSearchContactBinding> {
+public class SearchContactFragment extends BaseFragmentViewModelLiveData<MainViewModel, FragmentSearchContactBinding> {
     private RVSearchCardAdapter searchCardAdapter = null;
 
     public SearchContactFragment() {

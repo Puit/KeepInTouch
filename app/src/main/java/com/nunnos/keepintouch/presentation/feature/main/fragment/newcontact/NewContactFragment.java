@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContactViewModel, MainViewModel, FragmentMainNewContactBinding> {
+public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewModel, FragmentMainNewContactBinding> {
 
     private static final String TAG = "NewContactFragment";
 
@@ -311,7 +311,6 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<NewContact
     @Override
     protected void dataBindingViewModel() {
         databinding.setShareviewmodelmain(shareViewModel);
-        databinding.setViewmodel(viewModel);
     }
 
     @Override
