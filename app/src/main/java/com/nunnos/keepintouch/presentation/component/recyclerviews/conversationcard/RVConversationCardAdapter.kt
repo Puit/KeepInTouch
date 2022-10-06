@@ -1,17 +1,15 @@
 package com.nunnos.keepintouch.presentation.component.recyclerviews.conversationcard
 
-import com.nunnos.keepintouch.domain.model.Conversation
+import com.nunnos.keepintouch.domain.model.complements.Conversation
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import com.nunnos.keepintouch.R
-import com.nunnos.keepintouch.presentation.component.recyclerviews.conversationcard.RVConversationCardAdapter.RVConversationCardAdapterViewHolder
 import androidx.cardview.widget.CardView
 import android.widget.TextView
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.ContactInfoActivity
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.view.View
 import android.widget.ImageView
 import com.nunnos.keepintouch.utils.FileManager

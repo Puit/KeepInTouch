@@ -1,6 +1,6 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm;
 
-import static com.nunnos.keepintouch.domain.model.Conversation.SEPARATOR;
+import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,9 +20,10 @@ import com.nunnos.keepintouch.data.entities.contactdao.ContactEntity;
 import com.nunnos.keepintouch.data.entities.conversation.ConversationDB;
 import com.nunnos.keepintouch.data.entities.conversation.ConversationDao;
 import com.nunnos.keepintouch.data.entities.conversation.ConversationEntity;
-import com.nunnos.keepintouch.domain.model.Comment;
 import com.nunnos.keepintouch.domain.model.Contact;
-import com.nunnos.keepintouch.domain.model.Conversation;
+import com.nunnos.keepintouch.domain.model.complements.Comment;
+import com.nunnos.keepintouch.domain.model.complements.Conversation;
+import com.nunnos.keepintouch.domain.model.complements.base.Complement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,8 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     private final MediatorLiveData<List<Comment>> commentsMD = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> newConversationBitmap = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> thisContactBitmap = new MediatorLiveData<>();
+
+    private ArrayList<Complement> complements = new ArrayList<>();
 
     private boolean updateOnBack = false;
 
@@ -77,7 +80,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         setConversationDao(context);
         if (thisContactMD != null && thisContactMD.getValue() != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
-                List<ConversationEntity> conversationEntityList = conversationDao.getAllFromContactId(SEPARATOR + thisContactMD.getValue().getId() + SEPARATOR);
+                List<ConversationEntity> conversationEntityList = conversationDao.getAllFromContactId(CONTACTS_SEPARATOR + thisContactMD.getValue().getId() + CONTACTS_SEPARATOR);
                 if (conversationEntityList.isEmpty()) {
                     //TODO: SHOW ERROR?
                     return;
@@ -94,10 +97,10 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     }
 
     public void retrieveComments(Context context) {
-        setConversationDao(context);
+        setCommentDao(context);
         if (thisContactMD != null && thisContactMD.getValue() != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
-                List<CommentEntity> commentEntityList = commentDao.getAllFromWhoToldId(SEPARATOR + thisContactMD.getValue().getId() + SEPARATOR);
+                List<CommentEntity> commentEntityList = commentDao.getAllFromWhoToldId(CONTACTS_SEPARATOR + thisContactMD.getValue().getId() + CONTACTS_SEPARATOR);
                 if (commentEntityList.isEmpty()) {
                     //TODO: SHOW ERROR?
                     return;
@@ -162,7 +165,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     }
 
     public void deleteContact(Activity activity, Contact contact) {
-        setConversationDao(activity);
+        setContactDao(activity);
         if (thisContactMD != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 contactDao.deleteById(contact.getId());
@@ -191,6 +194,10 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     public MediatorLiveData<List<Conversation>> getConversations() {
         return conversationsMD;
+    }
+
+    public MediatorLiveData<List<Comment>> getComments() {
+        return commentsMD;
     }
 
     public Conversation getNewConversation() {
@@ -280,5 +287,52 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     public void setLastIndex(int lastIndex) {
         this.lastIndex = lastIndex;
+    }
+
+    public ArrayList<Complement> getComplements() {
+        return complements;
+    }
+
+    public void setComplements(ArrayList<Complement> complements) {
+        this.complements = complements;
+    }
+
+    public void addCommentToComplements(List<Comment> complements) {
+        this.complements.addAll(complements);
+    }
+
+    public void addConversationToComplements(List<Conversation> complements) {
+        this.complements.addAll(complements);
+    }
+/*    public void addCommentToComplements(List<Comment> complements) {
+        for (Comment comment : complements) {
+            boolean found = false;
+            for(Complement complement : complements){
+                if(complement.getId() == comment.getId()){
+                    found = true;
+                }
+            }
+            if(!found){
+                this.complements.add(comment);
+            }
+        }
+    }
+
+    public void addConversationToComplements(List<Conversation> complements) {
+        for (Conversation conversation : complements) {
+            boolean found = false;
+            for(Complement complement : complements){
+                if(complement.getId() == conversation.getId()){
+                    found = true;
+                }
+            }
+            if(!found){
+                this.complements.add(conversation);
+            }
+        }
+    }*/
+
+    public void removeComplements() {
+        complements.removeAll(complements);
     }
 }

@@ -10,7 +10,7 @@ import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.base.baseviewmodel.EmptyViewModel;
 import com.nunnos.keepintouch.databinding.FragmentConversationsBinding;
-import com.nunnos.keepintouch.domain.model.Conversation;
+import com.nunnos.keepintouch.domain.model.complements.Conversation;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.conversationcard.RVConversationCardAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 
@@ -36,7 +36,7 @@ public class ConversationsFragment extends BaseFragmentViewModelLiveData<EmptyVi
         super.onViewCreated(view, savedInstanceState);
         initObservers();
         initListeners();
-        shareViewModel.retrieveConversations(getContext());
+//        shareViewModel.retrieveConversations(getContext());
     }
 
     private void initObservers() {

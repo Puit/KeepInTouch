@@ -1,6 +1,7 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.info;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -11,8 +12,9 @@ import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.databinding.FragmentContactInfoBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
-import com.nunnos.keepintouch.domain.model.Conversation;
-import com.nunnos.keepintouch.presentation.component.recyclerviews.conversationcard.RVConversationCardAdapter;
+import com.nunnos.keepintouch.domain.model.complements.Comment;
+import com.nunnos.keepintouch.domain.model.complements.Conversation;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.conversationimportant.RVConversationImportantAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.vm.ContactInfoFragmentViewModel;
 import com.nunnos.keepintouch.utils.FileManager;
@@ -24,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactInfoFragmentViewModel, ContactInfoViewModel, FragmentContactInfoBinding> {
-    private RVConversationCardAdapter adapter;
+    private RVConversationImportantAdapter adapter;
 
     public ContactInfoFragment() {
         //Required empty public constructor
@@ -41,6 +43,7 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         shareViewModel.retrieveConversations(getContext());
+        shareViewModel.retrieveComments(getContext());
         initObservers();
         initListeners();
     }
@@ -48,6 +51,7 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     private void initObservers() {
         shareViewModel.getThisContact().observe(getViewLifecycleOwner(), this::onContactReceived);
         shareViewModel.getConversations().observe(getViewLifecycleOwner(), this::onConversationsReceived);
+        shareViewModel.getComments().observe(getViewLifecycleOwner(), this::onCommentsReceived);
     }
 
     private void onContactReceived(Contact contact) {
@@ -56,6 +60,11 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
 
     private void onConversationsReceived(List<Conversation> conversations) {
         setConversationsInfo(conversations);
+    }
+
+    private void onCommentsReceived(List<Comment> comments) {
+        shareViewModel.addCommentToComplements(comments);
+        setConversationToRecyclerView();
     }
 
     private void setConversationsInfo(List<Conversation> conversations) {
@@ -73,14 +82,29 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
                 databinding.contactInfoLocationIcon.setVisibility(View.VISIBLE);
                 databinding.contactInfoLocation.setText(mostRecentConversation.getPlace());
             }
-            setConversationToRecyclerView(conversations);
+            shareViewModel.addConversationToComplements(conversations);
+            setConversationToRecyclerView();
         }
     }
 
-    private void setConversationToRecyclerView(List<Conversation> conversations) {
-        adapter = new RVConversationCardAdapter(conversations);
-        databinding.contactInfoRecyclerviewChats.setAdapter(adapter);
-        databinding.contactInfoRecyclerviewChats.setHasFixedSize(false);
+    private void setConversationToRecyclerView() {
+        RVConversationImportantAdapter.CustomClick listener = complement -> {
+            if (complement instanceof Conversation) {
+                shareViewModel.setNewConversation((Conversation) complement);
+                shareViewModel.showNewConversationFragment();
+            } else if (complement instanceof Comment) {
+                shareViewModel.setNewComment((Comment) complement);
+                shareViewModel.showNewComment();
+            }
+
+        };
+        if (adapter == null) {
+            adapter = new RVConversationImportantAdapter(shareViewModel.getComplements(), listener);
+            databinding.contactInfoRecyclerviewChats.setAdapter(adapter);
+            databinding.contactInfoRecyclerviewChats.setHasFixedSize(false);
+        } else {
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void setContactInfo(Contact contact) {
@@ -124,7 +148,9 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
         Bitmap bitmap = FileManager.getBitmapPhoto(contact.getPhoto());
         if (bitmap == null) {
             databinding.contactInfoImage.setImageDrawable(getContext().getDrawable(R.drawable.ic_person_full));
-            databinding.contactInfoImage.setBackgroundColor(getContext().getColor(R.color.text_gray));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                databinding.contactInfoImage.setBackgroundColor(getContext().getColor(R.color.text_gray));
+            }
         } else {
             databinding.contactInfoImage.setImageBitmap(bitmap);
             ImageHelper.resizeImage(databinding.contactInfoImage, FileManager.getBitmapPhoto(contact.getPhoto()));
@@ -158,6 +184,13 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     }
 
     //Region Base Methods
+
+    @Override
+    public void onPause() {
+        shareViewModel.removeComplements();
+//        adapter.notifyDataSetChanged();
+        super.onPause();
+    }
 
     @Override
     protected int layout() {

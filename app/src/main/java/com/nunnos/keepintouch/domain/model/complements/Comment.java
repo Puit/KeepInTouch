@@ -1,10 +1,10 @@
-package com.nunnos.keepintouch.domain.model;
+package com.nunnos.keepintouch.domain.model.complements;
 
 import com.nunnos.keepintouch.data.entities.comment.CommentEntity;
+import com.nunnos.keepintouch.domain.model.complements.base.Complement;
 
-public class Comment {
+public class Comment extends Complement {
 
-    public static final String SEPARATOR = ",";
     private int id;
     private String date;
     private String info;
@@ -20,21 +20,12 @@ public class Comment {
         this.setDate(entity.date);
         this.setInfo(entity.info);
         this.setImportant(entity.isImportant);
-        addContactsFirstTime(entity.whoTold);
+        entity.whoTold = addContactsFirstTime(entity.whoTold);
     }
 
     public static Comment map(CommentEntity entity) {
         return new Comment(entity);
     }
-
-    private void addContactsFirstTime(String contacts) {
-        if (contacts.startsWith(SEPARATOR)) {
-            this.whoTold = contacts;
-        } else {
-            this.whoTold = SEPARATOR + contacts;
-        }
-    }
-
 
     /**
      * GETTERS AND SETTERS

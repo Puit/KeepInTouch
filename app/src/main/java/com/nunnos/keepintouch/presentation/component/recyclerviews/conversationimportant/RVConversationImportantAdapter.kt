@@ -4,15 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.RenderProcessGoneDetail
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.nunnos.keepintouch.R
-import com.nunnos.keepintouch.domain.model.Conversation
+import com.nunnos.keepintouch.domain.model.complements.Comment
+import com.nunnos.keepintouch.domain.model.complements.Conversation
+import com.nunnos.keepintouch.domain.model.complements.base.Complement
 import com.nunnos.keepintouch.utils.FileManager
 
-class RVConversationImportantAdapter(private var items : MutableList<Conversation>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RVConversationImportantAdapter(private var items : MutableList<Complement>, var listener : CustomClick) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var context: Context
 
     override fun getItemViewType(position: Int): Int {
@@ -29,7 +32,7 @@ class RVConversationImportantAdapter(private var items : MutableList<Conversatio
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as RVConverationImportantAdapterViewHolder).bind(items[position])
+        (holder as RVConverationImportantAdapterViewHolder).bind(items[position], listener)
     }
 
     override fun getItemCount(): Int {
@@ -37,7 +40,7 @@ class RVConversationImportantAdapter(private var items : MutableList<Conversatio
     }
 
     interface CustomClick {
-        fun onItemClick(conversation: Conversation)
+        fun onItemClick(complement: Complement)
     }
 
     /**
@@ -46,7 +49,7 @@ class RVConversationImportantAdapter(private var items : MutableList<Conversatio
     inner class RVConverationImportantAdapterViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        private lateinit var conversation: Conversation
+        private lateinit var complement: Complement
         private lateinit var cardView: CardView
         private lateinit var image: ImageView
         private lateinit var editImage: ImageView
@@ -59,7 +62,6 @@ class RVConversationImportantAdapter(private var items : MutableList<Conversatio
             initView(itemView)
             setView()
             setListeners()
-            itemView.setOnClickListener(this)
         }
 
         private fun initView(itemView: View) {
@@ -77,28 +79,48 @@ class RVConversationImportantAdapter(private var items : MutableList<Conversatio
 
         private fun setListeners() {
             editImage.setOnClickListener {
-                listener.onItemClick(conversation);
+                listener.onItemClick(complement);
             }
         }
 
-        fun bind(conversation: Conversation) {
-            this.conversation = conversation
-            chatTv.text = conversation.chat
-            setTime(conversation)
-            placeTv.text = conversation.place
-            setImage(conversation)
+        fun bind(complement: Complement, listener: CustomClick) {
+            if(complement is Conversation){
+                bindConversation(complement, listener)
+            }
+            if(complement is Comment){
+                bindComment(complement, listener)
+            }
         }
 
-        private fun setTime(conversation: Conversation) {
+        private fun bindConversation(complement: Conversation, listener: CustomClick) {
+            this.listener = listener
+            this.complement = complement
+            chatTv.text = complement.chat
+            setTime(complement)
+            placeTv.text = complement.place
+            setImage(complement)
+        }
+        private fun bindComment(complement: Comment, listener: CustomClick) {
+            this.listener = listener
+            this.complement = complement
+            chatTv.text = complement.info
+            setTime(complement)
+            placeTv.visibility = View.GONE
+            cardView.visibility = View.GONE
+        }
+
+        private fun setTime(complement: Complement) {
             var time = ""
-            if (conversation.time != null) {
-                time = conversation.time.trim()
+            if(complement is Conversation) {
+                if (complement.time != null) {
+                    time = complement.time.trim()
+                }
             }
-            if (conversation.date != null) {
+            if (complement.date.isNotEmpty()) {
                 if (!time.isEmpty()) {
                     time += "\n"
                 }
-                time += conversation.date.replace(" ", "").trim()
+                time += complement.date.replace(" ", "").trim()
             }
             timeTv.text = time
         }

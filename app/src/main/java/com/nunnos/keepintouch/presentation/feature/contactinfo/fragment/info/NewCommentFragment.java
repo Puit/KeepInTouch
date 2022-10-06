@@ -3,6 +3,7 @@ package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.info;
 import static com.nunnos.keepintouch.utils.Constants.COMMENT_MAX_CHARS;
 import static com.nunnos.keepintouch.utils.Constants.COVERSATION_MAX_CHARS;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -116,10 +117,12 @@ public class NewCommentFragment extends BaseFragmentViewModelLiveData<ContactInf
     }
 
     private void checkLengthAndSetStyle(CharSequence s) {
-        if (s.length() <= COMMENT_MAX_CHARS) {
-            databinding.newCommentCounter.setTextColor(getContext().getColor(R.color.text_gray));
-        } else {
-            databinding.newCommentCounter.setTextColor(getContext().getColor(R.color.background_red));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (s.length() <= COMMENT_MAX_CHARS) {
+                databinding.newCommentCounter.setTextColor(getContext().getColor(R.color.text_gray));
+            } else {
+                databinding.newCommentCounter.setTextColor(getContext().getColor(R.color.background_red));
+            }
         }
         //This sets a textview to the current length
         databinding.newCommentCounter.setText(s.length() + "/" + COMMENT_MAX_CHARS);

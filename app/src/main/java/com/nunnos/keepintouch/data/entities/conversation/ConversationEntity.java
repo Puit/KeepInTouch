@@ -1,14 +1,14 @@
 package com.nunnos.keepintouch.data.entities.conversation;
 
+import static com.nunnos.keepintouch.data.entities.conversation.ConversationDaoConstants.TABLE_NAME;
+import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.nunnos.keepintouch.domain.model.Conversation;
-
-import static com.nunnos.keepintouch.data.entities.conversation.ConversationDaoConstants.TABLE_NAME;
-import static com.nunnos.keepintouch.domain.model.Conversation.SEPARATOR;
+import com.nunnos.keepintouch.domain.model.complements.Conversation;
 
 @Entity(tableName = TABLE_NAME)
 public class ConversationEntity {
@@ -73,7 +73,7 @@ public class ConversationEntity {
         this.chat = "";
         this.place = "";
         this.isImportant = false;
-        this.contacts = SEPARATOR;
+        this.contacts = CONTACTS_SEPARATOR;
         this.photo = "";
         this.angle = 0;
     }
@@ -89,10 +89,10 @@ public class ConversationEntity {
     }
 
     private void addContacts(String contacts) {
-        if (contacts.startsWith(SEPARATOR)) {
+        if (contacts.startsWith(CONTACTS_SEPARATOR)) {
             this.contacts = contacts;
         } else {
-            this.contacts = SEPARATOR + contacts;
+            this.contacts = CONTACTS_SEPARATOR + contacts;
         }
     }
 }

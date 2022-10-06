@@ -78,7 +78,7 @@
             app:layout_constraintStart_toEndOf="@+id/converation_important_card_container"
             app:layout_constraintTop_toTopOf="@+id/converation_important_date" />
 
-        <ImageView
+        <TextView
             android:id="@+id/converation_important_location"
             style="@style/regular.gray.13"
             android:layout_width="0dp"

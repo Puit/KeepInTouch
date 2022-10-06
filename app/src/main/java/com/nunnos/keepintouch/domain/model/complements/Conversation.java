@@ -1,18 +1,19 @@
-package com.nunnos.keepintouch.domain.model;
+package com.nunnos.keepintouch.domain.model.complements;
+
+import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
 
 import com.nunnos.keepintouch.data.entities.conversation.ConversationEntity;
+import com.nunnos.keepintouch.domain.model.complements.base.Complement;
 
-public class Conversation {
-    public static final String SEPARATOR = ",";
-    private int id;
-    private String date;
+public class Conversation extends Complement {
+
     private String time;
     private String chat;
     private String place;
     private boolean isImportant;
     private String photo;
     private float angle;
-    private String contacts = SEPARATOR;
+    private String contacts = CONTACTS_SEPARATOR;
 
     public Conversation() {
         //Required
@@ -38,21 +39,6 @@ public class Conversation {
      * GETTERS AND SETTERS
      */
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public String getChat() {
         return chat;
@@ -104,25 +90,17 @@ public class Conversation {
 
     public void addContact(int contactId) {
         if (containsContact(contactId)) return;
-        contacts = contacts + contactId + SEPARATOR;
+        contacts = contacts + contactId + CONTACTS_SEPARATOR;
     }
 
     public void removeContact(int contactId) {
         if (!containsContact(contactId)) return;
-        contacts.replace(SEPARATOR + contactId + SEPARATOR, SEPARATOR);
-        contacts = contacts + contactId + SEPARATOR;
+        contacts.replace(CONTACTS_SEPARATOR + contactId + CONTACTS_SEPARATOR, CONTACTS_SEPARATOR);
+        contacts = contacts + contactId + CONTACTS_SEPARATOR;
     }
 
     public boolean containsContact(int contactId) {
-        return contacts.contains(SEPARATOR + contactId + SEPARATOR);
-    }
-
-    private void addContactsFirstTime(String contacts) {
-        if (contacts.startsWith(SEPARATOR)) {
-            this.contacts = contacts;
-        } else {
-            this.contacts = SEPARATOR + contacts;
-        }
+        return contacts.contains(CONTACTS_SEPARATOR + contactId + CONTACTS_SEPARATOR);
     }
 
     public float getAngle() {
@@ -133,26 +111,13 @@ public class Conversation {
         this.angle = angle;
     }
 
+    @Override
     public boolean isEmpty() {
-        boolean empty = true;
-        if (id > 0) {
-            empty = false;
-        }
-        if (photo != null) {
-            empty = false;
-        }
-        if (date != null) {
-            empty = false;
-        }
-        if (time != null) {
-            empty = false;
-        }
-        if (chat != null) {
-            empty = false;
-        }
-        if (place != null) {
-            empty = false;
-        }
-        return empty;
+        return !((getId() > 0) ||
+                (photo.isEmpty()) ||
+                (getDate().isEmpty()) ||
+                (time != null) ||
+                (chat != null) ||
+                (place != null));
     }
 }
