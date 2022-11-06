@@ -3,7 +3,11 @@ package com.nunnos.keepintouch.domain.model.complements;
 import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
 
 import com.nunnos.keepintouch.data.entities.conversation.ConversationEntity;
+import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.domain.model.complements.base.Complement;
+import com.nunnos.keepintouch.utils.TextUtils;
+
+import java.util.List;
 
 public class Conversation extends Complement {
 
@@ -68,10 +72,6 @@ public class Conversation extends Complement {
         return contacts;
     }
 
-    public void setContacts(String contacts) {
-        this.contacts = contacts;
-    }
-
     public String getTime() {
         return time;
     }
@@ -91,6 +91,12 @@ public class Conversation extends Complement {
     public void addContact(int contactId) {
         if (containsContact(contactId)) return;
         contacts = contacts + contactId + CONTACTS_SEPARATOR;
+    }
+
+    public void addContactList(List<Contact> contactList) {
+        for (Contact c : contactList) {
+            addContact(c.getId());
+        }
     }
 
     public void removeContact(int contactId) {
@@ -114,8 +120,8 @@ public class Conversation extends Complement {
     @Override
     public boolean isEmpty() {
         return !((getId() > 0) ||
-                (photo.isEmpty()) ||
-                (getDate().isEmpty()) ||
+                (photo != null) ||
+                (!TextUtils.isNullOrEmpty(getDate())) ||
                 (time != null) ||
                 (chat != null) ||
                 (place != null));

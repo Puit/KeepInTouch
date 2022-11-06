@@ -36,7 +36,7 @@ public class ConversationsFragment extends BaseFragmentViewModelLiveData<Contact
         super.onViewCreated(view, savedInstanceState);
         initObservers();
         initListeners();
-//        shareViewModel.retrieveConversations(getContext());
+        shareViewModel.retrieveConversations(getContext());
     }
 
     private void initObservers() {
@@ -54,12 +54,15 @@ public class ConversationsFragment extends BaseFragmentViewModelLiveData<Contact
     }
 
     private void initListeners() {
-        databinding.conversationsAddButton.setOnClickListener(v -> {
-            shareViewModel.showNewConversationFragment();
-        });
+        databinding.conversationsAddButton.setOnClickListener(v -> shareViewModel.showNewConversationFragment());
     }
 
-    //Region Base Methods
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+//Region Base Methods
 
     @Override
     protected int layout() {

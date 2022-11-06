@@ -41,8 +41,6 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        shareViewModel.retrieveConversations(getContext());
-        shareViewModel.retrieveComments(getContext());
         initObservers();
         initListeners();
     }
@@ -55,6 +53,8 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
 
     private void onContactReceived(Contact contact) {
         setContactInfo(contact);
+        shareViewModel.retrieveConversations(getContext());
+        shareViewModel.retrieveComments(getContext());
     }
 
     private void onConversationsReceived(List<Conversation> conversations) {

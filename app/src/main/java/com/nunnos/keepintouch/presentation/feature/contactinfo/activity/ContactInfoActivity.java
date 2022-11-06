@@ -138,7 +138,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         switch (viewModel.getNavigation().getValue()) {
             case NEW_CONVERSATION:
                 super.onBackPressed();
-                viewModel.setNewConversation(null);
+                viewModel.resetNewConversation();
                 viewModel.getNavigation().setValue(CONVERSATIONS);
                 break;
             case EDIT_CONTACT:

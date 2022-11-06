@@ -24,6 +24,7 @@ import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.domain.model.complements.Comment;
 import com.nunnos.keepintouch.domain.model.complements.Conversation;
 import com.nunnos.keepintouch.domain.model.complements.base.Complement;
+import com.nunnos.keepintouch.utils.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -207,6 +208,9 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     public void setNewConversation(Conversation newConversation) {
         this.newConversation = newConversation;
     }
+    public void resetNewConversation(){
+        newConversation = new Conversation();
+    }
 
     public Comment getNewComment() {
         return newComment;
@@ -304,35 +308,29 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     public void addConversationToComplements(List<Conversation> complements) {
         this.complements.addAll(complements);
     }
-/*    public void addCommentToComplements(List<Comment> complements) {
-        for (Comment comment : complements) {
-            boolean found = false;
-            for(Complement complement : complements){
-                if(complement.getId() == comment.getId()){
-                    found = true;
-                }
-            }
-            if(!found){
-                this.complements.add(comment);
-            }
-        }
-    }
-
-    public void addConversationToComplements(List<Conversation> complements) {
-        for (Conversation conversation : complements) {
-            boolean found = false;
-            for(Complement complement : complements){
-                if(complement.getId() == conversation.getId()){
-                    found = true;
-                }
-            }
-            if(!found){
-                this.complements.add(conversation);
-            }
-        }
-    }*/
 
     public void removeComplements() {
         complements.removeAll(complements);
+    }
+
+    public List<Contact> getSelectedContactsFromNewConversation() {
+        List<Contact> selectedContacts = new ArrayList<>();
+        if (newConversation == null ||
+                contactsMD.getValue() == null ||
+                contactsMD.getValue().size() < 1) {
+            return selectedContacts;
+        }
+
+        String[] ids = newConversation.getContacts().split(CONTACTS_SEPARATOR);
+        for (String id : ids) {
+            for (Contact c: contactsMD.getValue()) {
+                if(TextUtils.isNumeric(id) && c.getId() == Integer.parseInt(id)){
+                    selectedContacts.add(c);
+                }
+            }
+        }
+
+        return selectedContacts;
+
     }
 }

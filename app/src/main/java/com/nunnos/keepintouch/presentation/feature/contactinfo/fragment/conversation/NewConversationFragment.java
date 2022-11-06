@@ -5,24 +5,23 @@ import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
-import com.nunnos.keepintouch.base.baseviewmodel.EmptyViewModel;
 import com.nunnos.keepintouch.data.CustomDate;
 import com.nunnos.keepintouch.databinding.FragmentNewConversationBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.component.CustomSwitch;
-import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ImageAndText;
-import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVITAdapter;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.contactsselector.RVContactAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.TimePickerFragment;
@@ -30,11 +29,10 @@ import com.nunnos.keepintouch.utils.AlertsManager;
 import com.nunnos.keepintouch.utils.FileManager;
 import com.nunnos.keepintouch.utils.ImageHelper;
 
-import java.util.ArrayList;
 import java.util.List;
-
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class NewConversationFragment extends BaseFragmentViewModelLiveData<ContactInfoViewModel, FragmentNewConversationBinding> {
-    private RVITAdapter contactsAdapter;
+    private RVContactAdapter contactsAdapter;
     private boolean isEdit = false;
     private final TextWatcher mTextEditorWatcher = new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -68,8 +66,8 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
         setListeners();
     }
 
-    private void setView() {
-        if (shareViewModel.getNewConversation() != null && !shareViewModel.getNewConversation().isEmpty()) {
+    private void setView() { //CAL CANVIAR ja no pot ser mai null
+        if (!shareViewModel.getNewConversation().isEmpty()) {
             setViewForEdit();
         } else {
             databinding.ncIsImportant.setIsRightClicked(true);
@@ -96,13 +94,13 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
         databinding.ncPlace.setText(shareViewModel.getNewConversation().getPlace());
         databinding.ncIsImportant.setIsRightClicked(!shareViewModel.getNewConversation().isImportant());
         setPhotoToImageView(FileManager.getBitmapPhoto(shareViewModel.getNewConversation().getPhoto()));
+        databinding.ncContacts.setSelectedContacts(shareViewModel.getSelectedContactsFromNewConversation());
         databinding.ncDeleteButton.setVisibility(View.VISIBLE);
     }
 
     private void setPhotoToImageView(Bitmap bitmap) {
         if (bitmap != null) {
             databinding.ncImage.setImageBitmap(bitmap);
-//                    userImage.setImageBitmap(getResizedBitmap(userImage, bitmap));
             ImageHelper.resizeImage(databinding.ncImage, bitmap);
             if (shareViewModel.getNewConversation() == null) {
                 databinding.ncImage.setRotation(0);
@@ -112,31 +110,28 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
                 databinding.ncRotateRounder.setVisibility(View.VISIBLE);
             }
         }
-
     }
 
     private void initContactsRecyclerView(List<Contact> contacts) {
-        RVITAdapter.RVITAdapterViewHolder.CustomItemClick contactListener = (name, photo) -> {
-            //Set gender to shareviewModel.contact
-            Toast.makeText(getContext(), name, Toast.LENGTH_SHORT).show();
-            databinding.ncContacts.setText(name);
-            databinding.ncContacts.setIcon(photo);
-            databinding.ncContacts.collapse(true);
-        };
+        RVContactAdapter.RVContactdapterViewHolder.CustomItemClick contactListener = new RVContactAdapter.RVContactdapterViewHolder.CustomItemClick() {
+            @Override
+            public void onItemClick(Contact contact) {
+                //Set gender to shareviewModel.contact
+                databinding.ncContacts.addContact(contact);
+                databinding.ncContacts.collapse(true);
+            }
 
-        contactsAdapter = new RVITAdapter(createContactList(contacts), contactListener, databinding.ncContacts.getExpansionLayout());
+            @Override
+            public void onRightImageClick(Contact contact) {
+                //Do nothing
+            }
+        };
+        contactsAdapter = new RVContactAdapter(contacts,
+                contactListener,
+                databinding.ncContacts.getExpansionLayoutForSelection(),
+                false);
         databinding.ncContacts.setAdapter(contactsAdapter);
         databinding.ncContacts.setHasFixedSize(false);
-    }
-
-    private List<ImageAndText> createContactList(List<Contact> contacts) {
-        ArrayList<ImageAndText> resultList = new ArrayList<>();
-        for (int i = 0; i < contacts.size(); i++) {
-            if (contacts.get(i).getId() != shareViewModel.getThisContact().getValue().getId())
-                resultList.add(new ImageAndText(FileManager.getBitmapPhoto(contacts.get(i).getPhoto()),
-                        contacts.get(i).getFullName()));
-        }
-        return resultList;
     }
 
     private void initObservers() {
@@ -154,7 +149,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
                     shareViewModel.addNewConversation(getContext(), shareViewModel.getNewConversation());
                 }
 
-                shareViewModel.setNewConversation(null);
+                shareViewModel.resetNewConversation();
                 shareViewModel.navigateToConversation();
             } else {
                 AlertsManager.OneButtonAlertListener listener = () -> {
@@ -173,7 +168,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
                 public void onLeftClick() {
                     shareViewModel.deleteConversation(getContext(), shareViewModel.getNewConversation());
 
-                    shareViewModel.setNewConversation(null);
+                    shareViewModel.resetNewConversation();
                     shareViewModel.navigateToConversation();
                     //TODO: FORÇAR QUE REFRESQUI
                 }
@@ -237,6 +232,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
 //        shareViewModel.getNewConversation().setContacts();
         shareViewModel.getNewConversation().addContact(shareViewModel.getThisContact().getValue().getId());
         shareViewModel.getNewConversation().setImportant(!databinding.ncIsImportant.getIsRightClicked());
+        shareViewModel.getNewConversation().addContactList(databinding.ncContacts.getSelectedContacts());
     }
 
     private void showDatePickerDialog() {

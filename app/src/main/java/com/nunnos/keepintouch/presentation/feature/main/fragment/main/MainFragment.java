@@ -1,5 +1,7 @@
 package com.nunnos.keepintouch.presentation.feature.main.fragment.main;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -12,6 +14,7 @@ import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.base.baseviewmodel.EmptyViewModel;
 import com.nunnos.keepintouch.databinding.FragmentMainBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
+import com.nunnos.keepintouch.notifications.Notification;
 import com.nunnos.keepintouch.presentation.component.CustomEditText;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.contactcard.RVContactCardAdapter;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.searchcard.RVSearchCardAdapter;
@@ -52,7 +55,12 @@ public class MainFragment extends BaseFragmentViewModelLiveData<MainViewModel, F
     }
 
     private void initListeners() {
-        databinding.mainAddImageButton.setOnClickListener(v -> shareViewModel.navigateToNewContact());
+        databinding.mainAddImageButton.setOnClickListener(v -> {
+            //TODO: NO COMMIT
+            //Notification.createNotificationChannel(getContext());
+            //Notification.smallNotification(getContext());
+            shareViewModel.navigateToNewContact();
+        });
         databinding.mainSearcher.setListener(() -> shareViewModel.navigateToSearchContact());
     }
 

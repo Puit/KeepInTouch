@@ -16,4 +16,7 @@ public class Constants {
     public static final String EXTRA_UPDATE_MAIN = "EXTRA_UPDATE_MAIN";
 
     public static final int DEFAULT_CARD_BG_COLOR = R.color.background_purple;
+
+    //Notifications
+    public static final int SMALL_NOTIFICATION_ID = 1111;
 }

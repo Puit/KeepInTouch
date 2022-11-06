@@ -79,7 +79,7 @@ public class ConversationEntity {
     }
 
     public static ConversationEntity map(Conversation c) {
-        if (c.getId() != 0) {
+        if (c.getId() >= 0) {
             return new ConversationEntity(c.getId(), c.getDate(), c.getTime(), c.getChat(), c.getPlace(),
                     c.isImportant(), c.getContacts(), c.getPhoto(), c.getAngle());
         } else {
