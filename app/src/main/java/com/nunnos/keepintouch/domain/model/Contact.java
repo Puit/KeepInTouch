@@ -1,6 +1,9 @@
 package com.nunnos.keepintouch.domain.model;
 
+import android.os.Build;
 import android.text.TextUtils;
+
+import androidx.annotation.RequiresApi;
 
 import com.nunnos.keepintouch.data.CustomDate;
 import com.nunnos.keepintouch.data.entities.contactdao.ContactEntity;
@@ -13,32 +16,32 @@ import java.util.Calendar;
 
 public class Contact {
     private int id;
-    private String photo;
-    private String name;
-    private String surname1;
-    private String surname2;
-    private String gender;
-    private String sexualOrientation;
-    private String birthday;
+    private String photo = "";
+    private String name = "";
+    private String surname1 = "";
+    private String surname2 = "";
+    private String gender = "";
+    private String sexualOrientation = "";
+    private String birthday = "";
     private boolean realBirthday;
-    private String address;
-    private String profession;
-    private String placeOfWork;
-    private String howWeMet;
-    private String language;
-    private String religion;
-    private String relatives; //Seran los Ids de los familiares
-    private String conversations;//Seran los Ids de las conversaciones
+    private String address = "";
+    private String profession = "";
+    private String placeOfWork = "";
+    private String howWeMet = "";
+    private String language = "";
+    private String religion = "";
+    private String relatives = ""; //Seran los Ids de los familiares
+    private String conversations = "";//Seran los Ids de las conversaciones
     private boolean favorite;//Seran los Ids de las conversaciones
     private int bgColor;
     private float angle;
     private int lastActionIndex;
-    private String alias;
-    private String telephone;
-    private String email;
-    private String comments;
+    private String alias = "";
+    private String telephone = "";
+    private String email = "";
+    private String comments = "";
     private int daysToCall;
-    private String dayOfDeath;
+    private String dayOfDeath = "";
 
     public Contact(int id, String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                    boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
@@ -120,9 +123,10 @@ public class Contact {
                 entity.daysToCall, entity.dayOfDeath);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public int getAge() {
         //TODO: Comprobar si ha muerto
-        if(isRealBirthday()){
+        if (isRealBirthday()) {
             CustomDate customDate = CustomDate.dateFromString(birthday);
 
             Calendar calendar = Calendar.getInstance();
@@ -132,9 +136,9 @@ public class Contact {
             LocalDate birthdayLocalDate = Instant.ofEpochMilli(calendar.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate();
             Period period = Period.between(LocalDate.from(birthdayLocalDate), LocalDate.now());
             return period.getYears();
-        }else {
+        } else {
             try {
-               return Integer.parseInt(birthday);
+                return Integer.parseInt(birthday);
             } catch (NumberFormatException nfe) {
                 return -1;
             }
@@ -145,7 +149,8 @@ public class Contact {
         String fullName = "";
         if (!TextUtils.isEmpty(name)) {
             fullName = fullName + name.trim();
-        }if (!TextUtils.isEmpty(surname1)) {
+        }
+        if (!TextUtils.isEmpty(surname1)) {
             fullName = fullName + " " + surname1.trim();
         }
         if (!TextUtils.isEmpty(surname2)) {
@@ -163,58 +168,58 @@ public class Contact {
         if (id > 0) {
             empty = false;
         }
-        if (photo != null) {
+        if (TextUtils.isEmpty(photo)) {
             empty = false;
         }
-        if (name != null) {
+        if (TextUtils.isEmpty(name)) {
             empty = false;
         }
-        if (surname1 != null) {
+        if (TextUtils.isEmpty(surname1)) {
             empty = false;
         }
-        if (surname2 != null) {
+        if (TextUtils.isEmpty(surname2)) {
             empty = false;
         }
-        if (gender != null) {
+        if (TextUtils.isEmpty(gender)) {
             empty = false;
         }
-        if (sexualOrientation != null) {
+        if (TextUtils.isEmpty(sexualOrientation)) {
             empty = false;
         }
-        if (birthday != null) {
+        if (TextUtils.isEmpty(birthday)) {
             empty = false;
         }
-        if (address != null) {
+        if (TextUtils.isEmpty(address)) {
             empty = false;
         }
-        if (profession != null) {
+        if (TextUtils.isEmpty(profession)) {
             empty = false;
         }
-        if (placeOfWork != null) {
+        if (TextUtils.isEmpty(placeOfWork)) {
             empty = false;
         }
-        if (howWeMet != null) {
+        if (TextUtils.isEmpty(howWeMet)) {
             empty = false;
         }
-        if (language != null) {
+        if (TextUtils.isEmpty(language)) {
             empty = false;
         }
-        if (religion != null) {
+        if (TextUtils.isEmpty(religion)) {
             empty = false;
         }
-        if (relatives != null) {
+        if (TextUtils.isEmpty(relatives)) {
             empty = false;
         }
-        if (conversations != null) {
+        if (TextUtils.isEmpty(conversations)) {
             empty = false;
         }
-        if (telephone != null) {
+        if (TextUtils.isEmpty(telephone)) {
             empty = false;
         }
-        if (email != null) {
+        if (TextUtils.isEmpty(email)) {
             empty = false;
         }
-        if (dayOfDeath != null){
+        if (TextUtils.isEmpty(dayOfDeath)) {
             empty = false;
         }
         return empty;
@@ -438,5 +443,74 @@ public class Contact {
 
     public void setDayOfDeath(String dayOfDeath) {
         this.dayOfDeath = dayOfDeath;
+    }
+
+    public static boolean areSameContact(Contact c1, Contact c2) {
+        boolean isTheSame = true;
+
+        if (c1.getId() != c2.getId())
+            isTheSame = false;
+        if (!isStringTheSame(c1.getPhoto(), c2.getPhoto()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getName(), c2.getName()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getSurname1(), c2.getSurname1()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getSurname2(), c2.getSurname2()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getGender(), c2.getGender()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getSexualOrientation(), c2.getSexualOrientation()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getBirthday(), c2.getBirthday()))
+            isTheSame = false;
+        if (c1.isRealBirthday() != c2.isRealBirthday())
+            isTheSame = false;
+        if (!isStringTheSame(c1.getAddress(), c2.getAddress()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getProfession(), c2.getProfession()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getPlaceOfWork(), c2.getPlaceOfWork()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getHowWeMet(), c2.getHowWeMet()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getLanguage(), c2.getLanguage()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getReligion(), c2.getReligion()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getRelatives(), c2.getRelatives()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getConversations(), c2.getConversations()))
+            isTheSame = false;
+        if (c1.isFavorite() != c2.isFavorite())
+            isTheSame = false;
+        if (c1.getBgColor() != c2.getBgColor())
+            isTheSame = false;
+        if (c1.getAngle() != c2.getAngle())
+            isTheSame = false;
+        if (c1.getLastActionIndex() != c2.getLastActionIndex())
+            isTheSame = false;
+        if (!isStringTheSame(c1.getAlias(), c2.getAlias()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getTelephone(), c2.getTelephone()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getEmail(), c2.getEmail()))
+            isTheSame = false;
+        if (!isStringTheSame(c1.getComments(), c2.getComments()))
+            isTheSame = false;
+        if (c1.getDaysToCall() != c2.getDaysToCall())
+            isTheSame = false;
+        if (!isStringTheSame(c1.getDayOfDeath(), c2.getDayOfDeath()))
+            isTheSame = false;
+
+        return isTheSame;
+    }
+
+    private static boolean isStringTheSame(String s1, String s2) {
+        if (TextUtils.isEmpty(s1) && TextUtils.isEmpty(s2))
+            return true;
+        if (TextUtils.isEmpty(s1) && !TextUtils.isEmpty(s2) || !TextUtils.isEmpty(s1) && TextUtils.isEmpty(s2))
+            return false;
+        return s1.equals(s2);
     }
 }

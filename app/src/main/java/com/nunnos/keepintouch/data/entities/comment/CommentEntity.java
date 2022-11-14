@@ -4,13 +4,15 @@ package com.nunnos.keepintouch.data.entities.comment;
 import static com.nunnos.keepintouch.data.entities.comment.CommentDaoConstants.TABLE_NAME;
 import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.nunnos.keepintouch.domain.model.complements.Comment;
-import com.nunnos.keepintouch.utils.TextUtils;
+
 
 @Entity(tableName = TABLE_NAME)
 public class CommentEntity {
@@ -64,7 +66,7 @@ public class CommentEntity {
     }
 
     private void addContacts(String contacts) {
-        if(TextUtils.isNullOrEmpty(contacts)) return;
+        if(TextUtils.isEmpty(contacts)) return;
         if (contacts.startsWith(CONTACTS_SEPARATOR)) {
             this.whoTold = contacts;
         } else {

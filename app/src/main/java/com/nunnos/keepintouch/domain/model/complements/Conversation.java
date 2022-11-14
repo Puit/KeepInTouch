@@ -2,10 +2,11 @@ package com.nunnos.keepintouch.domain.model.complements;
 
 import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
 
+import android.text.TextUtils;
+
 import com.nunnos.keepintouch.data.entities.conversation.ConversationEntity;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.domain.model.complements.base.Complement;
-import com.nunnos.keepintouch.utils.TextUtils;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class Conversation extends Complement {
         this.setImportant(entity.isImportant);
         this.setPhoto(entity.photo);
         this.setAngle(entity.angle);
-        addContactsFirstTime(entity.contacts);
+        this.setContacts(addContactsFirstTime(entity.contacts));
     }
 
     public static Conversation map(ConversationEntity entity) {
@@ -88,12 +89,17 @@ public class Conversation extends Complement {
         this.photo = photo;
     }
 
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
+
     public void addContact(int contactId) {
         if (containsContact(contactId)) return;
         contacts = contacts + contactId + CONTACTS_SEPARATOR;
     }
 
     public void addContactList(List<Contact> contactList) {
+        contacts = CONTACTS_SEPARATOR;
         for (Contact c : contactList) {
             addContact(c.getId());
         }
@@ -121,7 +127,7 @@ public class Conversation extends Complement {
     public boolean isEmpty() {
         return !((getId() > 0) ||
                 (photo != null) ||
-                (!TextUtils.isNullOrEmpty(getDate())) ||
+                (!TextUtils.isEmpty(getDate())) ||
                 (time != null) ||
                 (chat != null) ||
                 (place != null));

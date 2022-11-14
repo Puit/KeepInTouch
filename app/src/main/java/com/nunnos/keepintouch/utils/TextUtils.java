@@ -9,9 +9,6 @@ public class TextUtils {
         s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
         return s;
     }
-    public static Boolean isNullOrEmpty(String text){
-        return text == null || text.isEmpty();
-    }
 
     public static boolean isNumeric(String string) {
         if(string == null || string.equals("")) {

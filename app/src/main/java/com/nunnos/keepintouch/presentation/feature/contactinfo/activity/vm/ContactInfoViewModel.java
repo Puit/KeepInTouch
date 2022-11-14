@@ -312,25 +312,4 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     public void removeComplements() {
         complements.removeAll(complements);
     }
-
-    public List<Contact> getSelectedContactsFromNewConversation() {
-        List<Contact> selectedContacts = new ArrayList<>();
-        if (newConversation == null ||
-                contactsMD.getValue() == null ||
-                contactsMD.getValue().size() < 1) {
-            return selectedContacts;
-        }
-
-        String[] ids = newConversation.getContacts().split(CONTACTS_SEPARATOR);
-        for (String id : ids) {
-            for (Contact c: contactsMD.getValue()) {
-                if(TextUtils.isNumeric(id) && c.getId() == Integer.parseInt(id)){
-                    selectedContacts.add(c);
-                }
-            }
-        }
-
-        return selectedContacts;
-
-    }
 }

@@ -36,7 +36,17 @@ public class ExpanableMultipleSelectorRecyclerView extends LinearLayout {
         setListeners();
     }
 
-    public void addContact(Contact contact) {
+    public void addSelectedContacts(String ids, List<Contact> contacts) {
+        for (Contact c : contacts) {
+            if (ids.contains("," + c.getId() + ",")) {
+                addSelectedContact(c);
+            }
+        }
+    }
+
+    public void addSelectedContact(Contact contact) {
+        if(isInSelectedContacts(contact)) return;
+
         selectedContacts.add(contact);
         RVContactAdapter.RVContactdapterViewHolder.CustomItemClick listener = new RVContactAdapter.RVContactdapterViewHolder.CustomItemClick() {
             @Override
@@ -56,6 +66,16 @@ public class ExpanableMultipleSelectorRecyclerView extends LinearLayout {
                 true);
         databinding.expanableMultipleRecyclerRecyclerViewSelected.setAdapter(selectedContactsAdapter);
         databinding.expanableMultipleRecyclerRecyclerViewSelected.setHasFixedSize(false);
+    }
+
+    private boolean isInSelectedContacts(Contact contact) {
+        boolean isSelected = false;
+        for (Contact selected: selectedContacts) {
+            if (Contact.areSameContact(selected,contact)){
+                isSelected = true;
+            }
+        }
+        return isSelected;
     }
 
     public void setText(String text) {
@@ -82,11 +102,13 @@ public class ExpanableMultipleSelectorRecyclerView extends LinearLayout {
     public RecyclerView getRecyclerView() {
         return databinding.expanableMultipleRecyclerRecyclerViewSelector;
     }
+
     public List<Contact> getSelectedContacts() {
         return selectedContacts;
     }
-    public void setSelectedContacts(List<Contact> selectedContacts) {
-        this.selectedContacts = selectedContacts;
+
+    public void clearContacts() {
+        selectedContacts.clear();
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {

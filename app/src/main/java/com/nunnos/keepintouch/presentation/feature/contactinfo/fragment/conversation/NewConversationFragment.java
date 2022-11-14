@@ -30,6 +30,7 @@ import com.nunnos.keepintouch.utils.FileManager;
 import com.nunnos.keepintouch.utils.ImageHelper;
 
 import java.util.List;
+
 @RequiresApi(api = Build.VERSION_CODES.M)
 public class NewConversationFragment extends BaseFragmentViewModelLiveData<ContactInfoViewModel, FragmentNewConversationBinding> {
     private RVContactAdapter contactsAdapter;
@@ -66,7 +67,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
         setListeners();
     }
 
-    private void setView() { //CAL CANVIAR ja no pot ser mai null
+    private void setView() {
         if (!shareViewModel.getNewConversation().isEmpty()) {
             setViewForEdit();
         } else {
@@ -94,7 +95,6 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
         databinding.ncPlace.setText(shareViewModel.getNewConversation().getPlace());
         databinding.ncIsImportant.setIsRightClicked(!shareViewModel.getNewConversation().isImportant());
         setPhotoToImageView(FileManager.getBitmapPhoto(shareViewModel.getNewConversation().getPhoto()));
-        databinding.ncContacts.setSelectedContacts(shareViewModel.getSelectedContactsFromNewConversation());
         databinding.ncDeleteButton.setVisibility(View.VISIBLE);
     }
 
@@ -113,11 +113,12 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
     }
 
     private void initContactsRecyclerView(List<Contact> contacts) {
+        //Entra dos cops i dona problemes, aixi que ho netegem
+        databinding.ncContacts.clearContacts();
         RVContactAdapter.RVContactdapterViewHolder.CustomItemClick contactListener = new RVContactAdapter.RVContactdapterViewHolder.CustomItemClick() {
             @Override
             public void onItemClick(Contact contact) {
-                //Set gender to shareviewModel.contact
-                databinding.ncContacts.addContact(contact);
+                databinding.ncContacts.addSelectedContact(contact);
                 databinding.ncContacts.collapse(true);
             }
 
@@ -132,6 +133,11 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
                 false);
         databinding.ncContacts.setAdapter(contactsAdapter);
         databinding.ncContacts.setHasFixedSize(false);
+        //Add selected contacts
+
+        databinding.ncContacts.addSelectedContact(shareViewModel.getThisContact().getValue());
+        databinding.ncContacts.addSelectedContacts(shareViewModel.getNewConversation().getContacts(), contacts);
+        databinding.ncContacts.collapse(true);
     }
 
     private void initObservers() {
@@ -140,50 +146,8 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
     }
 
     private void setListeners() {
-        databinding.ncSaveButton.setOnClickListener(v -> {
-            if (databinding.ncConversation.getText().length() <= COVERSATION_MAX_CHARS) {
-                getAllDataFromFields();
-                if (isEdit) {
-                    shareViewModel.updateConversation(getContext());
-                } else {
-                    shareViewModel.addNewConversation(getContext(), shareViewModel.getNewConversation());
-                }
-
-                shareViewModel.resetNewConversation();
-                shareViewModel.navigateToConversation();
-            } else {
-                AlertsManager.OneButtonAlertListener listener = () -> {
-                    //Do Nothing
-                };
-                AlertsManager.showOneButtonAlert(getActivity(),
-                        listener,
-                        "The conversation can't exceed 280 characters",
-                        "Accept",
-                        true);
-            }
-        });
-        databinding.ncDeleteButton.setOnClickListener(v -> {
-            AlertsManager.TwoButtonsAlertListener listener = new AlertsManager.TwoButtonsAlertListener() {
-                @Override
-                public void onLeftClick() {
-                    shareViewModel.deleteConversation(getContext(), shareViewModel.getNewConversation());
-
-                    shareViewModel.resetNewConversation();
-                    shareViewModel.navigateToConversation();
-                    //TODO: FORÇAR QUE REFRESQUI
-                }
-
-                @Override
-                public void onRightClick() {
-                    //Do nothing
-                }
-            };
-            AlertsManager.showTwoButtonsAlert(getActivity(), listener,
-                    "¿Estas seguro de querer borrar este mensaje?",
-                    "Aceptar",
-                    "Cancelar",
-                    true);
-        });
+        databinding.ncSaveButton.setOnClickListener(v -> save());
+        databinding.ncDeleteButton.setOnClickListener(v -> delete());
         databinding.ncDate.setListener(this::showDatePickerDialog);
         databinding.ncTime.setListener(this::showTimePickerDialog);
         databinding.ncIsImportant.setListener(new CustomSwitch.CustomListener() {
@@ -211,6 +175,66 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
             shareViewModel.getNewConversation().setAngle(newAngle);
         });
         databinding.ncConversation.addTextChangedListener(mTextEditorWatcher);
+    }
+
+    private void save() {
+        if (databinding.ncConversation.getText().length() <= COVERSATION_MAX_CHARS) {
+            if(databinding.ncContacts.getSelectedContacts().size() >0) {
+                getAllDataFromFields();
+                if (isEdit) {
+                    shareViewModel.updateConversation(getContext());
+                } else {
+                    shareViewModel.addNewConversation(getContext(), shareViewModel.getNewConversation());
+                }
+
+                shareViewModel.resetNewConversation();
+                databinding.ncContacts.clearContacts();
+                shareViewModel.navigateToConversation();
+            }else {
+                AlertsManager.OneButtonAlertListener listener = () -> {
+                    //Do Nothing
+                };
+                AlertsManager.showOneButtonAlert(getActivity(),
+                        listener,
+                        "At least one person must be selected",
+                        "Accept",
+                        true);
+            }
+        } else {
+            AlertsManager.OneButtonAlertListener listener = () -> {
+                //Do Nothing
+            };
+            AlertsManager.showOneButtonAlert(getActivity(),
+                    listener,
+                    "The conversation can't exceed 280 characters",
+                    "Accept",
+                    true);
+        }
+    }
+
+    private void delete() {
+        AlertsManager.TwoButtonsAlertListener listener = new AlertsManager.TwoButtonsAlertListener() {
+            @Override
+            public void onLeftClick() {
+                shareViewModel.deleteConversation(getContext(), shareViewModel.getNewConversation());
+
+                shareViewModel.resetNewConversation();
+                databinding.ncContacts.clearContacts();
+                shareViewModel.navigateToConversation();
+                //TODO: FORÇAR QUE REFRESQUI
+            }
+
+            @Override
+            public void onRightClick() {
+                //Do nothing
+            }
+        };
+        AlertsManager.showTwoButtonsAlert(getActivity(), listener,
+                "¿Estas seguro de querer borrar este mensaje?",
+                "Aceptar",
+                "Cancelar",
+                true);
+
     }
 
     private void getAllDataFromFields() {
