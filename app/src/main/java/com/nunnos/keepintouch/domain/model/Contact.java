@@ -1,5 +1,7 @@
 package com.nunnos.keepintouch.domain.model;
 
+import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
+
 import android.os.Build;
 import android.text.TextUtils;
 
@@ -13,6 +15,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.List;
 
 public class Contact {
     private int id;
@@ -351,6 +354,22 @@ public class Contact {
 
     public String getRelatives() {
         return relatives;
+    }
+
+    public void addRelative(int contactId) {
+        if (containsRelative(contactId)) return;
+        relatives = relatives + contactId + CONTACTS_SEPARATOR;
+    }
+
+    public void addRelativeList(List<Contact> contactList) {
+        relatives = CONTACTS_SEPARATOR;
+        for (Contact c : contactList) {
+            addRelative(c.getId());
+        }
+    }
+
+    public boolean containsRelative(int contactId) {
+        return relatives.contains(CONTACTS_SEPARATOR + contactId + CONTACTS_SEPARATOR);
     }
 
     public void setRelatives(String relatives) {

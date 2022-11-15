@@ -216,13 +216,14 @@
                     app:edit_text_hint_text="Religion"
                     tools:edit_text_text="Unknown" />
 
-                <com.nunnos.keepintouch.presentation.component.CustomEditText
+                <com.nunnos.keepintouch.presentation.component.recyclerviews.contactsselector.ExpanableMultipleSelectorRecyclerView
                     android:id="@+id/new_contact_relatives"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Relatives"
-                    tools:edit_text_text="Relatives" />
+                    app:expanable_recyclerview_hint_text="Relatives"
+                    app:expanable_recyclerview_icon="@drawable/ic_unknown"
+                    app:expanable_recyclerview_text_text="Unknown" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
                     android:id="@+id/new_contact_social_media"

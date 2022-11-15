@@ -20,6 +20,7 @@ import com.nunnos.keepintouch.data.CustomDate;
 import com.nunnos.keepintouch.databinding.FragmentMainNewContactBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.component.CustomSwitch;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.contactsselector.RVContactAdapter;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ImageAndText;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVITAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
@@ -37,6 +38,8 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
 
     private RVITAdapter genderAdapter;
     private RVITAdapter sexualOrientationAdapter;
+    private RVContactAdapter contactsAdapter;
+
 
     public EditContactFragment() {
         //Required empty public constructor
@@ -57,10 +60,12 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
         initObservers();
         setView();
         initListeners();
+        shareViewModel.retrieveContacts(getContext());
     }
 
     private void initObservers() {
         shareViewModel.getThisContactBitmap().observe(getActivity(), this::setPhotoToImageView);
+        shareViewModel.getContactsList().observe(getActivity(), this::initContactsRecyclerView);
     }
 
     private void setPhotoToImageView(Bitmap bitmap) {
@@ -73,6 +78,34 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
         databinding.newContactImage.setImageBitmap(bitmap);
         ImageHelper.resizeImage(databinding.newContactImage, bitmap);
         databinding.newContactRotateRounder.setVisibility(View.VISIBLE);
+    }
+
+    private void initContactsRecyclerView(List<Contact> relatives) {
+        //Entra dos cops i dona problemes, aixi que ho netegem
+        databinding.newContactRelatives.clearContacts();
+        RVContactAdapter.RVContactdapterViewHolder.CustomItemClick contactListener = new RVContactAdapter.RVContactdapterViewHolder.CustomItemClick() {
+            @Override
+            public void onItemClick(Contact contact) {
+                databinding.newContactRelatives.addSelectedContact(contact);
+                databinding.newContactRelatives.collapse(true);
+            }
+
+            @Override
+            public void onRightImageClick(Contact contact) {
+                //Do nothing
+            }
+        };
+        contactsAdapter = new RVContactAdapter(relatives,
+                contactListener,
+                databinding.newContactRelatives.getExpansionLayoutForSelection(),
+                false);
+        databinding.newContactRelatives.setAdapter(contactsAdapter);
+        databinding.newContactRelatives.setHasFixedSize(false);
+        //Add selected contacts
+
+        databinding.newContactRelatives.addSelectedContact(shareViewModel.getThisContact().getValue());
+        databinding.newContactRelatives.addSelectedContacts(shareViewModel.getNewConversation().getContacts(), relatives);
+        databinding.newContactRelatives.collapse(true);
     }
 
     private void initView() {
@@ -108,11 +141,11 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
         databinding.newContactHowWeMet.setText(newContact.getHowWeMet());
         databinding.newContactLanguage.setText(newContact.getLanguage());
         databinding.newContactReligion.setText(newContact.getReligion());
-        databinding.newContactRelatives.setText(newContact.getRelatives());
         setPhotoToImageView(FileManager.getBitmapPhoto(newContact.getPhoto()), newContact.getAngle());
         databinding.newContactImage.setRotation(newContact.getAngle());
         databinding.newContactTelephone.setText(newContact.getTelephone());
         databinding.newContactEmail.setText(newContact.getEmail());
+        databinding.newContactBackgroundColor.setColorId(newContact.getBgColor());
     }
 
     private void initRecyclerViews() {
@@ -185,9 +218,12 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
             databinding.newContactImage.setRotation(newAngle);
             shareViewModel.getThisContact().getValue().setAngle(newAngle);
         });
-        databinding.newContactDeleteButton.setOnClickListener(v -> {
-            shareViewModel.deleteContact(getActivity(), shareViewModel.getThisContact().getValue());
-        });
+        databinding.newContactDeleteButton.setOnClickListener(v -> deleteContact());
+    }
+
+    private void deleteContact() {
+        databinding.newContactRelatives.clearContacts();
+        shareViewModel.deleteContact(getActivity(), shareViewModel.getThisContact().getValue());
     }
 
     private void showDatePickerDialog() {
@@ -231,7 +267,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
                     databinding.newContactHowWeMet.getText(),
                     databinding.newContactLanguage.getText(),
                     databinding.newContactReligion.getText(),
-                    databinding.newContactRelatives.getText(),
+                    "",
                     shareViewModel.getThisContact().getValue().getConversations(),
                     shareViewModel.getThisContact().getValue().isFavorite(),
                     shareViewModel.getThisContact().getValue().getBgColor(),
@@ -244,6 +280,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
                     shareViewModel.getThisContact().getValue().getComments(),
                     shareViewModel.getThisContact().getValue().getDaysToCall(),
                     shareViewModel.getThisContact().getValue().getDayOfDeath());
+            contact.addRelativeList(databinding.newContactRelatives.getSelectedContacts());
             shareViewModel.updateThisContact(getContext(), contact);
             shareViewModel.navigateToContactPersonalData();
         } else {

@@ -61,10 +61,10 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        shareViewModel.retrieveContacts(getContext());
         setView();
         initObservers();
         setListeners();
+        shareViewModel.retrieveContacts(getContext());
     }
 
     private void setView() {
@@ -179,7 +179,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
 
     private void save() {
         if (databinding.ncConversation.getText().length() <= COVERSATION_MAX_CHARS) {
-            if(databinding.ncContacts.getSelectedContacts().size() >0) {
+            if (databinding.ncContacts.getSelectedContacts().size() > 0) {
                 getAllDataFromFields();
                 if (isEdit) {
                     shareViewModel.updateConversation(getContext());
@@ -190,7 +190,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
                 shareViewModel.resetNewConversation();
                 databinding.ncContacts.clearContacts();
                 shareViewModel.navigateToConversation();
-            }else {
+            } else {
                 AlertsManager.OneButtonAlertListener listener = () -> {
                     //Do Nothing
                 };

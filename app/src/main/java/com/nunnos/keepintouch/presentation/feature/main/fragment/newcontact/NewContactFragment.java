@@ -1,5 +1,6 @@
 package com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact;
 
+import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
 import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
 
 import android.annotation.SuppressLint;
@@ -20,6 +21,7 @@ import com.nunnos.keepintouch.data.CustomDate;
 import com.nunnos.keepintouch.databinding.FragmentMainNewContactBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.component.CustomSwitch;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.contactsselector.RVContactAdapter;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ImageAndText;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVITAdapter;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
@@ -39,6 +41,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
 
     private RVITAdapter genderAdapter;
     private RVITAdapter sexualOrientationAdapter;
+    private RVContactAdapter contactsAdapter;
 
 
     public NewContactFragment() {
@@ -63,6 +66,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
 
     private void initObservers() {
         shareViewModel.getNewContactBitmap().observe(getActivity(), this::setPhotoToImageView);
+        shareViewModel.getContacts().observe(getActivity(), this::initRelativesRecyclerView);
     }
 
     private void setPhotoToImageView(Bitmap bitmap) {
@@ -71,6 +75,29 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
         databinding.newContactImage.setImageBitmap(bitmap);
         ImageHelper.resizeImage(databinding.newContactImage, bitmap);
         databinding.newContactRotateRounder.setVisibility(View.VISIBLE);
+    }
+
+    private void initRelativesRecyclerView(List<Contact> relatives) {
+        //Entra dos cops i dona problemes, aixi que ho netegem
+        databinding.newContactRelatives.clearContacts();
+        RVContactAdapter.RVContactdapterViewHolder.CustomItemClick contactListener = new RVContactAdapter.RVContactdapterViewHolder.CustomItemClick() {
+            @Override
+            public void onItemClick(Contact contact) {
+                databinding.newContactRelatives.addSelectedContact(contact);
+                databinding.newContactRelatives.collapse(true);
+            }
+
+            @Override
+            public void onRightImageClick(Contact contact) {
+                //Do nothing
+            }
+        };
+        contactsAdapter = new RVContactAdapter(relatives,
+                contactListener,
+                databinding.newContactRelatives.getExpansionLayoutForSelection(),
+                false);
+        databinding.newContactRelatives.setAdapter(contactsAdapter);
+        databinding.newContactRelatives.setHasFixedSize(false);
     }
 
     private void initView() {
@@ -126,9 +153,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
     }
 
     private void initListeners() {
-        databinding.newContactSaveButton.setOnClickListener(v -> {
-            saveContact();
-        });
+        databinding.newContactSaveButton.setOnClickListener(v -> saveContact());
         databinding.newContactName.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 if (TextUtils.isEmpty(databinding.newContactName.getText())) {
@@ -215,7 +240,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
                     databinding.newContactHowWeMet.getText(),
                     databinding.newContactLanguage.getText(),
                     databinding.newContactReligion.getText(),
-                    databinding.newContactRelatives.getText(),
+                    "",
                     "",
                     false,
                     shareViewModel.getNewContact().getBgColor(),
@@ -228,6 +253,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
                     "",
                     -1,
                     "");
+            contact.addRelativeList(databinding.newContactRelatives.getSelectedContacts());
             shareViewModel.saveContact(getContext(), contact);
             shareViewModel.navigateToMain();
         } else {
