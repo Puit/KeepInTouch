@@ -38,6 +38,7 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
     private final MediatorLiveData<List<Contact>> contactsFoundByAliasLD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Contact>> contactsFoundByTelephoneLD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Contact>> contactsFoundByEmailLD = new MediatorLiveData<>();
+    private final MediatorLiveData<List<Contact>> contactsFoundBySocialMediaLD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Contact>> contactsFoundByCommentsLD = new MediatorLiveData<>();
 
     private int lastIndex = 0;
@@ -268,6 +269,16 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
             contactsFoundByEmailLD.postValue(contacts);
         });
     }
+    public void searchBySocialMedia(Context context, String socialMedia) {
+        setContactDao(context);
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            ArrayList<Contact> contacts = new ArrayList<>();
+            for (ContactEntity entity : contactDao.searchBySocialMedia(socialMedia)) {
+                contacts.add(Contact.map(entity));
+            }
+            contactsFoundBySocialMediaLD.postValue(contacts);
+        });
+    }
 
     public void searchByComments(Context context, String comments) {
         setContactDao(context);
@@ -296,6 +307,7 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
         contactsFoundByAliasLD.postValue(null);
         contactsFoundByTelephoneLD.postValue(null);
         contactsFoundByEmailLD.postValue(null);
+        contactsFoundBySocialMediaLD.postValue(null);
         contactsFoundByCommentsLD.postValue(null);
     }
 
@@ -357,6 +369,9 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
 
     public MediatorLiveData<List<Contact>> getContactsFoundByEmailLD() {
         return contactsFoundByEmailLD;
+    }
+    public MediatorLiveData<List<Contact>> getContactsFoundBySocialMediaLD() {
+        return contactsFoundBySocialMediaLD;
     }
 
     public MediatorLiveData<List<Contact>> getContactsFoundByCommentsLD() {

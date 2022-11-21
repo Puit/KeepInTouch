@@ -13,6 +13,7 @@ import com.nunnos.keepintouch.databinding.FragmentContactPersonalDataBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.component.CustomTextView;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
+import com.nunnos.keepintouch.utils.TextUtils;
 
 public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<ContactInfoViewModel, FragmentContactPersonalDataBinding> {
 
@@ -66,11 +67,12 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
         setTextOrHide(databinding.contactPersonalDataLanguage, c.getLanguage());
         setTextOrHide(databinding.contactPersonalDataReligion, c.getReligion());
         setTextOrHide(databinding.contactPersonalDataRelatives, c.getRelatives());
-        setTextOrHide(databinding.contactPersonalDataSocialMedia, c.getSexualOrientation());
+        setTextOrHide(databinding.contactPersonalDataSocialMedia, c.getSocialMedia());
+
     }
 
     private void setTextOrHide(TextView tv, String text) {
-        if (text.isEmpty() || text.equals("Unknown") || text.equals("DD/MM/YYYY")) {
+        if (TextUtils.isEmpty(text) || text.equals("Unknown") || text.equals("DD/MM/YYYY")) {
             tv.setVisibility(View.GONE);
         } else {
             tv.setVisibility(View.VISIBLE);
@@ -79,7 +81,7 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
     }
 
     private void setTextOrHide(CustomTextView tv, String text) {
-        if (text.isEmpty() || text.equals("Unknown") || text.equals("DD/MM/YYYY")) {
+        if (TextUtils.isEmpty(text) || text.equals("Unknown") || text.equals("DD/MM/YYYY")) {
             tv.setVisibility(View.GONE);
         } else {
             tv.setVisibility(View.VISIBLE);
@@ -88,7 +90,7 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
     }
 
     private void setTextOrHide(CustomTextView tv, String text, int src) {
-        if (text.isEmpty() || text.equals("Unknown") || text.equals("DD/MM/YYYY")) {
+        if (TextUtils.isEmpty(text) || text.equals("Unknown") || text.equals("DD/MM/YYYY")) {
             tv.setVisibility(View.GONE);
         } else {
             tv.setVisibility(View.VISIBLE);

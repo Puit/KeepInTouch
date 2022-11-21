@@ -145,6 +145,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
         databinding.newContactImage.setRotation(newContact.getAngle());
         databinding.newContactTelephone.setText(newContact.getTelephone());
         databinding.newContactEmail.setText(newContact.getEmail());
+        databinding.newContactSocialMedia.setText(newContact.getSocialMedia());
         databinding.newContactBackgroundColor.setColorId(newContact.getBgColor());
     }
 
@@ -279,7 +280,8 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
                     databinding.newContactEmail.getText(),
                     shareViewModel.getThisContact().getValue().getComments(),
                     shareViewModel.getThisContact().getValue().getDaysToCall(),
-                    shareViewModel.getThisContact().getValue().getDayOfDeath());
+                    shareViewModel.getThisContact().getValue().getDayOfDeath(),
+                    databinding.newContactSocialMedia.getText());
             contact.addRelativeList(databinding.newContactRelatives.getSelectedContacts());
             shareViewModel.updateThisContact(getContext(), contact);
             shareViewModel.navigateToContactPersonalData();

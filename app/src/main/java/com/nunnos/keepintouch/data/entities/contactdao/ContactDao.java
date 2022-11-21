@@ -90,6 +90,9 @@ public interface ContactDao {
 
     @Query("SELECT * FROM " + TABLE_NAME + " WHERE UPPER(Email) LIKE '%' || UPPER(:email) || '%'")
     List<ContactEntity> searchByEmail(String email);
+
+    @Query("SELECT * FROM " + TABLE_NAME + " WHERE UPPER(SocialMedia) LIKE '%' || UPPER(:socialMedia) || '%'")
+    List<ContactEntity> searchBySocialMedia(String socialMedia);
     //TODO: mirar com fer
     @Query("SELECT * FROM " + TABLE_NAME + " WHERE UPPER(Comments) LIKE '%' || UPPER(:comments) || '%'")
     List<ContactEntity> searchByComments(String comments);

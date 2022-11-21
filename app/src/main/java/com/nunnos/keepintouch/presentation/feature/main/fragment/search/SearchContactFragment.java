@@ -65,6 +65,7 @@ public class SearchContactFragment extends BaseFragmentViewModelLiveData<MainVie
         shareViewModel.getContactsFoundByAliasLD().observe(getViewLifecycleOwner(), this::onFoundByAliasReceived);
         shareViewModel.getContactsFoundByTelephoneLD().observe(getViewLifecycleOwner(), this::onFoundByTelephoneReceived);
         shareViewModel.getContactsFoundByEmailLD().observe(getViewLifecycleOwner(), this::onFoundByEmailReceived);
+        shareViewModel.getContactsFoundBySocialMediaLD().observe(getViewLifecycleOwner(), this::onFoundBySocialMediaReceived);
         shareViewModel.getContactsFoundByCommentsLD().observe(getViewLifecycleOwner(), this::onFoundByCommentsReceived);
     }
 
@@ -101,6 +102,7 @@ public class SearchContactFragment extends BaseFragmentViewModelLiveData<MainVie
         shareViewModel.searchByAlias(getContext(), subject);
         shareViewModel.searchByTelephone(getContext(), subject);
         shareViewModel.searchByEmail(getContext(), subject);
+        shareViewModel.searchBySocialMedia(getContext(), subject);
         shareViewModel.searchByComments(getContext(), subject);
     }
 
@@ -162,6 +164,9 @@ public class SearchContactFragment extends BaseFragmentViewModelLiveData<MainVie
 
     private void onFoundByEmailReceived(List<Contact> contacts) {
         setSearchView(contacts, databinding.searchContactRvEmail, databinding.searchContactEmail);
+    }
+    private void onFoundBySocialMediaReceived(List<Contact> contacts) {
+        setSearchView(contacts, databinding.searchContactRvSocialMedia, databinding.searchContactSocialMedia);
     }
 
     private void onFoundByCommentsReceived(List<Contact> contacts) {

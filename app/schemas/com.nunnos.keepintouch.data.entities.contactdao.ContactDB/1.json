@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "7e695efb0395849967dad2cb0c74dfae",
+    "identityHash": "e759bc20ec2703fd5d3d7f6bfd5cbf58",
     "entities": [
       {
         "tableName": "contacts_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `photo` TEXT, `name` TEXT, `surname1` TEXT, `surname2` TEXT, `gender` TEXT, `sexualorientation` TEXT, `birthday` TEXT, `realbirthday` INTEGER NOT NULL, `address` TEXT, `profession` TEXT, `placeofwork` TEXT, `howwemet` TEXT, `language` TEXT, `religion` TEXT, `relatives` TEXT, `conversations` TEXT, `favorite` INTEGER NOT NULL, `bgcolor` INTEGER NOT NULL, `angle` REAL NOT NULL, `lastactionindex` INTEGER NOT NULL, `alias` TEXT, `telephone` TEXT, `email` TEXT, `comments` TEXT, `daystocall` INTEGER NOT NULL, `dayofdeath` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `photo` TEXT, `name` TEXT, `surname1` TEXT, `surname2` TEXT, `gender` TEXT, `sexualorientation` TEXT, `birthday` TEXT, `realbirthday` INTEGER NOT NULL, `address` TEXT, `profession` TEXT, `placeofwork` TEXT, `howwemet` TEXT, `language` TEXT, `religion` TEXT, `relatives` TEXT, `conversations` TEXT, `favorite` INTEGER NOT NULL, `bgcolor` INTEGER NOT NULL, `angle` REAL NOT NULL, `lastactionindex` INTEGER NOT NULL, `alias` TEXT, `telephone` TEXT, `email` TEXT, `comments` TEXT, `daystocall` INTEGER NOT NULL, `dayofdeath` TEXT, `socialmedia` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -169,6 +169,12 @@
             "columnName": "dayofdeath",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "socialMedia",
+            "columnName": "socialmedia",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -184,7 +190,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7e695efb0395849967dad2cb0c74dfae')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e759bc20ec2703fd5d3d7f6bfd5cbf58')"
     ]
   }
 }

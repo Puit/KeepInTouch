@@ -45,12 +45,14 @@ public class Contact {
     private String comments = "";
     private int daysToCall;
     private String dayOfDeath = "";
+    private String socialMedia = "";
 
     public Contact(int id, String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                    boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                    String language, String religion, String relatives, String conversations,
                    boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias,
-                   String telephone, String email, String comments, int daysToCall, String dayOfDeath) {
+                   String telephone, String email, String comments, int daysToCall, String dayOfDeath,
+                   String socialMedia) {
         this.id = id;
         this.name = name;
         this.surname1 = surname1;
@@ -78,13 +80,15 @@ public class Contact {
         this.comments = comments;
         this.daysToCall = daysToCall;
         this.dayOfDeath = dayOfDeath;
+        this.socialMedia = socialMedia;
     }
 
     public Contact(String name, String surname1, String surname2, String gender, String sexualOrientation, String birthday,
                    boolean realBirthday, String address, String profession, String placeOfWork, String howWeMet,
                    String language, String religion, String relatives, String conversations,
                    boolean favorite, int bgColor, String photo, float angle, int lastActionIndex, String alias,
-                   String telephone, String email, String comments, int daysToCall, String dayOfDeath) {
+                   String telephone, String email, String comments, int daysToCall, String dayOfDeath,
+                   String socialMedia) {
         this.name = name;
         this.surname1 = surname1;
         this.surname2 = surname2;
@@ -111,6 +115,7 @@ public class Contact {
         this.comments = comments;
         this.daysToCall = daysToCall;
         this.dayOfDeath = dayOfDeath;
+        this.socialMedia = socialMedia;
     }
 
     public Contact() {
@@ -123,7 +128,7 @@ public class Contact {
                 entity.placeOfWork, entity.howWeMet, entity.language, entity.religion, entity.relatives,
                 entity.conversations, entity.favorite, entity.bgColor, entity.photo, entity.angle,
                 entity.lastActionIndex, entity.alias, entity.telephone, entity.email, entity.comments,
-                entity.daysToCall, entity.dayOfDeath);
+                entity.daysToCall, entity.dayOfDeath, entity.socialMedia);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -462,6 +467,14 @@ public class Contact {
 
     public void setDayOfDeath(String dayOfDeath) {
         this.dayOfDeath = dayOfDeath;
+    }
+
+    public String getSocialMedia() {
+        return socialMedia;
+    }
+
+    public void setSocialMedia(String socialMedia) {
+        this.socialMedia = socialMedia;
     }
 
     public static boolean areSameContact(Contact c1, Contact c2) {
