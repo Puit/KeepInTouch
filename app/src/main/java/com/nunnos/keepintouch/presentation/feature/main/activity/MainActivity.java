@@ -40,13 +40,16 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
 
     private void myOncreate() {
         askForExternalStoragePermissions();
-        setView();
         initObservers();
         redirectTo();
     }
 
-    private void setView() {
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (viewModel.isRefreshOnBack()) {
+            myOncreate();
+        }
     }
 
     private void initObservers() {
@@ -89,6 +92,8 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
                     Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
                 }
             }
+        } else {
+            myOncreate();
         }
     }
 

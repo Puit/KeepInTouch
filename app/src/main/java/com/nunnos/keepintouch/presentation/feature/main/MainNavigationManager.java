@@ -5,7 +5,6 @@ import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.MA
 import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.NEW_CONTACT;
 import static com.nunnos.keepintouch.presentation.feature.main.MainNavigation.SEARCH_CONTACT;
 import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
-import static com.nunnos.keepintouch.utils.Constants.REQUEST_NAVIGATE_TO_CONTACT_INFO;
 
 import android.content.Intent;
 

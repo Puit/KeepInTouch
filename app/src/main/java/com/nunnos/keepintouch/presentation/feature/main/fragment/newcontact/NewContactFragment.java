@@ -1,6 +1,5 @@
 package com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact;
 
-import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
 import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
 
 import android.annotation.SuppressLint;
@@ -27,7 +26,6 @@ import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVIT
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.BackgroundColorPickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
-import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.vm.NewContactViewModel;
 import com.nunnos.keepintouch.utils.Constants;
 import com.nunnos.keepintouch.utils.ImageHelper;
 
@@ -256,6 +254,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
                     databinding.newContactSocialMedia.getText());
             contact.addRelativeList(databinding.newContactRelatives.getSelectedContacts());
             shareViewModel.saveContact(getContext(), contact);
+            shareViewModel.setRefreshOnBack(true);
             shareViewModel.navigateToMain();
         } else {
             Toast.makeText(getContext(), "Wrong", Toast.LENGTH_SHORT).show();

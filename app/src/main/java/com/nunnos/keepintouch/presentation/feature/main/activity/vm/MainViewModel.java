@@ -20,8 +20,10 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
     private ContactDao contactDao;
     private Contact newContact = new Contact();
     private int contactSelectedID = -1;
-    private final MediatorLiveData<Bitmap> newContactBitmap = new MediatorLiveData<>();
+    private int lastIndex = 0;
+    private boolean refreshOnBack = false;
 
+    private final MediatorLiveData<Bitmap> newContactBitmap = new MediatorLiveData<>();
     private final MediatorLiveData<List<Contact>> contactsMutableLiveData = new MediatorLiveData<>();
     private final MediatorLiveData<List<Contact>> contactsFoundByNameLD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Contact>> contactsFoundByGenderLD = new MediatorLiveData<>();
@@ -40,8 +42,6 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
     private final MediatorLiveData<List<Contact>> contactsFoundByEmailLD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Contact>> contactsFoundBySocialMediaLD = new MediatorLiveData<>();
     private final MediatorLiveData<List<Contact>> contactsFoundByCommentsLD = new MediatorLiveData<>();
-
-    private int lastIndex = 0;
 
     public void retrieveContacts(Context context) {
         setContactDao(context);
@@ -384,5 +384,13 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
 
     public void setLastIndex(int lastIndex) {
         this.lastIndex = lastIndex;
+    }
+
+    public boolean isRefreshOnBack() {
+        return refreshOnBack;
+    }
+
+    public void setRefreshOnBack(boolean refreshOnBack) {
+        this.refreshOnBack = refreshOnBack;
     }
 }
