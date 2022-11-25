@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.domain.model.Contact;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.searchcard.RVSearchCardAdapter;
 import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
 import com.nunnos.keepintouch.utils.FileManager;
 import com.nunnos.keepintouch.utils.ImageHelper;
@@ -26,9 +27,12 @@ import java.util.List;
 public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Contact> items;
     private Context context;
+    private CustomItemClick listener;
 
-    public RVContactCardAdapter(List<Contact> items) {
+
+    public RVContactCardAdapter(List<Contact> items, CustomItemClick listener) {
         this.items = items;
+        this.listener = listener;
     }
 
     @Override
@@ -47,6 +51,7 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.component_main_recyclerview_contact, parent, false);
         RVCDAdapterViewHolder viewHolder = new RVCDAdapterViewHolder(view);
+        viewHolder.setListener(listener);
         viewHolder.setIsRecyclable(false);
         return viewHolder;
     }
@@ -61,7 +66,9 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         return this.items.size();
     }
 
-
+    public interface CustomItemClick {
+        void onItemClick(int contactId);
+    }
     /**
      * CLASS VIEWHOLDER
      **/
@@ -75,11 +82,11 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         private TextView professionTv;
         private TextView ageValueTv;
         private TextView lastTimeValueTv;
+        private CustomItemClick listener;
 
         public RVCDAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             initView(itemView);
-            setView();
             itemView.setOnClickListener(this);
         }
 
@@ -94,8 +101,8 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             lastTimeValueTv = itemView.findViewById(R.id.recyclerView_contact_last_time_value);
         }
 
-        private void setView() {
-
+        public void setListener(CustomItemClick listener) {
+            this.listener = listener;
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
@@ -131,10 +138,7 @@ public class RVContactCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         @Override
         public void onClick(View v) {
-            if (context instanceof MainActivity) {
-                ((MainActivity) context).getShareViewModel().setContactSelectedID(contact.getId());
-                ((MainActivity) context).getShareViewModel().navigateToContactInfo();
-            }
+            listener.onItemClick(contact.getId());
         }
     }
 }

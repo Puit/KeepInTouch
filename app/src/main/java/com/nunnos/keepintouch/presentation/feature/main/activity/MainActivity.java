@@ -35,12 +35,26 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initObservers();
         myOncreate();
+        setOnActivityResultListener(new OnActivityResult() {
+            @Override
+            public void onResultOK() {
+                Toast.makeText(MainActivity.this, "HACER ALGO", Toast.LENGTH_SHORT).show();
+                myOncreate();
+
+            }
+
+            @Override
+            public void onResultKO() {
+                //DO NOTHING
+                Toast.makeText(MainActivity.this, "No hacer nada", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void myOncreate() {
         askForExternalStoragePermissions();
-        initObservers();
         redirectTo();
     }
 
@@ -72,7 +86,7 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
         viewModel.navigateToMain();
     }
 
-    @Override
+  /*  @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
@@ -95,7 +109,7 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
         } else {
             myOncreate();
         }
-    }
+    }*/
 
     /**
      * permisssions

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MediatorLiveData;
 
+import com.nunnos.keepintouch.base.baseview.BaseActivityViewModelLiveData;
 import com.nunnos.keepintouch.data.AppExecutors;
 import com.nunnos.keepintouch.data.entities.contactdao.ContactDB;
 import com.nunnos.keepintouch.data.entities.contactdao.ContactDao;
@@ -22,6 +23,7 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
     private int contactSelectedID = -1;
     private int lastIndex = 0;
     private boolean refreshOnBack = false;
+    private BaseActivityViewModelLiveData.OnActivityResult onActivityResultListener;
 
     private final MediatorLiveData<Bitmap> newContactBitmap = new MediatorLiveData<>();
     private final MediatorLiveData<List<Contact>> contactsMutableLiveData = new MediatorLiveData<>();
@@ -80,6 +82,14 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
 
     public void setNewContact(Contact newContact) {
         this.newContact = newContact;
+    }
+
+    public BaseActivityViewModelLiveData.OnActivityResult getOnActivityResultListener() {
+        return onActivityResultListener;
+    }
+
+    public void setOnActivityResultListener(BaseActivityViewModelLiveData.OnActivityResult onActivityResultListener) {
+        this.onActivityResultListener = onActivityResultListener;
     }
 
     public MediatorLiveData<Bitmap> getNewContactBitmap() {

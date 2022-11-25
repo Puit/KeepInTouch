@@ -3,6 +3,8 @@ package com.nunnos.keepintouch.base.baseview;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.AnimRes;
 import androidx.annotation.AnimatorRes;
 import androidx.annotation.LayoutRes;
@@ -20,8 +22,10 @@ import com.nunnos.keepintouch.base.baseview.base.viewmodel.BaseViewModelActivity
 public abstract class BaseActivityViewModelLiveData<VM extends ViewModel & LifecycleObserver, DB extends ViewDataBinding> extends BaseViewModelActivity implements LifecycleObserver {
     private enum Animation {
         NO_ANIMATION,
-        SLIDING_UP;
+        SLIDING_UP
     }
+
+    public final static String RESULT = "RESULT";
 
     private static final String TAG = "BaseActivityVMLiveData";
     protected VM viewModel;
@@ -40,6 +44,10 @@ public abstract class BaseActivityViewModelLiveData<VM extends ViewModel & Lifec
         return viewModel;
     }
 
+    private ActivityResultLauncher<Intent> resultLauncher;
+
+    private OnActivityResult onActivityResultListener;
+
     /***************************************************
      * LIFECYCLE
      * *************************************************/
@@ -54,6 +62,23 @@ public abstract class BaseActivityViewModelLiveData<VM extends ViewModel & Lifec
         if (getIntent().hasExtra(ENTRANCE_ANIMATION)) {
             entranceAnimation = (Animation) getIntent().getSerializableExtra(ENTRANCE_ANIMATION);
         }
+        setResultLauncher();
+    }
+
+    private void setResultLauncher() {
+        resultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    Intent intent = result.getData();
+
+                    if (intent != null) {
+                        if (intent.getBooleanExtra(RESULT, false)) {
+                            onActivityResultListener.onResultOK();
+                        } else {
+                            onActivityResultListener.onResultKO();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -98,6 +123,11 @@ public abstract class BaseActivityViewModelLiveData<VM extends ViewModel & Lifec
         overrideSlidingTransition(R.anim.slide_in_up, R.anim.stay);
     }
 
+    public void launchSlidingUpActivityForResult(ActivityResultLauncher<Intent> resultLauncher, Intent intent) {
+        resultLauncher.launch(intent);
+        overrideSlidingTransition(R.anim.slide_in_up, R.anim.stay);
+    }
+
     @Override
     public void finish() {
         super.finish();
@@ -111,5 +141,19 @@ public abstract class BaseActivityViewModelLiveData<VM extends ViewModel & Lifec
             default:
                 //Do nothing
         }
+    }
+
+    public ActivityResultLauncher<Intent> getResultLauncher() {
+        return resultLauncher;
+    }
+
+    public void setOnActivityResultListener(OnActivityResult onActivityResultListener) {
+        this.onActivityResultListener = onActivityResultListener;
+    }
+
+    public interface OnActivityResult {
+        void onResultOK();
+
+        void onResultKO();
     }
 }

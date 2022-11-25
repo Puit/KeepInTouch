@@ -1,9 +1,13 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm;
 
+import static android.app.Activity.RESULT_OK;
+import static com.nunnos.keepintouch.base.baseview.BaseActivityViewModelLiveData.RESULT;
 import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
+import static com.nunnos.keepintouch.utils.Constants.EXTRA_UPDATE_MAIN;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -170,6 +174,10 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         if (thisContactMD != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 contactDao.deleteById(contact.getId());
+                Intent replyIntent = new Intent();
+                replyIntent.putExtra(EXTRA_UPDATE_MAIN, true);
+                replyIntent.putExtra(RESULT, true);
+                activity.setResult(RESULT_OK, replyIntent);
                 activity.finish();
             });
         } else {

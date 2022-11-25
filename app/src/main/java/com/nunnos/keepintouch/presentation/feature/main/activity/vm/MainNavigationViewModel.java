@@ -26,24 +26,4 @@ public class MainNavigationViewModel extends ViewModel {
     public void navigateToSearchContact() {
         navigation.setValue(MainNavigation.SEARCH_CONTACT);
     }
-
-
-/*    protected <U extends BaseUseCaseLiveData, T, Params> void updateOnSuccess(U usecase, MediatorLiveData<T> model, Params params, boolean loading, boolean continueProgressWhenSuccess){
-        LiveData<ResultData<T>> source = LiveDataReactiveStreams.fromPublisher(((Flowable<ResultData<T>>) usecase.doWork(params)))
-                .onErrorReturns(throwable -> ResultData.error());
-        model.addSource(source, resource -> {
-            if(resource != null){
-                switch (resource.getResultType()){
-                    case StatusLiveResult.LIVE_ONSUCCESS:
-                        model.postValue(T) resource.getData();
-                        model.removeSource(source);
-                        break;
-                    case StatusLiveResult.LIVE_ONERROR:
-                        handleError.postValue(resource);
-                        model.removeSource(source);
-                        break;
-                }
-            }
-        });
-    }*/
 }

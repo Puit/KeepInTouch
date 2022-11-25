@@ -18,6 +18,7 @@ import com.nunnos.keepintouch.notifications.Notification;
 import com.nunnos.keepintouch.presentation.component.CustomEditText;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.contactcard.RVContactCardAdapter;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.searchcard.RVSearchCardAdapter;
+import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
 
 import java.util.List;
@@ -69,9 +70,15 @@ public class MainFragment extends BaseFragmentViewModelLiveData<MainViewModel, F
             databinding.mainSearcher.setVisibility(View.GONE);
             databinding.mainNoContactTv.setVisibility(View.VISIBLE);
         } else {
+            RVContactCardAdapter.CustomItemClick onClickListener = contactId -> {
+                shareViewModel.setContactSelectedID(contactId);
+                shareViewModel.navigateToContactInfo();
+            };
+
             databinding.mainSearcher.setVisibility(View.VISIBLE);
             databinding.mainNoContactTv.setVisibility(View.GONE);
-            adapter = new RVContactCardAdapter(contactList);
+
+            adapter = new RVContactCardAdapter(contactList, onClickListener);
             databinding.mainRecyclerView.setAdapter(adapter);
             databinding.mainRecyclerView.setHasFixedSize(false);
         }

@@ -110,7 +110,6 @@ public class RVSearchCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     userImage.setImageDrawable(context.getDrawable(R.drawable.ic_unknown));
                 } else {
                     userImage.setImageBitmap(bitmap);
-//                    userImage.setImageBitmap(getResizedBitmap(userImage, bitmap));
                     ImageHelper.resizeImage(userImage, bitmap);
                     userImage.setRotation(contact.getAngle());
                 }
@@ -120,13 +119,6 @@ public class RVSearchCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         public void onClick(View v) {
             listener.onItemClick(contact.getId());
-            /*if (context instanceof MainActivity) {
-                ((MainActivity) context).getShareViewModel().setContactSelectedID(contact.getId());
-                ((MainActivity) context).getShareViewModel().navigateToContactInfo();
-                ((MainActivity) context).getShareViewModel().clearSearch();
-
-                ((MainActivity) context).onBackPressed();
-            }*/
         }
     }
 }

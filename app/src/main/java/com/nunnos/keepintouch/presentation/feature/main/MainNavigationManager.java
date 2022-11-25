@@ -53,7 +53,9 @@ public class MainNavigationManager {
     private static void navigateToContactInfoActivity(MainActivity activity, MainViewModel viewModel) {
         Intent intent = new Intent(activity.getApplicationContext(), ContactInfoActivity.class);
         intent.putExtra(EXTRA_CONTACT_SELECTED_ID, viewModel.getContactSelectedID());
-        activity.launchSlidingUpActivity(intent);
+        if (activity.getResultLauncher() != null) {
+            activity.launchSlidingUpActivityForResult(activity.getResultLauncher(), intent);
+        }
     }
 
     private static void navigateToSearchContact(MainActivity activity) {
