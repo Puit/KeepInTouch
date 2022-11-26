@@ -1,7 +1,7 @@
 package com.nunnos.keepintouch.presentation.feature.main.activity;
 
-import static com.nunnos.keepintouch.utils.Constants.EXTRA_UPDATE_MAIN;
-import static com.nunnos.keepintouch.utils.Constants.REQUEST_NAVIGATE_TO_CONTACT_INFO;
+import static com.nunnos.keepintouch.utils.Constants.KEY_DELETE_CONTACT;
+import static com.nunnos.keepintouch.utils.Constants.KEY_REFRESH_MAIN;
 
 import android.Manifest;
 import android.content.Context;
@@ -22,6 +22,7 @@ import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseActivityViewModelLiveData;
 import com.nunnos.keepintouch.databinding.ActivityMainBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.ContactInfoActivity;
 import com.nunnos.keepintouch.presentation.feature.main.MainNavigationManager;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.main.MainFragment;
@@ -37,18 +38,42 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
         super.onCreate(savedInstanceState);
         initObservers();
         myOncreate();
+        configureResultListener();
+    }
+
+    private void configureResultListener() {
         setOnActivityResultListener(new OnActivityResult() {
             @Override
-            public void onResultOK() {
-                Toast.makeText(MainActivity.this, "HACER ALGO", Toast.LENGTH_SHORT).show();
-                myOncreate();
-
+            public void onResultOK(Intent intent) {
+                if (intent.getStringExtra(WHAT_IM_CAPTURING) != null) {
+                    switch (intent.getStringExtra(WHAT_IM_CAPTURING)) {
+                        case KEY_REFRESH_MAIN:
+                        case KEY_DELETE_CONTACT:
+                            myOncreate();
+                            break;
+                        default:
+                            throw new IllegalStateException("Unexpected value: " + intent.getStringExtra(WHAT_IM_CAPTURING));
+                    }
+                }
             }
 
             @Override
-            public void onResultKO() {
+            public void onResultKO(Intent intent) {
                 //DO NOTHING
-                Toast.makeText(MainActivity.this, "No hacer nada", Toast.LENGTH_SHORT).show();
+                if (intent.getType() != null) {
+                    //Venimos de haber elegido la imagen en NewContactFragment
+                    if (intent.getType().contains("image/")) {
+                        try {
+                            final Uri imageUri = intent.getData();
+                            getShareViewModel().getNewContact().setPhoto(FileManager.getPath(MainActivity.this, imageUri));
+                            final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                            getShareViewModel().setNewContactBitmap(BitmapFactory.decodeStream(imageStream));
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
             }
         });
     }

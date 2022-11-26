@@ -2,8 +2,10 @@ package com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm;
 
 import static android.app.Activity.RESULT_OK;
 import static com.nunnos.keepintouch.base.baseview.BaseActivityViewModelLiveData.RESULT;
+import static com.nunnos.keepintouch.base.baseview.BaseActivityViewModelLiveData.WHAT_IM_CAPTURING;
 import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
 import static com.nunnos.keepintouch.utils.Constants.EXTRA_UPDATE_MAIN;
+import static com.nunnos.keepintouch.utils.Constants.KEY_DELETE_CONTACT;
 
 import android.app.Activity;
 import android.content.Context;
@@ -28,7 +30,6 @@ import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.domain.model.complements.Comment;
 import com.nunnos.keepintouch.domain.model.complements.Conversation;
 import com.nunnos.keepintouch.domain.model.complements.base.Complement;
-import com.nunnos.keepintouch.utils.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -177,6 +178,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
                 Intent replyIntent = new Intent();
                 replyIntent.putExtra(EXTRA_UPDATE_MAIN, true);
                 replyIntent.putExtra(RESULT, true);
+                replyIntent.putExtra(WHAT_IM_CAPTURING, KEY_DELETE_CONTACT);
                 activity.setResult(RESULT_OK, replyIntent);
                 activity.finish();
             });

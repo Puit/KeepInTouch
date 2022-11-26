@@ -1,6 +1,5 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.personaldata;
 
-import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -23,6 +22,7 @@ import com.nunnos.keepintouch.presentation.component.CustomSwitch;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.contactsselector.RVContactAdapter;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ImageAndText;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVITAdapter;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.ContactInfoActivity;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.BackgroundColorPickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
@@ -212,7 +212,11 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
         databinding.newContactAddImageButton.setOnClickListener(v -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
-            startActivityForResult(photoPickerIntent, REQUEST_SELECT_IMAGE);
+            if (getActivity() instanceof ContactInfoActivity) {
+                ((ContactInfoActivity) getActivity()).launchSlidingUpActivityForResult(
+                        ((ContactInfoActivity) getActivity()).getResultLauncher(),
+                        photoPickerIntent);
+            }
         });
         databinding.newContactRotateRounder.setOnClickListener(v -> {
             float newAngle = shareViewModel.getThisContact().getValue().getAngle() + 90;

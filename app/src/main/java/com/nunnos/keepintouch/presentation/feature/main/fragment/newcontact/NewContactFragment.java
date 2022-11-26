@@ -1,7 +1,5 @@
 package com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact;
 
-import static com.nunnos.keepintouch.utils.Constants.REQUEST_SELECT_IMAGE;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,6 +21,7 @@ import com.nunnos.keepintouch.presentation.component.CustomSwitch;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.contactsselector.RVContactAdapter;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.ImageAndText;
 import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVITAdapter;
+import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.BackgroundColorPickerFragment;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
@@ -35,7 +34,7 @@ import java.util.List;
 
 public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewModel, FragmentMainNewContactBinding> {
 
-    private static final String TAG = "NewContactFragment";
+    public static final String TAG = "NewContactFragment";
 
     private RVITAdapter genderAdapter;
     private RVITAdapter sexualOrientationAdapter;
@@ -189,7 +188,11 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
         databinding.newContactAddImageButton.setOnClickListener(v -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
-            startActivityForResult(photoPickerIntent, REQUEST_SELECT_IMAGE);
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).launchSlidingUpActivityForResult(
+                        ((MainActivity) getActivity()).getResultLauncher(),
+                        photoPickerIntent);
+            }
         });
         databinding.newContactRotateRounder.setOnClickListener(v -> {
             float newAngle = shareViewModel.getNewContact().getAngle() + 90;

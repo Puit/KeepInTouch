@@ -26,6 +26,7 @@ public abstract class BaseActivityViewModelLiveData<VM extends ViewModel & Lifec
     }
 
     public final static String RESULT = "RESULT";
+    public final static String WHAT_IM_CAPTURING = "WHAT_IM_CAPTURING";
 
     private static final String TAG = "BaseActivityVMLiveData";
     protected VM viewModel;
@@ -73,9 +74,9 @@ public abstract class BaseActivityViewModelLiveData<VM extends ViewModel & Lifec
 
                     if (intent != null) {
                         if (intent.getBooleanExtra(RESULT, false)) {
-                            onActivityResultListener.onResultOK();
+                            onActivityResultListener.onResultOK(intent);
                         } else {
-                            onActivityResultListener.onResultKO();
+                            onActivityResultListener.onResultKO(intent);
                         }
                     }
                 });
@@ -152,8 +153,8 @@ public abstract class BaseActivityViewModelLiveData<VM extends ViewModel & Lifec
     }
 
     public interface OnActivityResult {
-        void onResultOK();
+        void onResultOK(Intent intent);
 
-        void onResultKO();
+        void onResultKO(Intent intent);
     }
 }

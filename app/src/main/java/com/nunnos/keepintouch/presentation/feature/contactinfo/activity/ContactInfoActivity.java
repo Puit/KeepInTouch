@@ -31,6 +31,8 @@ import java.io.InputStream;
 
 public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactInfoViewModel, ActivityContactInfoBinding> {
 
+    public final static String TAG = "ContactInfoActivity";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,30 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         setView();
         initObservers();
         redirectTo();
+        configureResultListener();
+    }
+
+    private void configureResultListener() {
+        setOnActivityResultListener(new OnActivityResult() {
+            @Override
+            public void onResultOK(Intent intent) {
+                //DO NOTHING
+            }
+
+            @Override
+            public void onResultKO(Intent intent) {
+                try {
+                    final Uri imageUri = intent.getData();
+                    if (getShareViewModel().getNewConversation() == null) return;
+                    getShareViewModel().getNewConversation().setPhoto(FileManager.getPath(ContactInfoActivity.this, imageUri));
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    getShareViewModel().setNewConversationBitmap(BitmapFactory.decodeStream(imageStream));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(ContactInfoActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void getContact() {
@@ -99,24 +125,6 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
     private void redirectTo() {
         viewModel.navigateToContactInfo();
         dataBinding.contactInfoActivityBottomMenu.setItemSelected(3); // Marca el botón de chat
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            //Data es null porque la imagen se guarda en storage
-            try {
-                final Uri imageUri = data.getData();
-                if (getShareViewModel().getNewConversation() == null) return;
-                getShareViewModel().getNewConversation().setPhoto(FileManager.getPath(this, imageUri));
-                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                getShareViewModel().setNewConversationBitmap(BitmapFactory.decodeStream(imageStream));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
-            }
-        }
     }
 
     /*******************************************
