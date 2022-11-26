@@ -1,5 +1,7 @@
 package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.personaldata;
 
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +15,8 @@ import com.nunnos.keepintouch.databinding.FragmentContactPersonalDataBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.component.CustomTextView;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
+import com.nunnos.keepintouch.utils.FileManager;
+import com.nunnos.keepintouch.utils.ImageHelper;
 import com.nunnos.keepintouch.utils.TextUtils;
 
 public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<ContactInfoViewModel, FragmentContactPersonalDataBinding> {
@@ -68,7 +72,7 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
         setTextOrHide(databinding.contactPersonalDataReligion, c.getReligion());
         setTextOrHide(databinding.contactPersonalDataRelatives, c.getRelatives());
         setTextOrHide(databinding.contactPersonalDataSocialMedia, c.getSocialMedia());
-
+        setUserImage(c);
     }
 
     private void setTextOrHide(TextView tv, String text) {
@@ -96,6 +100,19 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
             tv.setVisibility(View.VISIBLE);
             tv.setText(text);
             tv.setImage(src);
+        }
+    }
+    private void setUserImage(Contact contact) {
+        Bitmap bitmap = FileManager.getBitmapPhoto(contact.getPhoto());
+        if (bitmap == null) {
+            databinding.contactPersonalDataImage.setImageDrawable(getContext().getDrawable(R.drawable.ic_person_full));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                databinding.contactPersonalDataImage.setBackgroundColor(getContext().getColor(R.color.text_gray));
+            }
+        } else {
+            databinding.contactPersonalDataImage.setImageBitmap(bitmap);
+            ImageHelper.resizeImage(databinding.contactPersonalDataImage, FileManager.getBitmapPhoto(contact.getPhoto()));
+            databinding.contactPersonalDataImage.setRotation(contact.getAngle());
         }
     }
 
