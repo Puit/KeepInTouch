@@ -65,9 +65,9 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
                     if (intent.getType().contains("image/")) {
                         try {
                             final Uri imageUri = intent.getData();
-                            getShareViewModel().getNewContact().setPhoto(FileManager.getPath(MainActivity.this, imageUri));
+                            viewModel.getNewContact().setPhoto(FileManager.getPath(MainActivity.this, imageUri));
                             final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                            getShareViewModel().setNewContactBitmap(BitmapFactory.decodeStream(imageStream));
+                            viewModel.setNewContactBitmap(BitmapFactory.decodeStream(imageStream));
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                             Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();

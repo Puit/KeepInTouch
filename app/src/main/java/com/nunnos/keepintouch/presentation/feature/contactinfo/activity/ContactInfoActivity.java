@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseActivityViewModelLiveData;
@@ -24,6 +25,8 @@ import com.nunnos.keepintouch.databinding.ActivityContactInfoBinding;
 import com.nunnos.keepintouch.presentation.component.BottomMenu;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigationManager;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation.NewConversationFragment;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.personaldata.EditContactFragment;
 import com.nunnos.keepintouch.utils.FileManager;
 
 import java.io.FileNotFoundException;
@@ -55,10 +58,20 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
             public void onResultKO(Intent intent) {
                 try {
                     final Uri imageUri = intent.getData();
-                    if (getShareViewModel().getNewConversation() == null) return;
-                    getShareViewModel().getNewConversation().setPhoto(FileManager.getPath(ContactInfoActivity.this, imageUri));
-                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                    getShareViewModel().setNewConversationBitmap(BitmapFactory.decodeStream(imageStream));
+                    if (getSupportFragmentManager().getFragments().size() >= 1) {
+                        Fragment currentFragment = getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() - 1);
+                        if (currentFragment instanceof EditContactFragment) {
+                            viewModel.getThisContact().getValue().setPhoto(FileManager.getPath(ContactInfoActivity.this, imageUri));
+                            final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                            viewModel.setThisContactBitmap(BitmapFactory.decodeStream(imageStream));
+                        }
+                        if (currentFragment instanceof NewConversationFragment) {
+                            if (viewModel.getNewConversation() == null) return;
+                            viewModel.getNewConversation().setPhoto(FileManager.getPath(ContactInfoActivity.this, imageUri));
+                            final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                            viewModel.setNewConversationBitmap(BitmapFactory.decodeStream(imageStream));
+                        }
+                    }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     Toast.makeText(ContactInfoActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();

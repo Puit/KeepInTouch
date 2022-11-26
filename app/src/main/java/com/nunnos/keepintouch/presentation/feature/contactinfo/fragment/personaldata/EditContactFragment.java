@@ -78,6 +78,17 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
         databinding.newContactImage.setImageBitmap(bitmap);
         ImageHelper.resizeImage(databinding.newContactImage, bitmap);
         databinding.newContactRotateRounder.setVisibility(View.VISIBLE);
+        if (bitmap != null) {
+            databinding.newContactImage.setImageBitmap(bitmap);
+            ImageHelper.resizeImage(databinding.newContactImage, bitmap);
+            if (shareViewModel.getThisContact().getValue() == null) {
+                databinding.newContactImage.setRotation(0);
+                databinding.newContactRotateRounder.setVisibility(View.INVISIBLE);
+            } else {
+                databinding.newContactImage.setRotation(shareViewModel.getThisContact().getValue().getAngle());
+                databinding.newContactRotateRounder.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private void initContactsRecyclerView(List<Contact> relatives) {
