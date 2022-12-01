@@ -22,10 +22,10 @@ import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseActivityViewModelLiveData;
 import com.nunnos.keepintouch.databinding.ActivityMainBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
-import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.ContactInfoActivity;
 import com.nunnos.keepintouch.presentation.feature.main.MainNavigationManager;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.main.MainFragment;
+import com.nunnos.keepintouch.presentation.feature.main.fragment.search.SearchContactFragment;
 import com.nunnos.keepintouch.utils.FileManager;
 
 import java.io.FileNotFoundException;
@@ -196,6 +196,9 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_fragment_container);
         if (fragment instanceof MainFragment) {
             this.finishAndRemoveTask(); //TODO: matarà las notificaciones?
+        } else if (fragment instanceof SearchContactFragment) {
+            viewModel.clearSearch();
+            super.onBackPressed();
         } else {
             super.onBackPressed();
         }

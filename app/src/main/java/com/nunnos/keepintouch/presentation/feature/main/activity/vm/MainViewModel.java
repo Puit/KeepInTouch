@@ -301,7 +301,6 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
         });
     }
     public void clearSearch(){
-        contactsMutableLiveData.postValue(null);
         contactsFoundByNameLD.postValue(null);
         contactsFoundByGenderLD.postValue(null);
         contactsFoundBySexualOrientationLD.postValue(null);

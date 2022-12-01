@@ -21,7 +21,10 @@ import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewMode
 import java.util.List;
 
 public class SearchContactFragment extends BaseFragmentViewModelLiveData<MainViewModel, FragmentSearchContactBinding> {
+    private static final int NUMBER_OF_SEARCHES = 17;
     private RVSearchCardAdapter searchCardAdapter = null;
+    private int searchIndex = 0;
+    private boolean found = false;
 
     public SearchContactFragment() {
         //Required empty public constructor
@@ -82,6 +85,7 @@ public class SearchContactFragment extends BaseFragmentViewModelLiveData<MainVie
     }
 
     private void searchOnDB() {
+        clearAll();
         if (databinding.searchContactSearcher.getText().toString().isEmpty()) {
             shareViewModel.retrieveContacts(getContext());
             return;
@@ -165,6 +169,7 @@ public class SearchContactFragment extends BaseFragmentViewModelLiveData<MainVie
     private void onFoundByEmailReceived(List<Contact> contacts) {
         setSearchView(contacts, databinding.searchContactRvEmail, databinding.searchContactEmail);
     }
+
     private void onFoundBySocialMediaReceived(List<Contact> contacts) {
         setSearchView(contacts, databinding.searchContactRvSocialMedia, databinding.searchContactSocialMedia);
     }
@@ -174,26 +179,41 @@ public class SearchContactFragment extends BaseFragmentViewModelLiveData<MainVie
     }
 
     private void setSearchView(List<Contact> contactList, RecyclerView recyclerView, TextView textView) {
-        if (contactList == null || contactList.isEmpty() || contactList.size() < 1) {
-            return;
-        }
-        recyclerView.setVisibility(View.VISIBLE);
-        textView.setVisibility(View.VISIBLE);
-        if (searchCardAdapter == null) {
-            RVSearchCardAdapter.CustomItemClick contactListener = (contactId) -> {
-                shareViewModel.setContactSelectedID(contactId);
-                shareViewModel.navigateToContactInfo();
-                shareViewModel.clearSearch();
-                getActivity().onBackPressed();
-            };
+        if (contactList != null && !contactList.isEmpty()) {
+            recyclerView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
+            found = true;
 
-            searchCardAdapter = new RVSearchCardAdapter(contactList, contactListener);
-        } else {
-            searchCardAdapter.addItems(contactList);
+            if (searchCardAdapter == null) {
+                RVSearchCardAdapter.CustomItemClick contactListener = (contactId) -> {
+                    shareViewModel.setContactSelectedID(contactId);
+                    shareViewModel.navigateToContactInfo();
+                    clearAll();
+                    getActivity().onBackPressed();
+                };
+
+                searchCardAdapter = new RVSearchCardAdapter(contactList, contactListener);
+            } else {
+                searchCardAdapter.addItems(contactList);
+            }
+            recyclerView.setAdapter(searchCardAdapter);
+            searchCardAdapter.notifyDataSetChanged();
+            recyclerView.setHasFixedSize(false);
         }
-        recyclerView.setAdapter(searchCardAdapter);
-        searchCardAdapter.notifyDataSetChanged();
-        recyclerView.setHasFixedSize(false);
+        searchIndex++;
+        checkIfAnyIsFound();
+    }
+
+    private void checkIfAnyIsFound() {
+        if (searchIndex >= NUMBER_OF_SEARCHES) {
+            if (!found) {
+                searchIndex = 0;
+                databinding.searchContactNothingFound.setVisibility(View.VISIBLE);
+            } else {
+                found = false;
+                databinding.searchContactNothingFound.setVisibility(View.GONE);
+            }
+        }
     }
 
     private void clearAll() {
@@ -213,11 +233,12 @@ public class SearchContactFragment extends BaseFragmentViewModelLiveData<MainVie
         clearAndHide(databinding.searchContactRvTelephone, databinding.searchContactTelephone);
         clearAndHide(databinding.searchContactRvEmail, databinding.searchContactEmail);
         clearAndHide(databinding.searchContactRvComments, databinding.searchContactComments);
+        shareViewModel.clearSearch();
     }
 
     private void clearAndHide(RecyclerView recyclerView, TextView textView) {
         recyclerView.setAdapter(null);
-        searchCardAdapter.notifyDataSetChanged();
+//        searchCardAdapter.notifyDataSetChanged();
         recyclerView.setHasFixedSize(false);
 
         recyclerView.setVisibility(View.GONE);

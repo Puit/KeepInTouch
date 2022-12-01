@@ -22,19 +22,16 @@
                 android:imeOptions="actionSend"
                 android:inputType="text"
                 android:maxLines="1" />
-            <!--<com.nunnos.keepintouch.presentation.component.CustomEditText
-                 android:id="@+id/search_contact_searcher"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="20dp"
-                 android:maxLines="1"
-                 app:edit_text_clickable="true"
-                 app:edit_text_focusable="false"
-                 app:edit_text_hint_text=""
-                 app:edit_text_text="@string/search"
-                 app:layout_constraintEnd_toEndOf="parent"
-                 app:layout_constraintStart_toStartOf="parent"
-                 app:layout_constraintTop_toTopOf="parent" />-->
+
+            <TextView
+                android:id="@+id/search_contact_nothing_found"
+                style="@style/bold.black.24"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:text="@string/nothing_found"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/search_contact_name"
