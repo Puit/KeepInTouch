@@ -111,31 +111,6 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
         viewModel.navigateToMain();
     }
 
-  /*  @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_NAVIGATE_TO_CONTACT_INFO) {
-                if (data.getBooleanExtra(EXTRA_UPDATE_MAIN, false)) {
-                    myOncreate();
-                }
-            } else {
-                //Data es null porque la imagen se guarda en storage
-                try {
-                    final Uri imageUri = data.getData();
-                    getShareViewModel().getNewContact().setPhoto(FileManager.getPath(this, imageUri));
-                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                    getShareViewModel().setNewContactBitmap(BitmapFactory.decodeStream(imageStream));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
-                }
-            }
-        } else {
-            myOncreate();
-        }
-    }*/
-
     /**
      * permisssions
      */

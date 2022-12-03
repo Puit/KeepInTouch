@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
+   <!--     <androidx.cardview.widget.CardView
             android:id="@+id/contact_info_fav_rounder"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -30,7 +30,7 @@
                 android:layout_centerHorizontal="true"
                 android:background="@color/background_transparent"
                 tools:src="@drawable/ic_baseline_favorite_red" />
-        </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>-->
 
         <ImageView
             android:id="@+id/contact_info_image"

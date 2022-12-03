@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ import java.io.InputStream;
 public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactInfoViewModel, ActivityContactInfoBinding> {
 
     public final static String TAG = "ContactInfoActivity";
+    public final static int FAVORITE_INDEX = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +48,58 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         initObservers();
         redirectTo();
         configureResultListener();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_notification_favorite, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_notification:
+                //TODO: AÑADIR VALOR NOTIFICACIONES EN DB Y MODIFICAR
+                /*if (viewModel.getThisContact().getValue() == null) return true;
+                if (viewModel.getThisContact().getValue().) {
+                    item.setIcon(R.drawable.ic_baseline_notifications_none_24);
+                    viewModel.getThisContact().getValue().setFavorite(false);
+                } else {
+                    item.setIcon(R.drawable.ic_baseline_notifications_24);
+                    viewModel.getThisContact().getValue().setFavorite(true);
+                }
+                viewModel.updateThisContact(this);
+                viewModel.updateOnBack();*/
+                Toast.makeText(this, "Comming soon...", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_favorite:
+                if (viewModel.getThisContact().getValue() == null) return true;
+                if (viewModel.getThisContact().getValue().isFavorite()) {
+                    item.setIcon(R.drawable.ic_baseline_favorite_border_24);
+                    viewModel.getThisContact().getValue().setFavorite(false);
+                } else {
+                    item.setIcon(R.drawable.ic_baseline_favorite_24);
+                    viewModel.getThisContact().getValue().setFavorite(true);
+                }
+                viewModel.updateThisContact(this);
+                viewModel.updateOnBack();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.getItem(FAVORITE_INDEX);
+
+        item.setIcon(viewModel.getThisContact().getValue().isFavorite() ?
+                R.drawable.ic_baseline_favorite_24 :
+                R.drawable.ic_baseline_favorite_border_24);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     private void configureResultListener() {

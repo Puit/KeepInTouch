@@ -158,17 +158,17 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     }
 
     private void setFavImage() {
-        if (shareViewModel.getThisContact().getValue() == null) return;
+/*        if (shareViewModel.getThisContact().getValue() == null) return;
         if (shareViewModel.getThisContact().getValue().isFavorite()) {
             databinding.contactInfoFavImage.setImageDrawable(getContext().getDrawable(R.drawable.ic_baseline_favorite_red));
         } else {
             databinding.contactInfoFavImage.setImageDrawable(getContext().getDrawable(R.drawable.ic_baseline_favorite_border_red));
         }
-        shareViewModel.updateOnBack();
+        shareViewModel.updateOnBack();*/
     }
 
     private void initListeners() {
-        databinding.contactInfoFavRounder.setOnClickListener(v -> favContact());
+
         databinding.contactInfoAddComment.setOnClickListener(v -> shareViewModel.showNewComment());
     }
 
