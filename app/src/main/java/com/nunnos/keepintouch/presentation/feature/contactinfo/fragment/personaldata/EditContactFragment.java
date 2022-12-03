@@ -299,6 +299,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
                     databinding.newContactSocialMedia.getText());
             contact.addRelativeList(databinding.newContactRelatives.getSelectedContacts());
             shareViewModel.updateThisContact(getContext(), contact);
+            shareViewModel.updateOnBack();
             shareViewModel.navigateToContactPersonalData();
         } else {
             Toast.makeText(getContext(), "Wrong", Toast.LENGTH_SHORT).show();

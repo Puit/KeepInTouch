@@ -191,6 +191,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
                     shareViewModel.addNewConversation(getContext(), shareViewModel.getNewConversation());
                 }
 
+                shareViewModel.updateOnBack();
                 shareViewModel.resetNewConversation();
                 databinding.ncContacts.clearContacts();
                 shareViewModel.navigateToConversation();

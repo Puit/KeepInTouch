@@ -7,7 +7,7 @@ import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInf
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_COMMENT;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_CONVERSATION;
 import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
-import static com.nunnos.keepintouch.utils.Constants.EXTRA_UPDATE_MAIN;
+import static com.nunnos.keepintouch.utils.Constants.KEY_REFRESH_MAIN;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -229,7 +229,8 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
             default:
                 if (viewModel.isUpdateOnBack()) {
                     Intent replyIntent = new Intent();
-                    replyIntent.putExtra(EXTRA_UPDATE_MAIN, true);
+                    replyIntent.putExtra(WHAT_IM_CAPTURING, KEY_REFRESH_MAIN);
+                    replyIntent.putExtra(RESULT, true);
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();

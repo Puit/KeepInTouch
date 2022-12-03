@@ -4,7 +4,6 @@ import static android.app.Activity.RESULT_OK;
 import static com.nunnos.keepintouch.base.baseview.BaseActivityViewModelLiveData.RESULT;
 import static com.nunnos.keepintouch.base.baseview.BaseActivityViewModelLiveData.WHAT_IM_CAPTURING;
 import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
-import static com.nunnos.keepintouch.utils.Constants.EXTRA_UPDATE_MAIN;
 import static com.nunnos.keepintouch.utils.Constants.KEY_DELETE_CONTACT;
 
 import android.app.Activity;
@@ -176,7 +175,6 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
             AppExecutors.getInstance().diskIO().execute(() -> {
                 contactDao.deleteById(contact.getId());
                 Intent replyIntent = new Intent();
-                replyIntent.putExtra(EXTRA_UPDATE_MAIN, true);
                 replyIntent.putExtra(RESULT, true);
                 replyIntent.putExtra(WHAT_IM_CAPTURING, KEY_DELETE_CONTACT);
                 activity.setResult(RESULT_OK, replyIntent);
@@ -218,7 +216,8 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     public void setNewConversation(Conversation newConversation) {
         this.newConversation = newConversation;
     }
-    public void resetNewConversation(){
+
+    public void resetNewConversation() {
         newConversation = new Conversation();
     }
 

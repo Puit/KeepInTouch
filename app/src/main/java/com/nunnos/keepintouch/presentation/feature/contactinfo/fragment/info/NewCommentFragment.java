@@ -66,29 +66,32 @@ public class NewCommentFragment extends BaseFragmentViewModelLiveData<ContactInf
 
     private void initListeners() {
         databinding.newCommentMessage.addTextChangedListener(mTextEditorWatcher);
-        databinding.newCommentSaveButton.setOnClickListener(v -> {
-            if (databinding.newCommentMessage.getText().length() <= COVERSATION_MAX_CHARS) {
-                getAllDataFromFields();
-                if (isEdit) {
-                    shareViewModel.updateComment(getContext());
-                } else {
-                    shareViewModel.addNewComment(getContext(), shareViewModel.getNewComment());
-                }
-
-                shareViewModel.setNewComment(null);
-                shareViewModel.navigateToContactInfo();
-            } else {
-                AlertsManager.OneButtonAlertListener listener = () -> {
-                    //Do Nothing
-                };
-                AlertsManager.showOneButtonAlert(getActivity(),
-                        listener,
-                        "The comment can't exceed 280 characters",
-                        "Accept",
-                        true);
-            }
-        });
+        databinding.newCommentSaveButton.setOnClickListener(v -> save());
         databinding.newCommentDate.setListener(this::showDatePickerDialog);
+    }
+
+    private void save() {
+        if (databinding.newCommentMessage.getText().length() <= COVERSATION_MAX_CHARS) {
+            getAllDataFromFields();
+            if (isEdit) {
+                shareViewModel.updateComment(getContext());
+            } else {
+                shareViewModel.addNewComment(getContext(), shareViewModel.getNewComment());
+            }
+
+            shareViewModel.updateOnBack();
+            shareViewModel.setNewComment(null);
+            shareViewModel.navigateToContactInfo();
+        } else {
+            AlertsManager.OneButtonAlertListener listener = () -> {
+                //Do Nothing
+            };
+            AlertsManager.showOneButtonAlert(getActivity(),
+                    listener,
+                    "The comment can't exceed 280 characters",
+                    "Accept",
+                    true);
+        }
     }
 
     private void showDatePickerDialog() {
