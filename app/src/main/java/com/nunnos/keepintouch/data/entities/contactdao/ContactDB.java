@@ -16,7 +16,7 @@ import com.nunnos.keepintouch.data.entities.Converters;
 @Database(entities = {ContactEntity.class}, version = ContactDB.LATEST_VERSION, exportSchema = true)
 @TypeConverters({Converters.class})
 public abstract class ContactDB extends RoomDatabase {
-    public final static int LATEST_VERSION = 2;
+    public final static int LATEST_VERSION = 3;
 
     public abstract ContactDao contactDao();
 
@@ -26,8 +26,7 @@ public abstract class ContactDB extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             ContactDB.class, ContactsDaoConstants.TABLE_NAME)
-                    .addMigrations(MIGRATION_1_2)
-//                    .addMigrations(MIGRATION_1_2,MIGRATION_2_3) //Així seria si hi ha més d'un
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .build();
         }
         return instance;
@@ -38,6 +37,13 @@ public abstract class ContactDB extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN 'socialmedia' TEXT");
+        }
+    };
+    public static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN 'notification' TEXT");
         }
     };
 }

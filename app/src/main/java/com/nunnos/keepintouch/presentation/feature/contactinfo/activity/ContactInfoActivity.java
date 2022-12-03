@@ -62,17 +62,18 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
 
         switch (id) {
             case R.id.action_notification:
-                //TODO: AÑADIR VALOR NOTIFICACIONES EN DB Y MODIFICAR
-                /*if (viewModel.getThisContact().getValue() == null) return true;
-                if (viewModel.getThisContact().getValue().) {
+                if (viewModel.getThisContact().getValue() == null) return true;
+                if (viewModel.getThisContact().getValue().getNotification() == null||viewModel.getThisContact().getValue().getNotification().contains("a")) {
                     item.setIcon(R.drawable.ic_baseline_notifications_none_24);
                     viewModel.getThisContact().getValue().setFavorite(false);
+                    viewModel.getThisContact().getValue().setNotification("b");
                 } else {
                     item.setIcon(R.drawable.ic_baseline_notifications_24);
                     viewModel.getThisContact().getValue().setFavorite(true);
+                    viewModel.getThisContact().getValue().setNotification("a");
                 }
                 viewModel.updateThisContact(this);
-                viewModel.updateOnBack();*/
+                viewModel.updateOnBack();
                 Toast.makeText(this, "Comming soon...", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_favorite:
@@ -88,7 +89,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
                 viewModel.updateOnBack();
                 break;
         }
-
+        
         return super.onOptionsItemSelected(item);
     }
 

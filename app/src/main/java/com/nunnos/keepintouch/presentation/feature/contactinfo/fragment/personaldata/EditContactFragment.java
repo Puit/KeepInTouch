@@ -296,7 +296,8 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
                     shareViewModel.getThisContact().getValue().getComments(),
                     shareViewModel.getThisContact().getValue().getDaysToCall(),
                     shareViewModel.getThisContact().getValue().getDayOfDeath(),
-                    databinding.newContactSocialMedia.getText());
+                    databinding.newContactSocialMedia.getText(),
+                    shareViewModel.getThisContact().getValue().getNotification());
             contact.addRelativeList(databinding.newContactRelatives.getSelectedContacts());
             shareViewModel.updateThisContact(getContext(), contact);
             shareViewModel.updateOnBack();

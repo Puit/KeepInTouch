@@ -59,7 +59,6 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
 
             @Override
             public void onResultKO(Intent intent) {
-                //DO NOTHING
                 if (intent.getType() != null) {
                     //Venimos de haber elegido la imagen en NewContactFragment
                     if (intent.getType().contains("image/")) {
