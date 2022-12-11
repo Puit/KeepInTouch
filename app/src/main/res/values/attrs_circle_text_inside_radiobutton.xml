@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleTextInsideRadiobutton">
+        <attr name="CTIR_drawable_selected" format="reference" />
+        <attr name="CTIR_drawable_unselected" format="reference" />
+        <attr name="CTIR_drawable_disabled" format="reference"/>
+        <attr name="CTIR_text" format="string" />
+        <attr name="CTIR_status" format="enum">
+            <enum name="selected" value="0" />
+            <enum name="unselected" value="1" />
+            <enum name="disabled" value="2" />
+        </attr>
+
+    </declare-styleable>
+</resources>

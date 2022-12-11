@@ -12,6 +12,7 @@ public class Constants {
     public static final String EXTRA_CONTACT_SELECTED_ID = "EXTRA_CONTACT_SELECTED_ID";
     public static final String KEY_DELETE_CONTACT = "KEY_DELETE_CONTACT";
     public static final String KEY_REFRESH_MAIN = "KEY_REFRESH_MAIN";
+    public static final String KEY_NOTIFICATIONS_ID_LIST = "KEY_NOTIFICATIONS_ID_LIST";
 
     public static final int DEFAULT_CARD_BG_COLOR = R.color.background_purple;
 

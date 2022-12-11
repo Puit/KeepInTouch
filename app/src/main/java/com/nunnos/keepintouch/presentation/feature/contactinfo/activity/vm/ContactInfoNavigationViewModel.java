@@ -35,5 +35,8 @@ public class ContactInfoNavigationViewModel extends ViewModel {
     public void showNewComment() {
         navigation.setValue(ContactInfoNavigation.NEW_COMMENT);
     }
+    public void showNewNotification() {
+        navigation.setValue(ContactInfoNavigation.NEW_NOTIFICATION);
+    }
 
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WeekDayPicker">
+        <attr name="WDP_drawable_selected" format="reference" />
+        <attr name="WDP_drawable_unselected" format="reference" />
+        <attr name="WDP_drawable_disabled" format="reference"/>
+
+        <attr name="WDP_weekend_drawable_selected" format="reference" />
+        <attr name="WDP_weekend_drawable_unselected" format="reference" />
+        <attr name="WDP_weekend_drawable_disabled" format="reference"/>
+
+        <attr name="WDP_monday_text" format="string" />
+        <attr name="WDP_tuesday_text" format="string" />
+        <attr name="WDP_wednesday_text" format="string" />
+        <attr name="WDP_thursday_text" format="string" />
+        <attr name="WDP_friday_text" format="string" />
+        <attr name="WDP_saturday_text" format="string" />
+        <attr name="WDP_sunday_text" format="string" />
+
+        <attr name="WDP_disable_monday" format="boolean" />
+        <attr name="WDP_disable_tuesday" format="boolean" />
+        <attr name="WDP_disable_wednesday" format="boolean" />
+        <attr name="WDP_disable_thursday" format="boolean" />
+        <attr name="WDP_disable_friday" format="boolean" />
+        <attr name="WDP_disable_saturday" format="boolean" />
+        <attr name="WDP_disable_sunday" format="boolean" />
+
+        <attr name="WDP_starting_day" format="enum">
+            <enum name="monday" value="0" />
+            <enum name="sunday" value="1" />
+        </attr>
+
+    </declare-styleable>
+</resources>

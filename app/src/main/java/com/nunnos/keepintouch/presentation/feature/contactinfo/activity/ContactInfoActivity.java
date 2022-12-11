@@ -6,6 +6,7 @@ import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInf
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.EDIT_CONTACT;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_COMMENT;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_CONVERSATION;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_NOTIFICATION;
 import static com.nunnos.keepintouch.utils.Constants.EXTRA_CONTACT_SELECTED_ID;
 import static com.nunnos.keepintouch.utils.Constants.KEY_REFRESH_MAIN;
 
@@ -66,15 +67,15 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
                 if (viewModel.getThisContact().getValue().getNotification() == null||viewModel.getThisContact().getValue().getNotification().contains("a")) {
                     item.setIcon(R.drawable.ic_baseline_notifications_none_24);
                     viewModel.getThisContact().getValue().setFavorite(false);
-                    viewModel.getThisContact().getValue().setNotification("b");
+                    viewModel.showNewNotification();
                 } else {
                     item.setIcon(R.drawable.ic_baseline_notifications_24);
                     viewModel.getThisContact().getValue().setFavorite(true);
-                    viewModel.getThisContact().getValue().setNotification("a");
+                    viewModel.showNewNotification();
                 }
                 viewModel.updateThisContact(this);
                 viewModel.updateOnBack();
-                Toast.makeText(this, "Comming soon...", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.action_favorite:
                 if (viewModel.getThisContact().getValue() == null) return true;
@@ -89,7 +90,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
                 viewModel.updateOnBack();
                 break;
         }
-        
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -184,6 +185,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
             case NEW_CONVERSATION:
             case EDIT_CONTACT:
             case NEW_COMMENT:
+            case NEW_NOTIFICATION:
                 dataBinding.contactInfoActivityBottomMenu.setVisibility(View.GONE);
                 break;
             default:
@@ -219,6 +221,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
                 viewModel.getNavigation().setValue(CONVERSATIONS);
                 break;
             case EDIT_CONTACT:
+            case NEW_NOTIFICATION:
                 viewModel.getNavigation().setValue(CONTACT_PERSONAL_DATA);
                 break;
             case NEW_COMMENT:

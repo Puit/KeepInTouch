@@ -1,0 +1,91 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.nunnos.keepintouch.presentation.component.CircleTextInsideRadiobutton
+            android:id="@+id/day_picker_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:CTIR_drawable_selected="@drawable/bg_circle_full"
+            app:CTIR_drawable_unselected="@drawable/bg_circle_empty"
+            app:CTIR_status="unselected"
+            app:CTIR_text="@string/monday_short"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.nunnos.keepintouch.presentation.component.CircleTextInsideRadiobutton
+            android:id="@+id/day_picker_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:CTIR_drawable_selected="@drawable/bg_circle_full"
+            app:CTIR_drawable_unselected="@drawable/bg_circle_empty"
+            app:CTIR_status="unselected"
+            app:CTIR_text="@string/tuesday_short"
+            app:layout_constraintEnd_toStartOf="@+id/day_picker_3"
+            app:layout_constraintStart_toEndOf="@id/day_picker_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.nunnos.keepintouch.presentation.component.CircleTextInsideRadiobutton
+            android:id="@+id/day_picker_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:CTIR_drawable_selected="@drawable/bg_circle_full"
+            app:CTIR_drawable_unselected="@drawable/bg_circle_empty"
+            app:CTIR_status="unselected"
+            app:CTIR_text="@string/wednesday_short"
+            app:layout_constraintEnd_toStartOf="@+id/day_picker_4"
+            app:layout_constraintStart_toEndOf="@id/day_picker_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.nunnos.keepintouch.presentation.component.CircleTextInsideRadiobutton
+            android:id="@+id/day_picker_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:CTIR_drawable_selected="@drawable/bg_circle_full"
+            app:CTIR_drawable_unselected="@drawable/bg_circle_empty"
+            app:CTIR_status="unselected"
+            app:CTIR_text="@string/thursday_short"
+            app:layout_constraintEnd_toStartOf="@+id/day_picker_5"
+            app:layout_constraintStart_toEndOf="@id/day_picker_3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.nunnos.keepintouch.presentation.component.CircleTextInsideRadiobutton
+            android:id="@+id/day_picker_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:CTIR_drawable_selected="@drawable/bg_circle_full"
+            app:CTIR_drawable_unselected="@drawable/bg_circle_empty"
+            app:CTIR_status="unselected"
+            app:CTIR_text="@string/friday_short"
+            app:layout_constraintEnd_toStartOf="@+id/day_picker_6"
+            app:layout_constraintStart_toEndOf="@id/day_picker_4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.nunnos.keepintouch.presentation.component.CircleTextInsideRadiobutton
+            android:id="@+id/day_picker_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:CTIR_drawable_selected="@drawable/bg_circle_full"
+            app:CTIR_drawable_unselected="@drawable/bg_circle_empty"
+            app:CTIR_status="unselected"
+            app:CTIR_text="@string/saturday_short"
+            app:layout_constraintEnd_toStartOf="@+id/day_picker_7"
+            app:layout_constraintStart_toEndOf="@id/day_picker_5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.nunnos.keepintouch.presentation.component.CircleTextInsideRadiobutton
+            android:id="@+id/day_picker_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:CTIR_drawable_selected="@drawable/bg_circle_full"
+            app:CTIR_drawable_unselected="@drawable/bg_circle_empty"
+            app:CTIR_status="unselected"
+            app:CTIR_text="@string/sunday_short"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

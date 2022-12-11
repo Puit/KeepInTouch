@@ -6,6 +6,7 @@ import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInf
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.EDIT_CONTACT;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_COMMENT;
 import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_CONVERSATION;
+import static com.nunnos.keepintouch.presentation.feature.contactinfo.ContactInfoNavigation.NEW_NOTIFICATION;
 
 import androidx.annotation.NonNull;
 
@@ -13,6 +14,7 @@ import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.ContactI
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.info.ContactInfoFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.info.NewCommentFragment;
+import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.newnotification.NewNotificationFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.personaldata.ContactPersonalDataFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation.ConversationsFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation.NewConversationFragment;
@@ -43,6 +45,9 @@ public abstract class ContactInfoNavigationManager {
             case NEW_COMMENT:
                 showNewComment(activity);
                 break;
+            case NEW_NOTIFICATION:
+                showNewNotification(activity);
+                break;
             default:
                 throw new IllegalStateException("ContactInfoNavigationManager error, navigation has not been implementad");
         }
@@ -68,5 +73,8 @@ public abstract class ContactInfoNavigationManager {
     }
     private static void showNewComment(ContactInfoActivity activity) {
         activity.overrideSlidingUpTransition(NewCommentFragment.newInstance());
+    }
+    private static void showNewNotification(ContactInfoActivity activity) {
+        activity.overrideSlidingUpTransition(NewNotificationFragment.Companion.newInstance());
     }
 }

@@ -12,7 +12,8 @@ import java.lang.annotation.RetentionPolicy;
         ContactInfoNavigation.CONTACT_PERSONAL_DATA,
         ContactInfoNavigation.NEW_CONVERSATION,
         ContactInfoNavigation.EDIT_CONTACT,
-        ContactInfoNavigation.NEW_COMMENT
+        ContactInfoNavigation.NEW_COMMENT,
+        ContactInfoNavigation.NEW_NOTIFICATION
 })
 @Retention(RetentionPolicy.SOURCE)
 public @interface ContactInfoNavigation {
@@ -22,4 +23,5 @@ public @interface ContactInfoNavigation {
     int NEW_CONVERSATION = 3;
     int EDIT_CONTACT = 4;
     int NEW_COMMENT = 5;
+    int NEW_NOTIFICATION = 6;
 }
