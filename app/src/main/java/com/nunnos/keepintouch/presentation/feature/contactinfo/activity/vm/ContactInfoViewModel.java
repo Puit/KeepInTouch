@@ -25,10 +25,14 @@ import com.nunnos.keepintouch.data.entities.contactdao.ContactEntity;
 import com.nunnos.keepintouch.data.entities.conversation.ConversationDB;
 import com.nunnos.keepintouch.data.entities.conversation.ConversationDao;
 import com.nunnos.keepintouch.data.entities.conversation.ConversationEntity;
+import com.nunnos.keepintouch.data.entities.notification.NotificationEntity;
+import com.nunnos.keepintouch.data.entities.notification.NotificationsEntityManager;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.domain.model.complements.Comment;
 import com.nunnos.keepintouch.domain.model.complements.Conversation;
 import com.nunnos.keepintouch.domain.model.complements.base.Complement;
+import com.nunnos.keepintouch.notifications.Notification;
+import com.nunnos.keepintouch.utils.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +53,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     private final MediatorLiveData<List<Comment>> commentsMD = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> newConversationBitmap = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> thisContactBitmap = new MediatorLiveData<>();
+    private final MediatorLiveData<NotificationEntity> thisContactNotificationMD = new MediatorLiveData<>();
 
     private ArrayList<Complement> complements = new ArrayList<>();
 
@@ -197,6 +202,10 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         return thisContactMD;
     }
 
+    public MediatorLiveData<NotificationEntity> getThisContactNotification() {
+        return thisContactNotificationMD;
+    }
+
     public MediatorLiveData<List<Contact>> getContactsList() {
         return contactsMD;
     }
@@ -320,5 +329,34 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     public void removeComplements() {
         complements.removeAll(complements);
+    }
+
+    public void retrieveContactNotification(Context context) {
+        if(TextUtils.isNumeric(thisContactMD.getValue().getNotification()) ) {
+            NotificationEntity notification = NotificationsEntityManager.getNotification(context,
+                    Integer.parseInt(thisContactMD.getValue().getNotification()));
+            //Update my cache
+            thisContactNotificationMD.postValue(notification);
+        }
+    }
+
+    public void updateThisContactNotification(Context context, NotificationEntity notification) {
+        //Update the broadcast
+        deleteNotificationBroadcast(notification.getId());
+        createNotificationBroadcast(context,notification);
+        //TODO: DESCOMENTAR, SOLO SE HA COMENTADO PARA HACER PRUEBAS
+/*        //Update the storage
+        NotificationsEntityManager.saveNotification(context, notification);
+        //Update my cache
+        thisContactNotificationMD.postValue(notification);*/
+    }
+
+    public void createNotificationBroadcast(Context context, NotificationEntity notification) {
+      Notification.scheduleCallReminderNotification(context, notification);
+    }
+
+    public void deleteNotificationBroadcast(int id) {
+        //TODO: Delete notification,
+        //if exist, delte, else return
     }
 }

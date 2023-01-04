@@ -171,6 +171,16 @@ class WeekDayPicker @JvmOverloads constructor(
         )
     }
 
+    fun setStatusWeekStartingOnMonday(week: List<CircleTextInsideRadiobutton.Status>) {
+        mondayCircle.setStatus(week[0])
+        tuesdayCircle.setStatus(week[1])
+        wednesdayCircle.setStatus(week[2])
+        thursdayCircle.setStatus(week[3])
+        fridayCircle.setStatus(week[4])
+        saturdayCircle.setStatus(week[5])
+        sundayCircle.setStatus(week[6])
+    }
+
     fun getStatusWeekStartingOnSunday(): List<CircleTextInsideRadiobutton.Status> {
         return listOf(
             sundayCircle.getStatus(),

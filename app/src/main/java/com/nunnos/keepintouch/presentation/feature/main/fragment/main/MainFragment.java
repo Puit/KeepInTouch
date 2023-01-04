@@ -57,9 +57,6 @@ public class MainFragment extends BaseFragmentViewModelLiveData<MainViewModel, F
 
     private void initListeners() {
         databinding.mainAddImageButton.setOnClickListener(v -> {
-            //TODO: NO COMMIT
-            //Notification.createNotificationChannel(getContext());
-            //Notification.smallNotification(getContext());
             shareViewModel.navigateToNewContact();
         });
         databinding.mainSearcher.setListener(() -> shareViewModel.navigateToSearchContact());

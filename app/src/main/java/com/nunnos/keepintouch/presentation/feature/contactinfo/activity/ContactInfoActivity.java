@@ -245,4 +245,5 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
     protected Class<ContactInfoViewModel> getClassViewModel() {
         return ContactInfoViewModel.class;
     }
+
 }

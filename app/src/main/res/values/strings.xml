@@ -33,6 +33,9 @@
     <string name="friday_short">Fri</string>
     <string name="saturday_short">Sat</string>
     <string name="sunday_short">Sun</string>
+    <string name="daily_notification_title">Remember to save your conversations</string>
+    <string name="daily_notification_description">Did you speak with someone today? Record it, it will help to remember what you\'ve been talking for the next time.</string>
+    <string name="notification_base_text_with_space">Call</string>
     <!--ARRAYS-->
 
     <string-array name="genders">

@@ -5,7 +5,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -246,8 +247,8 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/new_contact_save_button"
                     android:layout_width="match_parent"
-                    android:layout_marginHorizontal="20dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
                     android:text="Save" />
 
                 <com.google.android.material.button.MaterialButton

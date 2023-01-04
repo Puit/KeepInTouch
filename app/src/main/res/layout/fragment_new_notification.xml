@@ -3,57 +3,83 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/new_notification_title"
-            style="@style/bold.black.24"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:text="When do you want to set the reminder?"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <com.nunnos.keepintouch.presentation.component.WeekDayPicker
-            android:id="@+id/new_notification_week"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="6dp"
-            app:WDP_drawable_selected="@drawable/bg_circle_full"
-            app:WDP_drawable_unselected="@drawable/bg_circle_empty"
-            app:WDP_friday_text="@string/friday_short"
-            app:WDP_monday_text="@string/monday_short"
-            app:WDP_saturday_text="@string/saturday_short"
-            app:WDP_sunday_text="@string/sunday_short"
-            app:WDP_thursday_text="@string/thursday_short"
-            app:WDP_tuesday_text="@string/tuesday_short"
-            app:WDP_wednesday_text="@string/wednesday_short"
+            <TextView
+                android:id="@+id/new_notification_title"
+                style="@style/bold.black.24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:text="When do you want to set the reminder?"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            app:layout_constraintTop_toBottomOf="@+id/new_notification_title" />
+            <com.nunnos.keepintouch.presentation.component.WeekDayPicker
+                android:id="@+id/new_notification_week"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:WDP_drawable_selected="@drawable/bg_circle_full"
+                app:WDP_drawable_unselected="@drawable/bg_circle_empty"
+                app:WDP_friday_text="@string/friday_short"
+                app:WDP_monday_text="@string/monday_short"
+                app:WDP_saturday_text="@string/saturday_short"
+                app:WDP_sunday_text="@string/sunday_short"
+                app:WDP_thursday_text="@string/thursday_short"
+                app:WDP_tuesday_text="@string/tuesday_short"
+                app:WDP_wednesday_text="@string/wednesday_short"
+                app:layout_constraintTop_toBottomOf="@+id/new_notification_title" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/new_notification_save_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:text="Save"
-            app:layout_constraintBottom_toTopOf="@+id/new_notification_delete_button" />
+            <TimePicker
+                android:id="@+id/new_notification_time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:timePickerMode="spinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_notification_week" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/new_notification_delete_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:backgroundTint="@color/background_red"
-            android:text="Delete"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="visible" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.nunnos.keepintouch.presentation.component.CustomEditText
+                android:id="@+id/new_notification_time_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:edit_text_hint_text="Notification message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/new_notification_time_picker" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/new_notification_save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="Save"
+                app:layout_constraintBottom_toTopOf="@+id/new_notification_delete_button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/new_notification_delete_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:backgroundTint="@color/background_red"
+                android:text="Delete"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <data>
 

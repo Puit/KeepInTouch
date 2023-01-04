@@ -22,6 +22,7 @@ import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseActivityViewModelLiveData;
 import com.nunnos.keepintouch.databinding.ActivityMainBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
+import com.nunnos.keepintouch.notifications.Notification;
 import com.nunnos.keepintouch.presentation.feature.main.MainNavigationManager;
 import com.nunnos.keepintouch.presentation.feature.main.activity.vm.MainViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.main.MainFragment;
@@ -38,7 +39,13 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
         super.onCreate(savedInstanceState);
         initObservers();
         myOncreate();
+        setDailyNotification();
+
         configureResultListener();
+    }
+
+    private void setDailyNotification() {
+        Notification.scheduleDailyNotification(this);
     }
 
     private void configureResultListener() {
@@ -135,7 +142,7 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
                 this, Manifest.permission.READ_EXTERNAL_STORAGE) ==
                 PackageManager.PERMISSION_GRANTED) {
             // You can use the API that requires the permission.
-            Toast.makeText(this, "Permissions granted", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "Permissions granted", Toast.LENGTH_LONG).show();
 
         } /*else if (shouldShowRequestPermissionRationale(...)) {
             // In an educational UI, explain to the user why your app requires this

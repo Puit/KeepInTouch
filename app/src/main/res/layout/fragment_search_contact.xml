@@ -5,7 +5,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -323,6 +324,7 @@
                 android:text="@string/email"
                 android:visibility="gone"
                 tools:visibility="visible" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_contact_rv_social_media"
                 android:layout_width="match_parent"
