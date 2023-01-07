@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.View.VISIBLE
+import android.widget.Toast
 import com.nunnos.keepintouch.R
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData
 import com.nunnos.keepintouch.data.entities.notification.NotificationEntity
@@ -86,7 +87,18 @@ class NewNotificationFragment :
 
     private fun setListeners() {
         databinding.newNotificationSaveButton.setOnClickListener {
-            shareViewModel.updateThisContactNotification(context, createNotificationFromForm())
+            if (databinding.newNotificationWeek.isAnyDaySelected()) {
+                shareViewModel.updateThisContactNotification(context, createNotificationFromForm())
+            } else {
+                Toast.makeText(
+                    context,
+                    "At least one day of the week must be selected",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+        databinding.newNotificationDeleteButton.setOnClickListener {
+            shareViewModel.deleteNotificationBroadcast(context, createNotificationFromForm())
         }
     }
 

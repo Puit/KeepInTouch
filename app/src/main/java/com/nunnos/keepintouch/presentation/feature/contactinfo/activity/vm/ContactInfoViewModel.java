@@ -332,7 +332,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     }
 
     public void retrieveContactNotification(Context context) {
-        if(TextUtils.isNumeric(thisContactMD.getValue().getNotification()) ) {
+        if (TextUtils.isNumeric(thisContactMD.getValue().getNotification())) {
             NotificationEntity notification = NotificationsEntityManager.getNotification(context,
                     Integer.parseInt(thisContactMD.getValue().getNotification()));
             //Update my cache
@@ -342,8 +342,8 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     public void updateThisContactNotification(Context context, NotificationEntity notification) {
         //Update the broadcast
-        deleteNotificationBroadcast(notification.getId());
-        createNotificationBroadcast(context,notification);
+        deleteNotificationBroadcast(context, notification);
+        createNotificationBroadcast(context, notification);
         //TODO: DESCOMENTAR, SOLO SE HA COMENTADO PARA HACER PRUEBAS
 /*        //Update the storage
         NotificationsEntityManager.saveNotification(context, notification);
@@ -352,11 +352,10 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     }
 
     public void createNotificationBroadcast(Context context, NotificationEntity notification) {
-      Notification.scheduleCallReminderNotification(context, notification);
+        Notification.scheduleCallReminderNotification(context, notification);
     }
 
-    public void deleteNotificationBroadcast(int id) {
-        //TODO: Delete notification,
-        //if exist, delte, else return
+    public void deleteNotificationBroadcast(Context context, NotificationEntity notification) {
+        Notification.cancelCallReminderNotification(context, notification);
     }
 }

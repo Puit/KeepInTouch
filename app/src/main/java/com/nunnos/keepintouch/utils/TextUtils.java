@@ -28,6 +28,10 @@ public class TextUtils {
         return string == null || string.equals("");
     }
 
+    public static String dateToString(Calendar calendar) {
+        return dateToString(calendar, null);
+    }
+
     public static String dateToString(Calendar calendar, String dateFormat) {
         try {
             SimpleDateFormat format1 = new SimpleDateFormat(dateFormat);

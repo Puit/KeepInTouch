@@ -220,4 +220,14 @@ class WeekDayPicker @JvmOverloads constructor(
     fun getSundayStatus(): CircleTextInsideRadiobutton.Status {
         return sundayCircle.getStatus()
     }
+
+    fun isAnyDaySelected(): Boolean {
+        return mondayCircle.getStatus() == CircleTextInsideRadiobutton.Status.SELECTED ||
+                tuesdayCircle.getStatus() == CircleTextInsideRadiobutton.Status.SELECTED ||
+                wednesdayCircle.getStatus() == CircleTextInsideRadiobutton.Status.SELECTED ||
+                thursdayCircle.getStatus() == CircleTextInsideRadiobutton.Status.SELECTED ||
+                fridayCircle.getStatus() == CircleTextInsideRadiobutton.Status.SELECTED ||
+                saturdayCircle.getStatus() == CircleTextInsideRadiobutton.Status.SELECTED ||
+                sundayCircle.getStatus() == CircleTextInsideRadiobutton.Status.SELECTED
+    }
 }

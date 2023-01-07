@@ -75,7 +75,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:backgroundTint="@color/background_red"
                 android:text="Delete"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:visibility="visible" />
         </androidx.constraintlayout.widget.ConstraintLayout>

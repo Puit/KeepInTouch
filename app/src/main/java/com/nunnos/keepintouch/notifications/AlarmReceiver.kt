@@ -3,6 +3,7 @@ package com.nunnos.keepintouch.notifications
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.google.gson.Gson
 import com.nunnos.keepintouch.R
 import com.nunnos.keepintouch.data.entities.notification.NotificationEntity
@@ -13,6 +14,7 @@ import com.nunnos.keepintouch.utils.Constants.*
 import com.nunnos.keepintouch.utils.TextUtils
 
 class AlarmReceiver : BroadcastReceiver() {
+    val TAG = "AlarmReceiver"
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.getIntExtra(EXTRA_NOTIFICATION_TYPE, -1)) {
             Notification.Type.DAILY.value -> showDailyNotification(context, intent)
@@ -36,6 +38,8 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun showCallReminderNotification(context: Context, intent: Intent) {
+        Log.d(TAG, "showCallReminderNotification")
+
         val gson = Gson()
         val json: String? = intent.getStringExtra(CALL_REMINDER_NOTIFICATION)
         val notification = gson.fromJson(json, NotificationEntity::class.java)
@@ -51,6 +55,7 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun showBirthdayNotification(context: Context, intent: Intent) {
+        Log.d(TAG, "showBirthdayNotification")
 
     }
 }

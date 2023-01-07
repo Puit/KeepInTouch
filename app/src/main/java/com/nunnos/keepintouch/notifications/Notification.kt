@@ -9,6 +9,7 @@ import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
@@ -18,6 +19,7 @@ import com.nunnos.keepintouch.base.baseview.base.App.CHANNEL_ID
 import com.nunnos.keepintouch.data.entities.notification.NotificationEntity
 import com.nunnos.keepintouch.presentation.feature.main.fragment.main.MainFragment
 import com.nunnos.keepintouch.utils.Constants.*
+import com.nunnos.keepintouch.utils.TextUtils
 import java.util.*
 
 
@@ -33,6 +35,8 @@ class Notification {
 
 
     companion object {
+        val TAG = "Notification"
+
         @JvmStatic
         fun createNotificationChannel(context: Context) {
             // Create the NotificationChannel, but only on API 26+ because
@@ -109,19 +113,7 @@ class Notification {
 
         @JvmStatic
         fun scheduleCallReminderNotification(context: Context, notification: NotificationEntity) {
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val alarmManager = ContextCompat.getSystemService(context, AlarmManager::class.java)
-                if (!alarmManager?.canScheduleExactAlarms()!!) {
-                    Intent().also { intent ->
-                        intent.action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
-                        context.startActivity(intent)
-                        return
-                    }
-                }
-            }
-
-            val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
+            val alarmManager = createAlarmManager(context) ?: return
             val alarmPendingIntent = preparePendingIntentForCallReminder(
                 context,
                 notification
@@ -142,7 +134,6 @@ class Notification {
             }
         }
 
-
         private fun prepareMonthlyCallReminderNotification(
             alarmPendingIntent: Any,
             alarmManager: AlarmManager,
@@ -151,6 +142,31 @@ class Notification {
             //TODO
         }
 
+        @JvmStatic
+        fun cancelCallReminderNotification(context: Context, notification: NotificationEntity) {
+            val alarmManager = createAlarmManager(context) ?: return
+            val alarmPendingIntent = preparePendingIntentForCallReminder(
+                context,
+                notification
+            )
+            alarmManager.cancel(alarmPendingIntent)
+        }
+
+
+        private fun createAlarmManager(context: Context): AlarmManager? {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val alarmManager = ContextCompat.getSystemService(context, AlarmManager::class.java)
+                if (!alarmManager?.canScheduleExactAlarms()!!) {
+                    Intent().also { intent ->
+                        intent.action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
+                        context.startActivity(intent)
+                        return null
+                    }
+                }
+            }
+            return context.getSystemService(ALARM_SERVICE) as AlarmManager
+        }
 
         private fun prepareWeeklyCallReminderNotification(
             alarmPendingIntent: PendingIntent?,
@@ -171,6 +187,13 @@ class Notification {
                     alarmPendingIntent
                 )
             }
+            Log.d(
+                TAG,
+                "prepareWeeklyCallReminderNotification: next alarm: " + TextUtils.dateToString(
+                    calendar
+                )
+            )
+
         }
 
         private fun getFirstDayOfTheWeekAlarmWillPlay(notification: NotificationEntity): Calendar {
@@ -187,13 +210,13 @@ class Notification {
                 set(Calendar.SECOND, 0)
                 set(Calendar.MILLISECOND, 0)
             }
-            var anyDayisSet = false
+            var anyDayIsSet = false
             for (i in 6 downTo 0) {
                 if (notification.periodicityList[i]) {
                     checkCalendar.set(Calendar.DAY_OF_WEEK, dayOfTheWeekStartingOnSunday(i))
                     checkCalendar[Calendar.DAY_OF_MONTH] // Si no miramos el valor, no se ejecuta
-                    if (today >= checkCalendar) {
-                        if (anyDayisSet) return calendar
+                    if (today > checkCalendar) {
+                        if (anyDayIsSet) return calendar
 
                         val day = calendar.get(Calendar.DAY_OF_MONTH) + 7
                         calendar.set(Calendar.DAY_OF_MONTH, day)
@@ -208,7 +231,7 @@ class Notification {
                     calendar.set(Calendar.DAY_OF_WEEK, dayOfTheWeekStartingOnSunday(i))
                     calendar[Calendar.DAY_OF_MONTH]
                     checkCalendar[Calendar.DAY_OF_MONTH]
-                    anyDayisSet = true
+                    anyDayIsSet = true
                 }
             }
             return calendar
