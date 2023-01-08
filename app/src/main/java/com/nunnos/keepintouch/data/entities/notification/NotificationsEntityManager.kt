@@ -43,7 +43,14 @@ class NotificationsEntityManager {
         fun getNextId(context: Context?): Int {
             val sharedPref: SharedPreferences =
                 context!!.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE)
-            return (sharedPref.getInt(LAST_ID, 10) + 1) //Nos saltamos 10 posiciones que las guardamos para otro tipo de notificaciones
+            val lastID = (sharedPref.getInt(
+                LAST_ID,
+                10
+            ) + 1) //Nos saltamos 10 posiciones que las guardamos para otro tipo de notificaciones
+            val editor: SharedPreferences.Editor = sharedPref.edit()
+            editor.putInt(LAST_ID, lastID)
+            editor.apply()
+            return lastID
         }
 
         private fun notificationFromJson(json: String?): NotificationEntity {
