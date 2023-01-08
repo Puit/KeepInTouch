@@ -13,6 +13,10 @@ public class ContactInfoNavigationViewModel extends ViewModel {
         return navigation;
     }
 
+    public void setNavigation(MutableLiveData<Integer> navigation) {
+        this.navigation = navigation;
+    }
+
     public void navigateToConversation() {
         navigation.setValue(ContactInfoNavigation.CONVERSATIONS);
     }

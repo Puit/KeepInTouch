@@ -53,7 +53,6 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     private final MediatorLiveData<List<Comment>> commentsMD = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> newConversationBitmap = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> thisContactBitmap = new MediatorLiveData<>();
-    private final MediatorLiveData<NotificationEntity> thisContactNotificationMD = new MediatorLiveData<>();
 
     private ArrayList<Complement> complements = new ArrayList<>();
 
@@ -202,10 +201,6 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         return thisContactMD;
     }
 
-    public MediatorLiveData<NotificationEntity> getThisContactNotification() {
-        return thisContactNotificationMD;
-    }
-
     public MediatorLiveData<List<Contact>> getContactsList() {
         return contactsMD;
     }
@@ -336,7 +331,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
             NotificationEntity notification = NotificationsEntityManager.getNotification(context,
                     Integer.parseInt(thisContactMD.getValue().getNotification()));
             //Update my cache
-            thisContactNotificationMD.postValue(notification);
+            thisContactMD.getValue().setNotification(Integer.toString(notification.getId()));
         }
     }
 
@@ -347,7 +342,9 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         //Update the storage
         NotificationsEntityManager.saveNotification(context, notification);
         //Update my cache
-        thisContactNotificationMD.postValue(notification);
+        thisContactMD.getValue().setNotification(Integer.toString(notification.getId()));
+        //Update DB
+        updateThisContact(context);
     }
 
     private void createNotificationBroadcast(Context context, NotificationEntity notification) {
@@ -359,6 +356,8 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         //Update the storage
         NotificationsEntityManager.deleteNotification(context, notification);
         //Update my cache
-        thisContactNotificationMD.postValue(null);
+        thisContactMD.getValue().setNotification(null);
+        //Update DB
+        updateThisContact(context);
     }
 }

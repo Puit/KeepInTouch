@@ -9,6 +9,7 @@ import com.nunnos.keepintouch.R
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData
 import com.nunnos.keepintouch.data.entities.notification.NotificationEntity
 import com.nunnos.keepintouch.data.entities.notification.NotificationsEntityManager
+import com.nunnos.keepintouch.data.entities.notification.NotificationsEntityManager.Companion.getNotification
 import com.nunnos.keepintouch.databinding.FragmentNewNotificationBinding
 import com.nunnos.keepintouch.presentation.component.CircleTextInsideRadiobutton
 import com.nunnos.keepintouch.presentation.component.WeekDayPicker
@@ -33,14 +34,7 @@ class NewNotificationFragment :
         super.onViewCreated(view, savedInstanceState)
         setView()
         setListeners()
-        initObserver()
         shareViewModel.retrieveContactNotification(context)
-    }
-
-    private fun initObserver() {
-        shareViewModel.thisContactNotification.observe(
-            viewLifecycleOwner
-        ) { notification: NotificationEntity? -> this.onNotificationEntityRecived(notification) }
     }
 
     private fun onNotificationEntityRecived(notification: NotificationEntity?) {
@@ -67,19 +61,21 @@ class NewNotificationFragment :
     }
 
     private fun setView() {
-        if (shareViewModel.thisContactNotification.value == null) {
+        if (shareViewModel.thisContact.value?.notification == null) {
             initTimePicker(8, 0)
             initText()
             databinding.newNotificationDeleteButton.visibility = GONE
         } else {
+            val notification =
+                getNotification(context, shareViewModel.thisContact.value?.notification!!.toInt())
             initTimePicker(
-                shareViewModel.thisContactNotification.value?.hour ?: 8,
-                shareViewModel.thisContactNotification.value?.minute ?: 0
+                notification?.hour ?: 8,
+                notification?.minute ?: 0
             )
             databinding.newNotificationTimeMessage.text =
-                shareViewModel.thisContactNotification.value?.message
+                notification?.message
             val listOfDays =
-                getStatusFromPeriodicity(shareViewModel.thisContactNotification.value?.periodicityList)
+                getStatusFromPeriodicity(notification?.periodicityList)
             databinding.newNotificationWeek.setStatusWeekStartingOnMonday(listOfDays)
             databinding.newNotificationDeleteButton.visibility = VISIBLE
         }

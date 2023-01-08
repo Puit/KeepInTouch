@@ -31,6 +31,7 @@ import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.Conta
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.conversation.NewConversationFragment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.personaldata.EditContactFragment;
 import com.nunnos.keepintouch.utils.FileManager;
+import com.nunnos.keepintouch.utils.TextUtils;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -38,7 +39,10 @@ import java.io.InputStream;
 public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactInfoViewModel, ActivityContactInfoBinding> {
 
     public final static String TAG = "ContactInfoActivity";
+    public final static int NOTIFICATION_INDEX = 0;
     public final static int FAVORITE_INDEX = 1;
+    private MenuItem favoriteButton;
+    private MenuItem notificationButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,15 +68,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         switch (id) {
             case R.id.action_notification:
                 if (viewModel.getThisContact().getValue() == null) return true;
-                if (viewModel.getThisContact().getValue().getNotification() == null||viewModel.getThisContact().getValue().getNotification().contains("a")) {
-                    item.setIcon(R.drawable.ic_baseline_notifications_none_24);
-                    viewModel.getThisContact().getValue().setFavorite(false);
-                    viewModel.showNewNotification();
-                } else {
-                    item.setIcon(R.drawable.ic_baseline_notifications_24);
-                    viewModel.getThisContact().getValue().setFavorite(true);
-                    viewModel.showNewNotification();
-                }
+                viewModel.showNewNotification();
                 viewModel.updateThisContact(this);
                 viewModel.updateOnBack();
 
@@ -94,14 +90,30 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item = menu.getItem(FAVORITE_INDEX);
-
-        item.setIcon(viewModel.getThisContact().getValue().isFavorite() ?
-                R.drawable.ic_baseline_favorite_24 :
-                R.drawable.ic_baseline_favorite_border_24);
+        favoriteButton = menu.getItem(FAVORITE_INDEX);
+        notificationButton = menu.getItem(NOTIFICATION_INDEX);
+        setIconToFavoriteButton();
+        setIconToNotificationButton();
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void setIconToFavoriteButton() {
+        if (favoriteButton != null) {
+            favoriteButton.setIcon(viewModel.getThisContact().getValue().isFavorite() ?
+                    R.drawable.ic_baseline_favorite_24 :
+                    R.drawable.ic_baseline_favorite_border_24);
+        }
+    }
+
+    private void setIconToNotificationButton() {
+        if (notificationButton != null) {
+            notificationButton.setIcon(TextUtils.isEmpty(viewModel.getThisContact().getValue().getNotification()) ?
+                    R.drawable.ic_baseline_notifications_none_24 :
+                    R.drawable.ic_baseline_notifications_24);
+        }
     }
 
     private void configureResultListener() {
@@ -173,23 +185,34 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
     private void onNavigate(Integer navigation) {
         ContactInfoNavigationManager.goTo(this, navigation, viewModel);
         switch (navigation) {
-            case CONVERSATIONS:
-                dataBinding.contactInfoActivityBottomMenu.setVisibility(View.VISIBLE);
-                break;
-            case CONTACT_INFO:
-                dataBinding.contactInfoActivityBottomMenu.setVisibility(View.VISIBLE);
-                break;
-            case CONTACT_PERSONAL_DATA:
-                dataBinding.contactInfoActivityBottomMenu.setVisibility(View.VISIBLE);
-                break;
             case NEW_CONVERSATION:
             case EDIT_CONTACT:
             case NEW_COMMENT:
             case NEW_NOTIFICATION:
+                hideTopBarOptions();
                 dataBinding.contactInfoActivityBottomMenu.setVisibility(View.GONE);
                 break;
+            case CONVERSATIONS:
+            case CONTACT_INFO:
+            case CONTACT_PERSONAL_DATA:
             default:
                 dataBinding.contactInfoActivityBottomMenu.setVisibility(View.VISIBLE);
+                showTopBarOptions();
+                setIconToNotificationButton();
+        }
+    }
+
+    private void showTopBarOptions() {
+        if (favoriteButton != null && notificationButton != null) {
+            favoriteButton.setVisible(true);
+            notificationButton.setVisible(true);
+        }
+    }
+
+    private void hideTopBarOptions() {
+        if (favoriteButton != null && notificationButton != null) {
+            favoriteButton.setVisible(false);
+            notificationButton.setVisible(false);
         }
     }
 
@@ -221,10 +244,10 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
                 viewModel.getNavigation().setValue(CONVERSATIONS);
                 break;
             case EDIT_CONTACT:
-            case NEW_NOTIFICATION:
                 viewModel.getNavigation().setValue(CONTACT_PERSONAL_DATA);
                 break;
             case NEW_COMMENT:
+            case NEW_NOTIFICATION:
                 viewModel.getNavigation().setValue(CONTACT_INFO);
                 break;
             case CONVERSATIONS:
