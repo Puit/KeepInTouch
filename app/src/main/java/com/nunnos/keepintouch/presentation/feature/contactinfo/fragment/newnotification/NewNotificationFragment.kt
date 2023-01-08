@@ -16,6 +16,7 @@ import com.nunnos.keepintouch.presentation.component.WeekDayPicker
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel
 import com.nunnos.keepintouch.utils.AlertsManager
 import com.nunnos.keepintouch.utils.AlertsManager.TwoButtonsAlertListener
+import com.nunnos.keepintouch.utils.TextUtils
 
 
 class NewNotificationFragment :
@@ -61,7 +62,7 @@ class NewNotificationFragment :
     }
 
     private fun setView() {
-        if (shareViewModel.thisContact.value?.notification == null) {
+        if (TextUtils.isEmpty(shareViewModel.thisContact.value?.notification)) {
             initTimePicker(8, 0)
             initText()
             databinding.newNotificationDeleteButton.visibility = GONE

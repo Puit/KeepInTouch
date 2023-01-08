@@ -184,6 +184,12 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
                 activity.setResult(RESULT_OK, replyIntent);
                 activity.finish();
             });
+            //Delete Notifications
+            if (TextUtils.isNumeric(contact.getNotification())) {
+                NotificationEntity notification = NotificationsEntityManager.getNotification(activity,
+                        Integer.parseInt(contact.getNotification()));
+                deleteNotificationBroadcast(activity, notification);
+            }
         } else {
             //TODO SHOW ERROR
         }
