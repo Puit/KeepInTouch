@@ -28,7 +28,12 @@ class AlarmReceiver : BroadcastReceiver() {
         val title: String? = intent.getStringExtra(DAILY_NOTIFICATION_TITLE)
         val description: String? = intent.getStringExtra(DAILY_NOTIFICATION_DESCRIPTION)
         if (title == null || description == null) {
-            smallNotification(context, "title", "It's null")
+            smallNotification(
+                context,
+                context.getString(R.string.daily_notification_title),
+                context.getString(R.string.daily_notification_description)
+            )
+
             return
         }
         //Show the notification

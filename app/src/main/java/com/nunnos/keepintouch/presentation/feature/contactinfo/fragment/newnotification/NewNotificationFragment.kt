@@ -3,8 +3,8 @@ package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.newnoti
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Toast
 import com.nunnos.keepintouch.R
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData
 import com.nunnos.keepintouch.data.entities.notification.NotificationEntity
@@ -13,6 +13,8 @@ import com.nunnos.keepintouch.databinding.FragmentNewNotificationBinding
 import com.nunnos.keepintouch.presentation.component.CircleTextInsideRadiobutton
 import com.nunnos.keepintouch.presentation.component.WeekDayPicker
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel
+import com.nunnos.keepintouch.utils.AlertsManager
+import com.nunnos.keepintouch.utils.AlertsManager.TwoButtonsAlertListener
 
 
 class NewNotificationFragment :
@@ -65,9 +67,24 @@ class NewNotificationFragment :
     }
 
     private fun setView() {
-        initTimePicker(8, 0)
-        initText()
+        if (shareViewModel.thisContactNotification.value == null) {
+            initTimePicker(8, 0)
+            initText()
+            databinding.newNotificationDeleteButton.visibility = GONE
+        } else {
+            initTimePicker(
+                shareViewModel.thisContactNotification.value?.hour ?: 8,
+                shareViewModel.thisContactNotification.value?.minute ?: 0
+            )
+            databinding.newNotificationTimeMessage.text =
+                shareViewModel.thisContactNotification.value?.message
+            val listOfDays =
+                getStatusFromPeriodicity(shareViewModel.thisContactNotification.value?.periodicityList)
+            databinding.newNotificationWeek.setStatusWeekStartingOnMonday(listOfDays)
+            databinding.newNotificationDeleteButton.visibility = VISIBLE
+        }
     }
+
 
     private fun initTimePicker(hour: Int, minute: Int) {
         databinding.newNotificationTimePicker.setIs24HourView(true)
@@ -86,19 +103,50 @@ class NewNotificationFragment :
     }
 
     private fun setListeners() {
+        setSaveButton()
+        setDeleteButton()
+    }
+
+    private fun setSaveButton() {
         databinding.newNotificationSaveButton.setOnClickListener {
             if (databinding.newNotificationWeek.isAnyDaySelected()) {
                 shareViewModel.updateThisContactNotification(context, createNotificationFromForm())
+                activity?.onBackPressed()
             } else {
-                Toast.makeText(
-                    context,
-                    "At least one day of the week must be selected",
-                    Toast.LENGTH_LONG
-                ).show()
+                AlertsManager.showOneButtonAlert(
+                    activity,
+                    null,
+                    "At least one day must be selected",
+                    "Accept",
+                    true
+                )
             }
         }
+    }
+
+    private fun setDeleteButton() {
         databinding.newNotificationDeleteButton.setOnClickListener {
-            shareViewModel.deleteNotificationBroadcast(context, createNotificationFromForm())
+            val listener: TwoButtonsAlertListener = object : TwoButtonsAlertListener {
+                override fun onLeftClick() {
+                    shareViewModel.deleteNotificationBroadcast(
+                        context,
+                        createNotificationFromForm()
+                    )
+                    activity?.onBackPressed()
+                }
+
+                override fun onRightClick() {
+                    //Do nothing
+                }
+            }
+            AlertsManager.showTwoButtonsAlert(
+                activity,
+                listener,
+                "Are you sure you want to delete this alarm?",
+                "Delete",
+                "Cancel",
+                true
+            )
         }
     }
 
@@ -119,6 +167,31 @@ class NewNotificationFragment :
             getPeriodicityFromWeekDayPicker(databinding.newNotificationWeek)
         notification.id = NotificationsEntityManager.getNextId(context)
         return notification
+    }
+
+    private fun getStatusFromPeriodicity(periodicity: List<Boolean>?): List<CircleTextInsideRadiobutton.Status> {
+        if (periodicity != null) {
+            var result = mutableListOf<CircleTextInsideRadiobutton.Status>()
+
+            periodicity.forEach {
+                if (it) {
+                    result.add(CircleTextInsideRadiobutton.Status.SELECTED)
+                } else {
+                    result.add(CircleTextInsideRadiobutton.Status.UNSELECTED)
+
+                }
+            }
+            return result
+        }
+        return listOf(
+            CircleTextInsideRadiobutton.Status.UNSELECTED,
+            CircleTextInsideRadiobutton.Status.UNSELECTED,
+            CircleTextInsideRadiobutton.Status.UNSELECTED,
+            CircleTextInsideRadiobutton.Status.UNSELECTED,
+            CircleTextInsideRadiobutton.Status.UNSELECTED,
+            CircleTextInsideRadiobutton.Status.UNSELECTED,
+            CircleTextInsideRadiobutton.Status.UNSELECTED
+        )
     }
 
     private fun getPeriodicityFromWeekDayPicker(weekDayPicker: WeekDayPicker): List<Boolean> {

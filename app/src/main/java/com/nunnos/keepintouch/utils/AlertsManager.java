@@ -28,7 +28,9 @@ public class AlertsManager {
         builder.setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton(buttonText, (dialog, id) -> {
-                    listener.onClick();
+                    if (listener != null) {
+                        listener.onClick();
+                    }
                     if (closeOnClick) {
                         dialog.cancel();
                     }

@@ -17,6 +17,7 @@ import com.google.gson.Gson
 import com.nunnos.keepintouch.R
 import com.nunnos.keepintouch.base.baseview.base.App.CHANNEL_ID
 import com.nunnos.keepintouch.data.entities.notification.NotificationEntity
+import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity
 import com.nunnos.keepintouch.presentation.feature.main.fragment.main.MainFragment
 import com.nunnos.keepintouch.utils.Constants.*
 import com.nunnos.keepintouch.utils.TextUtils
@@ -59,8 +60,8 @@ class Notification {
         fun smallNotification(context: Context, title: String, description: String) {
             createNotificationChannel(context)
             // Create an explicit intent for an Activity in your app
-            val intent = Intent(context, MainFragment::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val intent = Intent(context, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
             val pendingIntent: PendingIntent = PendingIntent.getActivity(
                 context, 0,

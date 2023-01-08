@@ -31,6 +31,15 @@ class NotificationsEntityManager {
         }
 
         @JvmStatic
+        fun deleteNotification(context: Context?, notification: NotificationEntity) {
+            val sharedPref: SharedPreferences =
+                context!!.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE)
+            val prefsEditor: SharedPreferences.Editor = sharedPref.edit()
+            prefsEditor.remove(notification.id.toString())
+            prefsEditor.apply()
+        }
+
+        @JvmStatic
         fun getNextId(context: Context?): Int {
             val sharedPref: SharedPreferences =
                 context!!.getSharedPreferences(context.getString(R.string.app_name), MODE_PRIVATE)

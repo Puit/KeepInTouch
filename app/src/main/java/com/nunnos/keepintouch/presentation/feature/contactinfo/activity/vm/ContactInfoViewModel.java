@@ -344,18 +344,21 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         //Update the broadcast
         deleteNotificationBroadcast(context, notification);
         createNotificationBroadcast(context, notification);
-        //TODO: DESCOMENTAR, SOLO SE HA COMENTADO PARA HACER PRUEBAS
-/*        //Update the storage
+        //Update the storage
         NotificationsEntityManager.saveNotification(context, notification);
         //Update my cache
-        thisContactNotificationMD.postValue(notification);*/
+        thisContactNotificationMD.postValue(notification);
     }
 
-    public void createNotificationBroadcast(Context context, NotificationEntity notification) {
+    private void createNotificationBroadcast(Context context, NotificationEntity notification) {
         Notification.scheduleCallReminderNotification(context, notification);
     }
 
     public void deleteNotificationBroadcast(Context context, NotificationEntity notification) {
         Notification.cancelCallReminderNotification(context, notification);
+        //Update the storage
+        NotificationsEntityManager.deleteNotification(context, notification);
+        //Update my cache
+        thisContactNotificationMD.postValue(null);
     }
 }
