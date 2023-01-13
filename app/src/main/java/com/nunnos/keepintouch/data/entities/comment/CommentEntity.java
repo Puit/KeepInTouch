@@ -21,6 +21,9 @@ public class CommentEntity {
     @NonNull
     public int id;
 
+    @ColumnInfo(name = "contactId")
+    public int contactId;
+
     @ColumnInfo(name = "date")
     public String date;
 
@@ -33,16 +36,18 @@ public class CommentEntity {
     @ColumnInfo(name = "whoTold")
     public String whoTold;
 
-    public CommentEntity(int id, String date, String info, boolean isImportant, String whoTold) {
+    public CommentEntity(int id, int contactId, String date, String info, boolean isImportant, String whoTold) {
         this.id = id;
+        this.contactId = contactId;
         this.date = date;
         this.info = info;
         this.isImportant = isImportant;
         addContacts(whoTold);
     }
 
-    public CommentEntity(String date, String info, boolean isImportant, String whoTold) {
+    public CommentEntity(int contactId, String date, String info, boolean isImportant, String whoTold) {
         this.id = id;
+        this.contactId = contactId;
         this.date = date;
         this.info = info;
         this.isImportant = isImportant;
@@ -59,14 +64,14 @@ public class CommentEntity {
 
     public static CommentEntity map(Comment c) {
         if (c.getId() != 0) {
-            return new CommentEntity(c.getId(), c.getDate(), c.getInfo(), c.isImportant(), c.getWhoTold());
+            return new CommentEntity(c.getId(), c.getContactId(),c.getDate(), c.getInfo(), c.isImportant(), c.getWhoTold());
         } else {
-            return new CommentEntity(c.getDate(), c.getInfo(), c.isImportant(), c.getWhoTold());
+            return new CommentEntity(c.getContactId(),c.getDate(), c.getInfo(), c.isImportant(), c.getWhoTold());
         }
     }
 
     private void addContacts(String contacts) {
-        if(TextUtils.isEmpty(contacts)) return;
+        if (TextUtils.isEmpty(contacts)) return;
         if (contacts.startsWith(CONTACTS_SEPARATOR)) {
             this.whoTold = contacts;
         } else {

@@ -11,7 +11,8 @@ open class Complement {
         return true
     }
 
-    fun addContactsFirstTime(contacts: String): String {
+    fun addContactsFirstTime(contacts: String?): String {
+        if(contacts == null) return ""
         return if (contacts.startsWith(CONTACTS_SEPARATOR)) {
             contacts
         } else {

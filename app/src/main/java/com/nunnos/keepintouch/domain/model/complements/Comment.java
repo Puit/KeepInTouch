@@ -6,6 +6,7 @@ import com.nunnos.keepintouch.domain.model.complements.base.Complement;
 public class Comment extends Complement {
 
     private int id;
+    private int contactId;
     private String date;
     private String info;
     private boolean isImportant;
@@ -17,6 +18,7 @@ public class Comment extends Complement {
 
     public Comment(CommentEntity entity) {
         this.setId(entity.id);
+        this.setContactId(entity.contactId);
         this.setDate(entity.date);
         this.setInfo(entity.info);
         this.setImportant(entity.isImportant);
@@ -37,6 +39,14 @@ public class Comment extends Complement {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
     }
 
     public String getDate() {

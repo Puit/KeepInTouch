@@ -54,8 +54,6 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     private final MediatorLiveData<Bitmap> newConversationBitmap = new MediatorLiveData<>();
     private final MediatorLiveData<Bitmap> thisContactBitmap = new MediatorLiveData<>();
 
-    private ArrayList<Complement> complements = new ArrayList<>();
-
     private boolean updateOnBack = false;
 
     private void setContactDao(Context context) {
@@ -109,7 +107,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         setCommentDao(context);
         if (thisContactMD != null && thisContactMD.getValue() != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
-                List<CommentEntity> commentEntityList = commentDao.getAllFromWhoToldId(CONTACTS_SEPARATOR + thisContactMD.getValue().getId() + CONTACTS_SEPARATOR);
+                List<CommentEntity> commentEntityList = commentDao.getAllFromWhoToldId(thisContactMD.getValue().getId());
                 if (commentEntityList.isEmpty()) {
                     //TODO: SHOW ERROR?
                     return;
@@ -310,26 +308,6 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     public void setLastIndex(int lastIndex) {
         this.lastIndex = lastIndex;
-    }
-
-    public ArrayList<Complement> getComplements() {
-        return complements;
-    }
-
-    public void setComplements(ArrayList<Complement> complements) {
-        this.complements = complements;
-    }
-
-    public void addCommentToComplements(List<Comment> complements) {
-        this.complements.addAll(complements);
-    }
-
-    public void addConversationToComplements(List<Conversation> complements) {
-        this.complements.addAll(complements);
-    }
-
-    public void removeComplements() {
-        complements.removeAll(complements);
     }
 
     public void retrieveContactNotification(Context context) {

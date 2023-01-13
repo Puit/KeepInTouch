@@ -14,7 +14,7 @@ import com.nunnos.keepintouch.databinding.FragmentContactInfoBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.domain.model.complements.Comment;
 import com.nunnos.keepintouch.domain.model.complements.Conversation;
-import com.nunnos.keepintouch.presentation.component.recyclerviews.conversationimportant.RVConversationImportantAdapter;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.conversationimportant.RVComentAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.utils.FileManager;
 import com.nunnos.keepintouch.utils.ImageHelper;
@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactInfoViewModel, FragmentContactInfoBinding> {
-    private RVConversationImportantAdapter adapter;
+    private RVComentAdapter adapter;
 
     public ContactInfoFragment() {
         //Required empty public constructor
@@ -53,7 +53,6 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
 
     private void onContactReceived(Contact contact) {
         setContactInfo(contact);
-        shareViewModel.retrieveConversations(getContext());
         shareViewModel.retrieveComments(getContext());
     }
 
@@ -62,8 +61,8 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     }
 
     private void onCommentsReceived(List<Comment> comments) {
-        shareViewModel.addCommentToComplements(comments);
-        setConversationToRecyclerView();
+        setCommentsToRecyclerView();
+        shareViewModel.retrieveConversations(getContext());
     }
 
     private void setConversationsInfo(List<Conversation> conversations) {
@@ -81,24 +80,16 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
                 databinding.contactInfoLocationIcon.setVisibility(View.VISIBLE);
                 databinding.contactInfoLocation.setText(mostRecentConversation.getPlace());
             }
-            shareViewModel.addConversationToComplements(conversations);
-            setConversationToRecyclerView();
         }
     }
 
-    private void setConversationToRecyclerView() {
-        RVConversationImportantAdapter.CustomClick listener = complement -> {
-            if (complement instanceof Conversation) {
-                shareViewModel.setNewConversation((Conversation) complement);
-                shareViewModel.showNewConversationFragment();
-            } else if (complement instanceof Comment) {
-                shareViewModel.setNewComment((Comment) complement);
-                shareViewModel.showNewComment();
-            }
-
+    private void setCommentsToRecyclerView() {
+        RVComentAdapter.CustomClick listener = complement -> {
+            shareViewModel.setNewComment((Comment) complement);
+            shareViewModel.showNewComment();
         };
         if (adapter == null) {
-            adapter = new RVConversationImportantAdapter(shareViewModel.getComplements(), listener);
+            adapter = new RVComentAdapter(shareViewModel.getComments().getValue(), listener);
             databinding.contactInfoRecyclerviewChats.setAdapter(adapter);
             databinding.contactInfoRecyclerviewChats.setHasFixedSize(false);
         } else {
@@ -107,7 +98,6 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     }
 
     private void setContactInfo(Contact contact) {
-        setFavImage();
         setUserImage(contact);
         databinding.contactInfoName.setText(contact.getName());
         if (contact.getAlias().isEmpty()) {
@@ -157,37 +147,15 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
         }
     }
 
-    private void setFavImage() {
-/*        if (shareViewModel.getThisContact().getValue() == null) return;
-        if (shareViewModel.getThisContact().getValue().isFavorite()) {
-            databinding.contactInfoFavImage.setImageDrawable(getContext().getDrawable(R.drawable.ic_baseline_favorite_red));
-        } else {
-            databinding.contactInfoFavImage.setImageDrawable(getContext().getDrawable(R.drawable.ic_baseline_favorite_border_red));
-        }
-        shareViewModel.updateOnBack();*/
-    }
-
     private void initListeners() {
-
         databinding.contactInfoAddComment.setOnClickListener(v -> shareViewModel.showNewComment());
-    }
-
-    private void favContact() {
-        if (shareViewModel.getThisContact().getValue().isFavorite()) {
-            shareViewModel.getThisContact().getValue().setFavorite(false);
-        } else {
-            shareViewModel.getThisContact().getValue().setFavorite(true);
-        }
-        shareViewModel.updateThisContact(getContext());
-        setFavImage();
     }
 
     //Region Base Methods
 
     @Override
     public void onPause() {
-        shareViewModel.removeComplements();
-//        adapter.notifyDataSetChanged();
+//        shareViewModel.removeComplements();
         super.onPause();
     }
 

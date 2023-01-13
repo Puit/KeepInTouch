@@ -16,6 +16,7 @@ import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.data.CustomDate;
 import com.nunnos.keepintouch.databinding.FragmentNewCommentBinding;
+import com.nunnos.keepintouch.domain.model.complements.Comment;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact.dialogs.DatePickerFragment;
 import com.nunnos.keepintouch.utils.AlertsManager;
@@ -106,11 +107,18 @@ public class NewCommentFragment extends BaseFragmentViewModelLiveData<ContactInf
     }
 
     private void getAllDataFromFields() {
+        Comment comment = new Comment();
         if (databinding.newCommentDate.getText().equals("DD/MM/YYYY")) {
-            shareViewModel.getNewComment().setDate("");
+            comment.setDate("");
         } else {
-            shareViewModel.getNewComment().setDate(databinding.newCommentDate.getText());
+            comment.setDate(databinding.newCommentDate.getText());
         }
+        comment.setImportant(databinding.newCommentIsImportant.isChecked());
+        comment.setInfo(databinding.newCommentMessage.getText().toString());
+        //TODO
+//        comment.addContactList(databinding.newCommentContact.getSelectedContacts());
+        comment.setContactId(shareViewModel.getThisContact().getValue().getId());
+        shareViewModel.setNewComment(comment);
 
     }
 

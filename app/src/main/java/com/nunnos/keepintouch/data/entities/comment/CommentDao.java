@@ -28,8 +28,8 @@ public interface CommentDao {
     @Query("DELETE FROM " + TABLE_NAME + " WHERE Id = :id")
     void deleteById(int id);
 
-    @Query("SELECT * FROM " + TABLE_NAME + " WHERE " + TABLE_NAME + ".whoTold LIKE :userId ORDER BY Date DESC")
-    List<CommentEntity> getAllFromWhoToldId(String userId); //DEBE USARSE CON COMMA + ID + COMMA
+    @Query("SELECT * FROM " + TABLE_NAME + " WHERE " + TABLE_NAME + ".contactId LIKE :userId ORDER BY Date DESC")
+    List<CommentEntity> getAllFromWhoToldId(int userId); //DEBE USARSE ID
 
     //TODO: PROBAR, per borrar tots els chats que només influeixin a un usuari quan aquest es borrat
     @Query("DELETE FROM " + TABLE_NAME + " WHERE " + TABLE_NAME + ".whoTold IS :userId")
