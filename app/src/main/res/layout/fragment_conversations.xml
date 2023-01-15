@@ -5,14 +5,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
->
+        android:background="@color/background_almost_white_100">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/conversations_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
             android:orientation="vertical"
             android:paddingBottom="60dp"
-            android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
