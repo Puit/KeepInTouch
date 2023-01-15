@@ -30,7 +30,7 @@ public class Comment extends Complement {
     @Override
     public boolean isEmpty() {
         return !((getId() > 0) ||
-                (getContactId() >= 0) ||
+                (getContactId() < 0) ||
                 (!TextUtils.isEmpty(getDate())) ||
                 (!TextUtils.isEmpty(getInfo())) ||
                 (!TextUtils.isEmpty(getWhoTold())));
