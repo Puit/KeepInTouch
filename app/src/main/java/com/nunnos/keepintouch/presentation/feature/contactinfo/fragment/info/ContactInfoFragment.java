@@ -84,14 +84,14 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     }
 
     private void setCommentsToRecyclerView() {
-        RVComentAdapter.CustomClick listener = complement -> {
-            shareViewModel.setNewComment((Comment) complement);
+        RVComentAdapter.CustomClick listener = comment -> {
+            shareViewModel.setNewComment(comment);
             shareViewModel.showNewComment();
         };
         if (adapter == null) {
             adapter = new RVComentAdapter(shareViewModel.getComments().getValue(), listener);
-            databinding.contactInfoRecyclerviewChats.setAdapter(adapter);
-            databinding.contactInfoRecyclerviewChats.setHasFixedSize(false);
+            databinding.contactInfoRecyclerviewComments.setAdapter(adapter);
+            databinding.contactInfoRecyclerviewComments.setHasFixedSize(false);
         } else {
             adapter.notifyDataSetChanged();
         }

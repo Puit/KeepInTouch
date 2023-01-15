@@ -1,5 +1,7 @@
 package com.nunnos.keepintouch.domain.model.complements;
 
+import android.text.TextUtils;
+
 import com.nunnos.keepintouch.data.entities.comment.CommentEntity;
 import com.nunnos.keepintouch.domain.model.complements.base.Complement;
 
@@ -23,6 +25,15 @@ public class Comment extends Complement {
         this.setInfo(entity.info);
         this.setImportant(entity.isImportant);
         entity.whoTold = addContactsFirstTime(entity.whoTold);
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return !((getId() > 0) ||
+                (getContactId() >= 0) ||
+                (!TextUtils.isEmpty(getDate())) ||
+                (!TextUtils.isEmpty(getInfo())) ||
+                (!TextUtils.isEmpty(getWhoTold())));
     }
 
     public static Comment map(CommentEntity entity) {

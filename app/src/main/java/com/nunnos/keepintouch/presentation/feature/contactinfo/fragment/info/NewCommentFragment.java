@@ -59,15 +59,23 @@ public class NewCommentFragment extends BaseFragmentViewModelLiveData<ContactInf
     }
 
     private void setView() {
-        //TODO: CHECK IF FIRSTTIME OR EDIT
-
-        //----------------------------
+        if (!shareViewModel.getNewComment().isEmpty()) {
+            setViewForEdit();
+        }
         checkLengthAndSetStyle(databinding.newCommentMessage.getText());
+    }
+
+    private void setViewForEdit() {
+        isEdit = true;
+        databinding.newCommentMessage.setText(shareViewModel.getNewComment().getInfo());
+        databinding.newCommentDate.setText(shareViewModel.getNewComment().getDate());
+        databinding.newCommentDeleteButton.setVisibility(View.VISIBLE);
     }
 
     private void initListeners() {
         databinding.newCommentMessage.addTextChangedListener(mTextEditorWatcher);
-        databinding.newCommentSaveButton.setOnClickListener(v -> save());
+        databinding.newCommentSaveButton.setOnClickListener(__ -> save());
+        databinding.newCommentDeleteButton.setOnClickListener(__ -> delete());
         databinding.newCommentDate.setListener(this::showDatePickerDialog);
     }
 
@@ -94,7 +102,29 @@ public class NewCommentFragment extends BaseFragmentViewModelLiveData<ContactInf
                     true);
         }
     }
+    private void delete() {
+        AlertsManager.TwoButtonsAlertListener listener = new AlertsManager.TwoButtonsAlertListener() {
+            @Override
+            public void onLeftClick() {
+                shareViewModel.deleteComment(getContext(), shareViewModel.getNewComment());
+                shareViewModel.resetNewComment();
+                shareViewModel.updateOnBack();
+                shareViewModel.navigateToContactInfo();
+                //TODO: FORÇAR QUE REFRESQUI
+            }
 
+            @Override
+            public void onRightClick() {
+                //Do nothing
+            }
+        };
+        AlertsManager.showTwoButtonsAlert(getActivity(), listener,
+                "¿Estas seguro de querer borrar este comentario?",
+                "Aceptar",
+                "Cancelar",
+                true);
+
+    }
     private void showDatePickerDialog() {
         DatePickerFragment newFragment = DatePickerFragment.newInstance((datePicker, year, month, day) -> {
             CustomDate date = new CustomDate(day, month, year);
@@ -113,7 +143,7 @@ public class NewCommentFragment extends BaseFragmentViewModelLiveData<ContactInf
         } else {
             comment.setDate(databinding.newCommentDate.getText());
         }
-        comment.setImportant(databinding.newCommentIsImportant.isChecked());
+        comment.setImportant(false);
         comment.setInfo(databinding.newCommentMessage.getText().toString());
         //TODO
 //        comment.addContactList(databinding.newCommentContact.getSelectedContacts());

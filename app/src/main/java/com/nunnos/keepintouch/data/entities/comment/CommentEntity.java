@@ -46,7 +46,6 @@ public class CommentEntity {
     }
 
     public CommentEntity(int contactId, String date, String info, boolean isImportant, String whoTold) {
-        this.id = id;
         this.contactId = contactId;
         this.date = date;
         this.info = info;
@@ -56,6 +55,7 @@ public class CommentEntity {
 
     public CommentEntity() {
         this.id = -2;
+        this.contactId = -2;
         this.date = "";
         this.info = "";
         this.isImportant = false;

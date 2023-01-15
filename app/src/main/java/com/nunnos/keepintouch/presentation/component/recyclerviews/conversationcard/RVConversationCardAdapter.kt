@@ -70,7 +70,7 @@ class RVConversationCardAdapter(private val items: List<Conversation>) :
 
         private fun setView() {}
         private fun setListeners() {
-            moreImage!!.setOnClickListener { v: View? ->
+            moreImage!!.setOnClickListener {
                 if (context is ContactInfoActivity) {
                     (context as ContactInfoActivity).shareViewModel.newConversation = conversation
                     (context as ContactInfoActivity).shareViewModel.showNewConversationFragment()

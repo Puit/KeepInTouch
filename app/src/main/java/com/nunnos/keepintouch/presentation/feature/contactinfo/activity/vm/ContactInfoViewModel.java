@@ -30,7 +30,6 @@ import com.nunnos.keepintouch.data.entities.notification.NotificationsEntityMana
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.domain.model.complements.Comment;
 import com.nunnos.keepintouch.domain.model.complements.Conversation;
-import com.nunnos.keepintouch.domain.model.complements.base.Complement;
 import com.nunnos.keepintouch.notifications.Notification;
 import com.nunnos.keepintouch.utils.TextUtils;
 
@@ -171,6 +170,17 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         }
     }
 
+    public void deleteComment(Context context, Comment newComment) {
+        setCommentDao(context);
+        if (thisContactMD != null) {
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                commentDao.deleteById(newComment.getId());
+            });
+        } else {
+            //TODO SHOW ERROR
+        }
+    }
+
     public void deleteContact(Activity activity, Contact contact) {
         setContactDao(activity);
         if (thisContactMD != null) {
@@ -227,6 +237,10 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     public void resetNewConversation() {
         newConversation = new Conversation();
+    }
+
+    public void resetNewComment() {
+        newComment = new Comment();
     }
 
     public Comment getNewComment() {

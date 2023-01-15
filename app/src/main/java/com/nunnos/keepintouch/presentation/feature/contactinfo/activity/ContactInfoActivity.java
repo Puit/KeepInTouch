@@ -85,6 +85,9 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
                 viewModel.updateThisContact(this);
                 viewModel.updateOnBack();
                 break;
+            case R.id.action_edit:
+                viewModel.showEditContactFragment();
+                break;
         }
 
         return super.onOptionsItemSelected(item);

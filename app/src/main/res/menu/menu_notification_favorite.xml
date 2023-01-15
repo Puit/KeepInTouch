@@ -16,5 +16,11 @@
         android:orderInCategory="300"
         android:title="Favorite"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_baseline_more_vert_white_24"
+        android:orderInCategory="300"
+        android:title="Favorite"
+        app:showAsAction="ifRoom" />
 
 </menu>

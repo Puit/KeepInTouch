@@ -36,11 +36,6 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setView();
-        initListeners();
-    }
-
-    private void initListeners() {
-        databinding.contactPersonalDataFavRounder.setOnClickListener(v -> shareViewModel.showEditContactFragment());
     }
 
     private void setView() {

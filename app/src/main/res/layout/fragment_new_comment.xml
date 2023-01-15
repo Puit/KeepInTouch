@@ -46,15 +46,6 @@
                 android:text="100/280"
                 android:textAlignment="textEnd" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/new_comment_isImportant"
-                style="@style/Widget.App.Switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:text="Is important"
-                android:textColor="@color/text_dark_gray"
-                tools:checked="true" />
 
             <com.nunnos.keepintouch.presentation.component.CustomEditText
                 android:id="@+id/new_comment_date"
@@ -67,14 +58,14 @@
                 app:edit_text_hint_text="Date"
                 app:edit_text_text="DD/MM/YYYY" />
 
-            <com.nunnos.keepintouch.presentation.component.recyclerviews.contactsselector.ExpanableMultipleSelectorRecyclerView
+<!--            <com.nunnos.keepintouch.presentation.component.recyclerviews.contactsselector.ExpanableMultipleSelectorRecyclerView
                 android:id="@+id/new_comment_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 app:expanable_recyclerview_hint_text="Who told you"
                 app:expanable_recyclerview_icon="@drawable/ic_unknown"
-                app:expanable_recyclerview_text_text="Unknown" />
+                app:expanable_recyclerview_text_text="Unknown" />-->
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -85,6 +76,19 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
             android:text="Save"
+            app:layout_constraintBottom_toTopOf="@+id/new_comment_delete_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/new_comment_delete_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:backgroundTint="@color/background_red"
+            android:text="Delete"
+            android:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

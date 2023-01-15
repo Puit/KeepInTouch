@@ -146,8 +146,8 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
     }
 
     private void setListeners() {
-        databinding.ncSaveButton.setOnClickListener(v -> save());
-        databinding.ncDeleteButton.setOnClickListener(v -> delete());
+        databinding.ncSaveButton.setOnClickListener(__ -> save());
+        databinding.ncDeleteButton.setOnClickListener(__ -> delete());
         databinding.ncDate.setListener(this::showDatePickerDialog);
         databinding.ncTime.setListener(this::showTimePickerDialog);
         databinding.ncIsImportant.setListener(new CustomSwitch.CustomListener() {
