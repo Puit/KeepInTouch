@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.lifecycle.LifecycleObserver;
@@ -237,6 +238,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
 
     public void resetNewConversation() {
         newConversation = new Conversation();
+        newConversationBitmap.setValue(null);
     }
 
     public void resetNewComment() {

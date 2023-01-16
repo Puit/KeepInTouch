@@ -4,6 +4,7 @@ package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.persona
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -238,7 +239,8 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
         databinding.newContactDeleteImageRounder.setOnClickListener(__ -> {
             shareViewModel.getThisContact().getValue().setPhoto("");
             databinding.newContactImage.setRotation(0);
-            databinding.newContactImage.setImageDrawable(getActivity().getDrawable(R.drawable.ic_person_full));
+            setPhotoToImageView(ImageHelper.drawableToBitmap(getActivity().getDrawable(R.drawable.ic_person_full)));
+
             shareViewModel.getThisContact().getValue().setAngle(0);
             databinding.newContactRotateRounder.setVisibility(View.INVISIBLE);
             databinding.newContactDeleteImageRounder.setVisibility(View.INVISIBLE);
@@ -310,6 +312,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
             contact.addRelativeList(databinding.newContactRelatives.getSelectedContacts());
             shareViewModel.updateThisContact(getContext(), contact);
             shareViewModel.updateOnBack();
+            shareViewModel.getThisContactBitmap().setValue(null);
             shareViewModel.navigateToContactPersonalData();
         } else {
             Toast.makeText(getContext(), "Wrong", Toast.LENGTH_SHORT).show();

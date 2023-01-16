@@ -180,7 +180,8 @@ public class MainActivity extends BaseActivityViewModelLiveData<MainViewModel, A
         } else if (fragment instanceof SearchContactFragment) {
             viewModel.clearSearch();
             super.onBackPressed();
-        } else {
+        } else {  //NewContactFragment
+            viewModel.setNewContactBitmap(null);
             super.onBackPressed();
         }
     }

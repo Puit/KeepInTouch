@@ -133,6 +133,7 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
         return mostRecentConversation;
     }
 
+
     private void setUserImage(Contact contact) {
         Bitmap bitmap = FileManager.getBitmapPhoto(contact.getPhoto());
         if (bitmap == null) {

@@ -41,8 +41,11 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
     public final static String TAG = "ContactInfoActivity";
     public final static int NOTIFICATION_INDEX = 0;
     public final static int FAVORITE_INDEX = 1;
+    public final static int EDIT_INDEX = 2;
+
     private MenuItem favoriteButton;
     private MenuItem notificationButton;
+    private MenuItem editButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,6 +101,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
     public boolean onPrepareOptionsMenu(Menu menu) {
         favoriteButton = menu.getItem(FAVORITE_INDEX);
         notificationButton = menu.getItem(NOTIFICATION_INDEX);
+        editButton = menu.getItem(EDIT_INDEX);
         setIconToFavoriteButton();
         setIconToNotificationButton();
         return super.onPrepareOptionsMenu(menu);
@@ -209,6 +213,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         if (favoriteButton != null && notificationButton != null) {
             favoriteButton.setVisible(true);
             notificationButton.setVisible(true);
+            editButton.setVisible(true);
         }
     }
 
@@ -216,6 +221,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         if (favoriteButton != null && notificationButton != null) {
             favoriteButton.setVisible(false);
             notificationButton.setVisible(false);
+            editButton.setVisible(false);
         }
     }
 
@@ -247,6 +253,7 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
                 viewModel.getNavigation().setValue(CONVERSATIONS);
                 break;
             case EDIT_CONTACT:
+                viewModel.getThisContactBitmap().setValue(null);
                 viewModel.getNavigation().setValue(CONTACT_PERSONAL_DATA);
                 break;
             case NEW_COMMENT:
