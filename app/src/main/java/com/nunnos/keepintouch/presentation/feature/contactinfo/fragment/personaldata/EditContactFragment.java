@@ -77,16 +77,17 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
         shareViewModel.getThisContact().getValue().setAngle(angle);
         databinding.newContactImage.setImageBitmap(bitmap);
         ImageHelper.resizeImage(databinding.newContactImage, bitmap);
-        databinding.newContactRotateRounder.setVisibility(View.VISIBLE);
         if (bitmap != null) {
             databinding.newContactImage.setImageBitmap(bitmap);
             ImageHelper.resizeImage(databinding.newContactImage, bitmap);
             if (shareViewModel.getThisContact().getValue() == null) {
                 databinding.newContactImage.setRotation(0);
                 databinding.newContactRotateRounder.setVisibility(View.INVISIBLE);
+                databinding.newContactDeleteImageRounder.setVisibility(View.INVISIBLE);
             } else {
                 databinding.newContactImage.setRotation(shareViewModel.getThisContact().getValue().getAngle());
                 databinding.newContactRotateRounder.setVisibility(View.VISIBLE);
+                databinding.newContactDeleteImageRounder.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -185,8 +186,8 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
     }
 
     private void initListeners() {
-        databinding.newContactSaveButton.setOnClickListener(v -> updateContact());
-        databinding.newContactName.setOnFocusChangeListener((v, hasFocus) -> {
+        databinding.newContactSaveButton.setOnClickListener(__ -> updateContact());
+        databinding.newContactName.setOnFocusChangeListener((__, hasFocus) -> {
             if (!hasFocus) {
                 if (TextUtils.isEmpty(databinding.newContactName.getText())) {
                     databinding.newContactName.setErrorState();
@@ -195,7 +196,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
                 }
             }
         });
-        databinding.newContactName.onFocusChanged((v, hasFocus) -> {
+        databinding.newContactName.onFocusChanged((__, hasFocus) -> {
             if (!hasFocus) {
                 if (TextUtils.isEmpty(databinding.newContactName.getText())) {
                     databinding.newContactName.setErrorState();
@@ -220,7 +221,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
         });
 
         databinding.newContactBackgroundColor.setListener(this::showBgColorickerDialog);
-        databinding.newContactAddImageButton.setOnClickListener(v -> {
+        databinding.newContactAddImageButton.setOnClickListener(__ -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
             if (getActivity() instanceof ContactInfoActivity) {
@@ -229,12 +230,20 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
                         photoPickerIntent);
             }
         });
-        databinding.newContactRotateRounder.setOnClickListener(v -> {
+        databinding.newContactRotateRounder.setOnClickListener(__ -> {
             float newAngle = shareViewModel.getThisContact().getValue().getAngle() + 90;
             databinding.newContactImage.setRotation(newAngle);
             shareViewModel.getThisContact().getValue().setAngle(newAngle);
         });
-        databinding.newContactDeleteButton.setOnClickListener(v -> deleteContact());
+        databinding.newContactDeleteImageRounder.setOnClickListener(__ -> {
+            shareViewModel.getThisContact().getValue().setPhoto("");
+            databinding.newContactImage.setRotation(0);
+            databinding.newContactImage.setImageDrawable(getActivity().getDrawable(R.drawable.ic_person_full));
+            shareViewModel.getThisContact().getValue().setAngle(0);
+            databinding.newContactRotateRounder.setVisibility(View.INVISIBLE);
+            databinding.newContactDeleteImageRounder.setVisibility(View.INVISIBLE);
+        });
+        databinding.newContactDeleteButton.setOnClickListener(__ -> deleteContact());
     }
 
     private void deleteContact() {

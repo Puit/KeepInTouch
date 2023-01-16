@@ -72,6 +72,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
         databinding.newContactImage.setImageBitmap(bitmap);
         ImageHelper.resizeImage(databinding.newContactImage, bitmap);
         databinding.newContactRotateRounder.setVisibility(View.VISIBLE);
+        databinding.newContactDeleteImageRounder.setVisibility(View.VISIBLE);
     }
 
     private void initRelativesRecyclerView(List<Contact> relatives) {
@@ -150,8 +151,8 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
     }
 
     private void initListeners() {
-        databinding.newContactSaveButton.setOnClickListener(v -> saveContact());
-        databinding.newContactName.setOnFocusChangeListener((v, hasFocus) -> {
+        databinding.newContactSaveButton.setOnClickListener(__ -> saveContact());
+        databinding.newContactName.setOnFocusChangeListener((__, hasFocus) -> {
             if (!hasFocus) {
                 if (TextUtils.isEmpty(databinding.newContactName.getText())) {
                     databinding.newContactName.setErrorState();
@@ -160,7 +161,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
                 }
             }
         });
-        databinding.newContactName.onFocusChanged((v, hasFocus) -> {
+        databinding.newContactName.onFocusChanged((__, hasFocus) -> {
             if (!hasFocus) {
                 if (TextUtils.isEmpty(databinding.newContactName.getText())) {
                     databinding.newContactName.setErrorState();
@@ -185,7 +186,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
         });
 
         databinding.newContactBackgroundColor.setListener(this::showBgColorickerDialog);
-        databinding.newContactAddImageButton.setOnClickListener(v -> {
+        databinding.newContactAddImageButton.setOnClickListener(__ -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
             if (getActivity() instanceof MainActivity) {
@@ -194,10 +195,19 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
                         photoPickerIntent);
             }
         });
-        databinding.newContactRotateRounder.setOnClickListener(v -> {
+        databinding.newContactRotateRounder.setOnClickListener(__ -> {
             float newAngle = shareViewModel.getNewContact().getAngle() + 90;
             databinding.newContactImage.setRotation(newAngle);
             shareViewModel.getNewContact().setAngle(newAngle);
+        });
+
+        databinding.newContactDeleteImageRounder.setOnClickListener(__ -> {
+            shareViewModel.getNewContact().setPhoto("");
+            databinding.newContactImage.setRotation(0);
+            databinding.newContactImage.setImageDrawable(getActivity().getDrawable(R.drawable.ic_person_full));
+            shareViewModel.getNewContact().setAngle(0);
+            databinding.newContactRotateRounder.setVisibility(View.INVISIBLE);
+            databinding.newContactDeleteImageRounder.setVisibility(View.INVISIBLE);
         });
     }
 
