@@ -105,9 +105,11 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
             if (shareViewModel.getNewConversation() == null) {
                 databinding.ncImage.setRotation(0);
                 databinding.ncRotateRounder.setVisibility(View.INVISIBLE);
+                databinding.ncDeleteImageRounder.setVisibility(View.INVISIBLE);
             } else {
                 databinding.ncImage.setRotation(shareViewModel.getNewConversation().getAngle());
                 databinding.ncRotateRounder.setVisibility(View.VISIBLE);
+                databinding.ncDeleteImageRounder.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -161,7 +163,7 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
                 shareViewModel.getNewConversation().setImportant(false);
             }
         });
-        databinding.ncAddImageButton.setOnClickListener(v -> {
+        databinding.ncAddImageButton.setOnClickListener(__ -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
             photoPickerIntent.setType("image/*");
             if (getActivity() instanceof ContactInfoActivity) {
@@ -170,13 +172,21 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
                         photoPickerIntent);
             }
         });
-        databinding.ncRotateRounder.setOnClickListener(v -> {
+        databinding.ncRotateRounder.setOnClickListener(__ -> {
             float newAngle = 0;
             if (shareViewModel.getNewConversation().getAngle() < 270) {
                 newAngle = shareViewModel.getNewConversation().getAngle() + 90;
             }
             databinding.ncImage.setRotation(newAngle);
             shareViewModel.getNewConversation().setAngle(newAngle);
+        });
+        databinding.ncDeleteImageRounder.setOnClickListener(__ -> {
+            shareViewModel.getNewConversation().setPhoto("");
+            databinding.ncImage.setRotation(0);
+            databinding.ncImage.setImageDrawable(null);
+            shareViewModel.getNewConversation().setAngle(0);
+            databinding.ncRotateRounder.setVisibility(View.INVISIBLE);
+            databinding.ncDeleteImageRounder.setVisibility(View.INVISIBLE);
         });
         databinding.ncConversation.addTextChangedListener(mTextEditorWatcher);
     }
@@ -255,10 +265,6 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
             shareViewModel.getNewConversation().setDate(databinding.ncDate.getText());
         }
         shareViewModel.getNewConversation().setPlace(databinding.ncPlace.getText());
-//        shareViewModel.getNewConversation().setPhoto(); // es fa a l'activity
-        //TODO: fer botó de rotar
-//        shareViewModel.getNewConversation().setAngle();
-//        shareViewModel.getNewConversation().setContacts();
         shareViewModel.getNewConversation().addContact(shareViewModel.getThisContact().getValue().getId());
         shareViewModel.getNewConversation().setImportant(!databinding.ncIsImportant.getIsRightClicked());
         shareViewModel.getNewConversation().addContactList(databinding.ncContacts.getSelectedContacts());

@@ -35,6 +35,7 @@
     <color name="underline_gray">#949494</color>
     <color name="background_transparent">#00FFFFFF</color>
     <color name="background_white_20">#33FFFFFF</color>
+    <color name="background_gray_20">#33666666</color>
     <color name="background_almost_white_100">#F1F1F1</color>
 
 
