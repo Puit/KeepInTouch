@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="image">Imagen</string>
+    <string name="name">Nombre</string>
+    <string name="surname1">1º Apellido</string>
+    <string name="surname2">2º Apellido</string>
+    <string name="gender">Género</string>
+    <string name="sexual_orientation">Orientación sexual</string>
+    <string name="birthday">Cumpleaños</string>
+    <string name="age">Edad</string>
+    <string name="address">Dirección</string>
+    <string name="profession">Profesión</string>
+    <string name="place_of_work">Lugar de trabajo</string>
+    <string name="how_we_met">Como nos conocimos</string>
+    <string name="language">Idioma</string>
+    <string name="religion">Religión</string>
+    <string name="relatives">Familia</string>
+    <string name="conversations">Conversaciones</string>
+    <string name="favorite">Favoritos</string>
+    <string name="alias">Alias</string>
+    <string name="telephone">Teléfono</string>
+    <string name="email">Email</string>
+    <string name="comments">Comentarios</string>
+    <string name="day_of_death">Fecha de fallecimiento</string>
+    <string name="search">Buscar…</string>
+    <string name="nothing_found">Nada encontrado</string>
+    <string name="monday_short">Lun</string>
+    <string name="tuesday_short">Mar</string>
+    <string name="wednesday_short">Mié</string>
+    <string name="thursday_short">Jue</string>
+    <string name="friday_short">Vie</string>
+    <string name="saturday_short">Sáb</string>
+    <string name="sunday_short">Dom</string>
+    <string name="daily_notification_title">Recuerda guardar tus conversaciones</string>
+    <string name="daily_notification_description">¿Has hablado con alguien hoy? ¡Guárdalo! Te ayudará a recordar lo que has estado hablando para la próxima vez.</string>
+    <string name="notification_base_text_with_space">Llamar a</string>
+
+    <!--ARRAYS-->
+    <string-array name="genders">
+        <item>Hombre</item>
+        <item>Mujer</item>
+        <item>No binario</item>
+        <item>Transgénero</item>
+        <item>Desconocido</item>
+    </string-array>
+    <string-array name="sexual_orientation">
+        <item>Heterosexual</item>
+        <item>Gay</item>
+        <item>Lesbiana</item>
+        <item>Bisexual</item>
+        <item>Pansexual</item>
+        <item>Asexual</item>
+        <item>Desconocido</item>
+    </string-array>
+</resources>

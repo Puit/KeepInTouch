@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Keep in touch</string>
+    <string name="app_name" translatable="false">Keep in touch</string>
     <string name="file_path" translatable="false">Android/data/com.nunnos.keepintouch/files/Pictures</string>
     <string name="lorem_ipsum_280" translatable="false">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat mas</string>
     <string name="image">Image</string>
@@ -23,7 +23,7 @@
     <string name="telephone">Telephone</string>
     <string name="email">Email</string>
     <string name="comments">Comments</string>
-    <string name="day_of_death">Day of death</string>
+    <string name="day_of_death">Date of death</string>
     <string name="search">Search…</string>
     <string name="nothing_found">Nothing found</string>
     <string name="monday_short">Mon</string>
@@ -36,6 +36,8 @@
     <string name="daily_notification_title">Remember to save your conversations</string>
     <string name="daily_notification_description">Did you speak with someone today? Record it, it will help to remember what you\'ve been talking for the next time.</string>
     <string name="notification_base_text_with_space">Call</string>
+
+
     <!--ARRAYS-->
 
     <string-array name="genders">
