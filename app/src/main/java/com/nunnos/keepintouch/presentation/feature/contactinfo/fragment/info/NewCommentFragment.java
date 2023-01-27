@@ -138,7 +138,7 @@ public class NewCommentFragment extends BaseFragmentViewModelLiveData<ContactInf
 
     private void getAllDataFromFields() {
         Comment comment = new Comment();
-        if (databinding.newCommentDate.getText().equals("DD/MM/YYYY")) {
+        if (databinding.newCommentDate.getText().equals(getString(R.string.date_format))) {
             comment.setDate("");
         } else {
             comment.setDate(databinding.newCommentDate.getText());

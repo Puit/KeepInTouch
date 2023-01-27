@@ -71,7 +71,7 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
     }
 
     private void setTextOrHide(TextView tv, String text) {
-        if (TextUtils.isEmpty(text) || text.equals("Unknown") || text.equals("DD/MM/YYYY")) {
+        if (TextUtils.isEmpty(text) || text.equals(getString(R.string.unknown_value)) || text.equals(getString(R.string.date_format))) {
             tv.setVisibility(View.GONE);
         } else {
             tv.setVisibility(View.VISIBLE);
@@ -80,7 +80,7 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
     }
 
     private void setTextOrHide(CustomTextView tv, String text) {
-        if (TextUtils.isEmpty(text) || text.equals("Unknown") || text.equals("DD/MM/YYYY")) {
+        if (TextUtils.isEmpty(text) || text.equals(getString(R.string.unknown_value)) || text.equals(getString(R.string.date_format))) {
             tv.setVisibility(View.GONE);
         } else {
             tv.setVisibility(View.VISIBLE);
@@ -89,7 +89,7 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
     }
 
     private void setTextOrHide(CustomTextView tv, String text, int src) {
-        if (TextUtils.isEmpty(text) || text.equals("Unknown") || text.equals("DD/MM/YYYY")) {
+        if (TextUtils.isEmpty(text) || text.equals(getString(R.string.unknown_value)) || text.equals(getString(R.string.date_format))) {
             tv.setVisibility(View.GONE);
         } else {
             tv.setVisibility(View.VISIBLE);
@@ -97,6 +97,7 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
             tv.setImage(src);
         }
     }
+
     private void setUserImage(Contact contact) {
         Bitmap bitmap = FileManager.getBitmapPhoto(contact.getPhoto());
         if (bitmap == null) {

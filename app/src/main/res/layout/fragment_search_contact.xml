@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
-                android:hint="Search"
+                android:hint="@string/search"
                 android:imeOptions="actionSend"
                 android:inputType="text"
                 android:maxLines="1" />
@@ -321,7 +321,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@string/email"
+                android:text="@string/social_media"
                 android:visibility="gone"
                 tools:visibility="visible" />
 

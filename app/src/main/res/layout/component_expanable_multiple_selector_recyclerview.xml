@@ -39,7 +39,7 @@
                     android:clickable="false"
                     android:focusable="false"
                     app:expanable_title_focusable="false"
-                    app:expanable_title_hint_text="People in the conversation"
+                    app:expanable_title_hint_text="@string/people_in_the_conversation"
                     app:layout_constraintEnd_toEndOf="@+id/expanable_multiple_recycler_headerIndicator"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

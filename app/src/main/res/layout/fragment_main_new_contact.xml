@@ -102,14 +102,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Name" />
+                    app:edit_text_hint_text="@string/name" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
                     android:id="@+id/new_contact_surname1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Surname 1"
+                    app:edit_text_hint_text="@string/surname1"
                     tools:edit_text_text="Surname 1" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
@@ -117,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Surname 2"
+                    app:edit_text_hint_text="@string/surname2"
                     tools:edit_text_text="Surname 2" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
@@ -125,21 +125,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Alias" />
+                    app:edit_text_hint_text="@string/alias" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
                     android:id="@+id/new_contact_telephone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Telephone" />
+                    app:edit_text_hint_text="@string/telephone" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
                     android:id="@+id/new_contact_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Email" />
+                    app:edit_text_hint_text="@string/email" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -149,9 +149,9 @@
                         android:id="@+id/new_contact_gender_expanable"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:expanable_recyclerview_hint_text="Gender"
+                        app:expanable_recyclerview_hint_text="@string/gender"
                         app:expanable_recyclerview_icon="@drawable/ic_unknown"
-                        app:expanable_recyclerview_text_text="Unknown"
+                        app:expanable_recyclerview_text_text="@string/unknown"
                         app:layout_constraintEnd_toStartOf="@+id/new_contact_sexual_orientation_expanable"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -160,9 +160,9 @@
                         android:id="@+id/new_contact_sexual_orientation_expanable"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:expanable_recyclerview_hint_text="Sexual Orientation"
+                        app:expanable_recyclerview_hint_text="@string/sexual_orientation"
                         app:expanable_recyclerview_icon="@drawable/ic_unknown"
-                        app:expanable_recyclerview_text_text="Unknown"
+                        app:expanable_recyclerview_text_text="@string/unknown"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/new_contact_gender_expanable"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -176,8 +176,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:custom_switch_selected_background_color="@color/purple_700"
-                    app:custom_switch_text_left="Birthday"
-                    app:custom_switch_text_right="Age" />
+                    app:custom_switch_text_left="@string/birthday"
+                    app:custom_switch_text_right="@string/age" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
                     android:id="@+id/new_contact_birthday"
@@ -187,8 +187,8 @@
                     android:maxLines="1"
                     app:edit_text_clickable="true"
                     app:edit_text_focusable="false"
-                    app:edit_text_hint_text="Birthday"
-                    app:edit_text_text="DD/MM/YYYY" />
+                    app:edit_text_hint_text="@string/birthday"
+                    app:edit_text_text="@string/date_format" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
                     android:id="@+id/new_contact_age"
@@ -197,14 +197,14 @@
                     android:layout_marginTop="20dp"
                     android:maxLines="1"
                     android:visibility="gone"
-                    app:edit_text_hint_text="Age" />
+                    app:edit_text_hint_text="@string/age" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
                     android:id="@+id/new_contact_adress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Address"
+                    app:edit_text_hint_text="@string/address"
                     tools:edit_text_text="Address" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
@@ -212,7 +212,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Profession"
+                    app:edit_text_hint_text="@string/profession"
                     tools:edit_text_text="Profession" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
@@ -220,7 +220,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Place of work"
+                    app:edit_text_hint_text="@string/place_of_work"
                     tools:edit_text_text="Place of work" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
@@ -228,7 +228,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="How we met"
+                    app:edit_text_hint_text="@string/how_we_met"
                     tools:edit_text_text="How we met" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
@@ -236,7 +236,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Language"
+                    app:edit_text_hint_text="@string/language"
                     tools:edit_text_text="Language" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
@@ -244,7 +244,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Religion"
+                    app:edit_text_hint_text="@string/religion"
                     tools:edit_text_text="Unknown" />
 
                 <com.nunnos.keepintouch.presentation.component.recyclerviews.contactsselector.ExpanableMultipleSelectorRecyclerView
@@ -252,16 +252,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:expanable_recyclerview_hint_text="Relatives"
+                    app:expanable_recyclerview_hint_text="@string/relatives"
                     app:expanable_recyclerview_icon="@drawable/ic_unknown"
-                    app:expanable_recyclerview_text_text="Unknown" />
+                    app:expanable_recyclerview_text_text="@string/unknown" />
 
                 <com.nunnos.keepintouch.presentation.component.CustomEditText
                     android:id="@+id/new_contact_social_media"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="Social media"
+                    app:edit_text_hint_text="@string/social_media"
                     tools:edit_text_text="Social media" />
 
                 <com.nunnos.keepintouch.presentation.component.BgPicker
@@ -270,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     app:color_id="@color/background_purple_dark"
-                    app:edit_text_hint="Background COlor"
+                    app:edit_text_hint="@string/background_color"
                     app:image_clickable="true"
                     app:image_focusable="false" />
 
@@ -279,7 +279,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
-                    android:text="Save" />
+                    android:text="@string/save" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/new_contact_delete_button"
@@ -287,7 +287,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:backgroundTint="@color/background_red"
-                    android:text="Delete"
+                    android:text="@string/delete"
                     android:visibility="gone"
                     tools:visibility="visible" />
             </LinearLayout>

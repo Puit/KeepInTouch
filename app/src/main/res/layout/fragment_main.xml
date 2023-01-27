@@ -26,7 +26,7 @@
             android:id="@+id/main_no_contact_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Press the button to add a new contact"
+            android:text="@string/main_press_to_add"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

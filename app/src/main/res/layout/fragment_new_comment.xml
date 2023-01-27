@@ -55,8 +55,8 @@
                 android:maxLines="1"
                 app:edit_text_clickable="true"
                 app:edit_text_focusable="false"
-                app:edit_text_hint_text="Date"
-                app:edit_text_text="DD/MM/YYYY" />
+                app:edit_text_hint_text="@string/date"
+                app:edit_text_text="@string/date_format" />
 
 <!--            <com.nunnos.keepintouch.presentation.component.recyclerviews.contactsselector.ExpanableMultipleSelectorRecyclerView
                 android:id="@+id/new_comment_contact"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
-            android:text="Save"
+            android:text="@string/save"
             app:layout_constraintBottom_toTopOf="@+id/new_comment_delete_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:backgroundTint="@color/background_red"
-            android:text="Delete"
+            android:text="@string/delete"
             android:visibility="gone"
             tools:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"

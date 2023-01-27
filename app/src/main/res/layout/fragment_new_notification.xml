@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
-                android:text="When do you want to set the reminder?"
+                android:text="@string/new_notification_question_reminder"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.nunnos.keepintouch.presentation.component.WeekDayPicker
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
-                app:edit_text_hint_text="Notification message"
+                app:edit_text_hint_text="@string/new_notification_notificaiton_message"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/new_notification_time_picker" />
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:text="Save"
+                android:text="@string/save"
                 app:layout_constraintBottom_toTopOf="@+id/new_notification_delete_button" />
 
             <com.google.android.material.button.MaterialButton
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:backgroundTint="@color/background_red"
-                android:text="Delete"
+                android:text="@string/delete"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:visibility="visible" />
