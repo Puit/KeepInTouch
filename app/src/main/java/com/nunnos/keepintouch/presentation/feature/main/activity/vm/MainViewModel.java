@@ -48,10 +48,6 @@ public class MainViewModel extends MainNavigationViewModel implements LifecycleO
     public void retrieveContacts(Context context) {
         setContactDao(context);
         AppExecutors.getInstance().diskIO().execute(() -> {
-            if (contactDao.getAllOrderByLastIndexDes().isEmpty()) {
-                //TODO: SHOW ERROR?
-                return;
-            }
             ArrayList<Contact> contacts = new ArrayList<>();
             for (ContactEntity entity : contactDao.getAllOrderByLastIndexDes()) {
                 contacts.add(Contact.map(entity));

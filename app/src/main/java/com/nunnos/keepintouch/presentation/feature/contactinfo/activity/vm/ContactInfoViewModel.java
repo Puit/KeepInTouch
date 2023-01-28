@@ -10,7 +10,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.lifecycle.LifecycleObserver;
@@ -88,10 +87,6 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         if (thisContactMD != null && thisContactMD.getValue() != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 List<ConversationEntity> conversationEntityList = conversationDao.getAllFromContactId(CONTACTS_SEPARATOR + thisContactMD.getValue().getId() + CONTACTS_SEPARATOR);
-                if (conversationEntityList.isEmpty()) {
-                    //TODO: SHOW ERROR?
-                    return;
-                }
                 ArrayList<Conversation> conversations = new ArrayList<>();
                 for (ConversationEntity entity : conversationEntityList) {
                     conversations.add(Conversation.map(entity));
@@ -108,10 +103,6 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         if (thisContactMD != null && thisContactMD.getValue() != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 List<CommentEntity> commentEntityList = commentDao.getAllFromWhoToldId(thisContactMD.getValue().getId());
-                if (commentEntityList.isEmpty()) {
-                    //TODO: SHOW ERROR?
-                    return;
-                }
                 ArrayList<Comment> comments = new ArrayList<>();
                 for (CommentEntity entity : commentEntityList) {
                     comments.add(Comment.map(entity));
@@ -126,10 +117,6 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     public void retrieveContacts(Context context) {
         setContactDao(context);
         AppExecutors.getInstance().diskIO().execute(() -> {
-            if (contactDao.getAllOrderByLastIndexDes().isEmpty()) {
-                //TODO: SHOW ERROR?
-                return;
-            }
             ArrayList<Contact> contacts = new ArrayList<>();
             for (ContactEntity entity : contactDao.getAllOrderByLastIndexDes()) {
                 contacts.add(Contact.map(entity));
