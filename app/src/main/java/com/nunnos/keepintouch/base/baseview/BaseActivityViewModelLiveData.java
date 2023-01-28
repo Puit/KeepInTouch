@@ -125,6 +125,7 @@ public abstract class BaseActivityViewModelLiveData<VM extends ViewModel & Lifec
     }
 
     public void launchSlidingUpActivityForResult(ActivityResultLauncher<Intent> resultLauncher, Intent intent) {
+        intent.putExtra(ENTRANCE_ANIMATION, Animation.SLIDING_UP);
         resultLauncher.launch(intent);
         overrideSlidingTransition(R.anim.slide_in_up, R.anim.stay);
     }
@@ -156,5 +157,11 @@ public abstract class BaseActivityViewModelLiveData<VM extends ViewModel & Lifec
         void onResultOK(Intent intent);
 
         void onResultKO(Intent intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        overridePendingTransition(R.anim.slide_out_down, R.anim.slide_in_up);
+        super.onBackPressed();
     }
 }
