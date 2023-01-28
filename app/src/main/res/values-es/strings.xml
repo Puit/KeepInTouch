@@ -50,6 +50,9 @@
     <string name="main_press_to_add">Pulsa el botón para añadir un nuevo contacto</string>
     <string name="last_chat">Última conversación</string>
 
+    <!--Info-->
+    <string name="chats">Chats</string>
+
     <!--New Notification-->
     <string name="new_notification_question_reminder">¿Cuándo quieres configurar el recordatorio?</string>
     <string name="new_notification_notificaiton_message">Mensaje de la notificación</string>

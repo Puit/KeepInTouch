@@ -50,6 +50,9 @@
     <string name="main_press_to_add">Prem el botó per a afegir un nou contacte</string>
     <string name="last_chat">Última conversa</string>
 
+    <!--Info-->
+    <string name="chats">Xats</string>
+
     <!--New Notification-->
     <string name="new_notification_question_reminder">Quan vols configurar el recordatori?</string>
     <string name="new_notification_notificaiton_message">Missatge de la notificació</string>

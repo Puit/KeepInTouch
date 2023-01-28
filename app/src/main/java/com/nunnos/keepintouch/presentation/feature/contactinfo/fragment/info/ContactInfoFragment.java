@@ -74,7 +74,7 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
             databinding.contactInfoChatQuantity.setVisibility(View.VISIBLE);
             databinding.contactInfoLastChatDate.setVisibility(View.VISIBLE);
             databinding.contactInfoLastChatDate.setText(mostRecentConversation.getDate());
-            databinding.contactInfoChatQuantity.setText(String.valueOf(conversations.size()));
+            databinding.contactInfoChatQuantity.setText(conversations.size() + " " + getString(R.string.chats));
             if (!mostRecentConversation.getPlace().isEmpty()) {
                 databinding.contactInfoLocation.setVisibility(View.VISIBLE);
                 databinding.contactInfoLocationIcon.setVisibility(View.VISIBLE);

@@ -55,6 +55,9 @@
     <string name="main_press_to_add">Press the button to add a new contact</string>
     <string name="last_chat">Last chat</string>
 
+    <!--Info-->
+    <string name="chats">Chats</string>
+
     <!--New Notification-->
     <string name="new_notification_question_reminder">When do you want to set the reminder?</string>
     <string name="new_notification_notificaiton_message">Notification message</string>
