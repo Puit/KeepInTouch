@@ -16,8 +16,9 @@
             android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            tools:text="text"
-            android:textSize="20dp" />
+            android:inputType="textCapSentences|textMultiLine"
+            android:textSize="20dp"
+            tools:text="@string/lorem_ipsum_280"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 </layout>

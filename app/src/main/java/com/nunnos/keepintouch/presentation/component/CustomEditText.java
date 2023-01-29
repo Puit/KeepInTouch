@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -110,6 +111,9 @@ public class CustomEditText extends ConstraintLayout {
         for (int t : types) {
             databinding.etTitle.setInputType(t);
         }
+    }
+    public void addTextChangedListener(TextWatcher watcher){
+        databinding.etTitle.addTextChangedListener(watcher);
     }
 
     public interface CustomListener {

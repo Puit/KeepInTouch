@@ -23,6 +23,7 @@
     <string name="social_media">Xarxes socials</string>
     <string name="unknown">Desconegut</string>
     <string name="comments">Comentaris</string>
+    <string name="comment">Comentari</string>
     <string name="day_of_death">Data de defunció</string>
     <string name="background_color">Color de la targeta</string>
     <string name="search">Buscar…</string>
@@ -58,6 +59,10 @@
     <string name="new_notification_notificaiton_message">Missatge de la notificació</string>
     <string name="new_notification_at_least_one_day">Almenys s\'ha de seleccionar un dia</string>
     <string name="new_notification_are_you_sure_delete_alarm">Segur que voleu suprimir aquesta alarma?</string>
+
+    <!--New Comment-->
+    <string name="new_comment_can_t_exceed">El comentari no pot superar els 280 caràcters</string>
+    <string name="new_comment_question_delete_message">Esteu segur que voleu esborrar aquest comentari?</string>
 
     <!--New Conversation-->
     <string name="new_conversation_conversation_3_dots">Conversa…</string>

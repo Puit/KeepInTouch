@@ -105,6 +105,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
         databinding.newContactBackgroundColor.setColorId(Constants.DEFAULT_CARD_BG_COLOR);
         databinding.newContactEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         databinding.newContactTelephone.setInputType(InputType.TYPE_CLASS_NUMBER);
+        databinding.newContactHowWeMet.setInputType(InputType.TYPE_CLASS_TEXT);
     }
 
     private void setView() {

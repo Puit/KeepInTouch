@@ -15,28 +15,18 @@
             tools:layout_editor_absoluteX="20dp"
             tools:layout_editor_absoluteY="0dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/new_comment_message_title"
-                style="@style/CustomEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|top"
-                android:layout_marginTop="10dp"
-                android:hint="Comment"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.nunnos.keepintouch.presentation.component.CustomEditText
                     android:id="@+id/new_comment_message"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="start|top"
                     android:gravity="top"
-                    android:inputType="textMultiLine"
+                    app:edit_text_hint_text="@string/comment"
+                    tools:edit_text_text=""
+                    android:inputType="textCapSentences|textMultiLine"
                     android:textSize="20dp"
-                    tools:text="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    tools:text="" />
 
             <TextView
                 android:id="@+id/new_comment_counter"

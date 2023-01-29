@@ -28,6 +28,7 @@
     <string name="social_media">Social media</string>
     <string name="unknown">Unknown</string>
     <string name="comments">Comments</string>
+    <string name="comment">Comment</string>
     <string name="day_of_death">Date of death</string>
     <string name="background_color">Card color</string>
     <string name="search">Search…</string>
@@ -63,6 +64,10 @@
     <string name="new_notification_notificaiton_message">Notification message</string>
     <string name="new_notification_at_least_one_day">At least one day must be selected</string>
     <string name="new_notification_are_you_sure_delete_alarm">Are you sure you want to delete this alarm?</string>
+
+    <!--New Comment-->
+    <string name="new_comment_can_t_exceed">The comment can\'t exceed 280 characters</string>
+    <string name="new_comment_question_delete_message">Are you sure you want to delete this comment?</string>
 
     <!--New Conversation-->
     <string name="new_conversation_conversation_3_dots">Conversation…</string>

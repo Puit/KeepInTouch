@@ -115,6 +115,8 @@
                 android:hint="You have 280 characters to express what you talked about"
                 android:maxHeight="1000dp"
                 android:minHeight="150dp"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="30"
                 app:edit_text_hint_text="@string/new_conversation_conversation_3_dots"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

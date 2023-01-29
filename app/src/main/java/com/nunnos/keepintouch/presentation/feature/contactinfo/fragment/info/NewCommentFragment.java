@@ -97,11 +97,12 @@ public class NewCommentFragment extends BaseFragmentViewModelLiveData<ContactInf
             };
             AlertsManager.showOneButtonAlert(getActivity(),
                     listener,
-                    "The comment can't exceed 280 characters",
-                    "Accept",
+                    getString(R.string.new_comment_can_t_exceed),
+                    getString(R.string.ok),
                     true);
         }
     }
+
     private void delete() {
         AlertsManager.TwoButtonsAlertListener listener = new AlertsManager.TwoButtonsAlertListener() {
             @Override
@@ -119,12 +120,13 @@ public class NewCommentFragment extends BaseFragmentViewModelLiveData<ContactInf
             }
         };
         AlertsManager.showTwoButtonsAlert(getActivity(), listener,
-                "¿Estas seguro de querer borrar este comentario?",
-                "Aceptar",
-                "Cancelar",
+                getString(R.string.new_comment_question_delete_message),
+                getString(R.string.ok),
+                getString(R.string.cancel),
                 true);
 
     }
+
     private void showDatePickerDialog() {
         DatePickerFragment newFragment = DatePickerFragment.newInstance((datePicker, year, month, day) -> {
             CustomDate date = new CustomDate(day, month, year);
