@@ -3,7 +3,6 @@ package com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -106,6 +105,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
         databinding.newContactEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         databinding.newContactTelephone.setInputType(InputType.TYPE_CLASS_NUMBER);
         databinding.newContactHowWeMet.setInputType(InputType.TYPE_CLASS_TEXT);
+        databinding.newContactAge.setInputType(InputType.TYPE_CLASS_NUMBER);
     }
 
     private void setView() {
@@ -176,14 +176,12 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
         databinding.newContactBirthdaySwitch.setListener(new CustomSwitch.CustomListener() {
             @Override
             public void onLeft() { //Birthday
-                databinding.newContactBirthday.setVisibility(View.VISIBLE);
-                databinding.newContactAge.setVisibility(View.GONE);
+                setViewForBirthdaySelected();
             }
 
             @Override
             public void onRight() { //AGE
-                databinding.newContactAge.setVisibility(View.VISIBLE);
-                databinding.newContactBirthday.setVisibility(View.GONE);
+                setViewForAgeSelected();
             }
         });
 
@@ -211,6 +209,16 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
             databinding.newContactRotateRounder.setVisibility(View.INVISIBLE);
             databinding.newContactDeleteImageRounder.setVisibility(View.INVISIBLE);
         });
+    }
+
+    private void setViewForAgeSelected() {
+        databinding.newContactAge.setVisibility(View.VISIBLE);
+        databinding.newContactBirthday.setVisibility(View.GONE);
+    }
+
+    private void setViewForBirthdaySelected() {
+        databinding.newContactBirthday.setVisibility(View.VISIBLE);
+        databinding.newContactAge.setVisibility(View.GONE);
     }
 
     private void showDatePickerDialog() {
@@ -245,8 +253,10 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
                     databinding.newContactSurname2.getText(),
                     databinding.newContactGenderExpanable.getText(),
                     databinding.newContactSexualOrientationExpanable.getText(),
-                    databinding.newContactBirthdaySwitch.getIsRightClicked() ? databinding.newContactAge.getText() : databinding.newContactBirthday.getText(),
-                    databinding.newContactBirthdaySwitch.getIsRightClicked(),
+                    databinding.newContactBirthdaySwitch.getIsRightClicked() ?
+                            Contact.createFakeBirthdayFromAge(databinding.newContactAge.getText(), getContext()) :
+                            databinding.newContactBirthday.getText(),
+                    !databinding.newContactBirthdaySwitch.getIsRightClicked(),
                     databinding.newContactAdress.getText(),
                     databinding.newContactProfession.getText(),
                     databinding.newContactPlaceofwork.getText(),

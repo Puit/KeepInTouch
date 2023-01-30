@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Keep in touch</string>
     <string name="file_path" translatable="false">Android/data/com.nunnos.keepintouch/files/Pictures</string>
-    <string name="date_format" translatable="false">DD/MM/YYYY</string>
+    <string name="date_format" translatable="false">dd/MM/yyyy</string>
     <string name="time_format" translatable="false">hh:mm</string>
     <string name="unknown_value" translatable="false">Unknown</string>
     <string name="lorem_ipsum_280" translatable="false">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat mas</string>

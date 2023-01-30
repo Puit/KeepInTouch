@@ -4,7 +4,6 @@ package com.nunnos.keepintouch.presentation.feature.contactinfo.fragment.persona
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -126,6 +125,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
         databinding.newContactDeleteButton.setVisibility(View.VISIBLE);
         databinding.newContactEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         databinding.newContactTelephone.setInputType(InputType.TYPE_CLASS_NUMBER);
+        databinding.newContactAge.setInputType(InputType.TYPE_CLASS_NUMBER);
     }
 
     private void setView() {
@@ -144,7 +144,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
             databinding.newContactBirthday.setVisibility(View.VISIBLE);
             databinding.newContactAge.setVisibility(View.GONE);
         } else {
-            databinding.newContactAge.setText(newContact.getBirthday());
+            databinding.newContactAge.setText(Integer.toString(newContact.getAge()));
             databinding.newContactBirthday.setVisibility(View.GONE);
             databinding.newContactAge.setVisibility(View.VISIBLE);
         }
@@ -286,7 +286,9 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
                     databinding.newContactSurname2.getText(),
                     databinding.newContactGenderExpanable.getText(),
                     databinding.newContactSexualOrientationExpanable.getText(),
-                    databinding.newContactBirthdaySwitch.getIsRightClicked() ? databinding.newContactAge.getText() : databinding.newContactBirthday.getText(),
+                    databinding.newContactBirthdaySwitch.getIsRightClicked() ?
+                            Contact.createFakeBirthdayFromAge(databinding.newContactAge.getText(), getContext()) :
+                            databinding.newContactBirthday.getText(),
                     !databinding.newContactBirthdaySwitch.getIsRightClicked(),
                     databinding.newContactAdress.getText(),
                     databinding.newContactProfession.getText(),

@@ -57,7 +57,7 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
             setTextOrHide(databinding.contactPersonalDataAge, String.valueOf(c.getAge()));
         } else {
             databinding.contactPersonalDataBirthday.setVisibility(View.GONE);
-            setTextOrHide(databinding.contactPersonalDataAge, c.getBirthday());
+            setTextOrHide(databinding.contactPersonalDataAge, String.valueOf(c.getAge()));
         }
         setTextOrHide(databinding.contactPersonalDataAdress, c.getAddress());
         setTextOrHide(databinding.contactPersonalDataProfession, c.getProfession());
