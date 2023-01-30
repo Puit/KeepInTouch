@@ -114,7 +114,7 @@ class Notification {
 
         @JvmStatic
         fun scheduleCallReminderNotification(context: Context, notification: NotificationEntity) {
-            val alarmManager = createAlarmManager(context) ?: return
+            val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
             val alarmPendingIntent = preparePendingIntentForCallReminder(
                 context,
                 notification

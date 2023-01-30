@@ -339,6 +339,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     }
 
     public void deleteNotificationBroadcast(Context context, NotificationEntity notification) {
+        //Delete Notification from pool of notifications
         Notification.cancelCallReminderNotification(context, notification);
         //Update the storage
         NotificationsEntityManager.deleteNotification(context, notification);

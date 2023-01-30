@@ -127,7 +127,7 @@ class NewNotificationFragment :
                 override fun onLeftClick() {
                     shareViewModel.deleteNotificationBroadcast(
                         context,
-                        createNotificationFromForm()
+                        getNotification(context, shareViewModel.thisContact.value?.notification!!.toInt())
                     )
                     activity?.onBackPressed()
                 }
