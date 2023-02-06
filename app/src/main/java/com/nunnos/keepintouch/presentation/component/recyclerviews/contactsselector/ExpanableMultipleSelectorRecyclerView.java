@@ -37,15 +37,17 @@ public class ExpanableMultipleSelectorRecyclerView extends LinearLayout {
     }
 
     public void addSelectedContacts(String ids, List<Contact> contacts) {
-        for (Contact c : contacts) {
-            if (ids.contains("," + c.getId() + ",")) {
-                addSelectedContact(c);
+        if (contacts != null) {
+            for (Contact c : contacts) {
+                if (ids.contains("," + c.getId() + ",")) {
+                    addSelectedContact(c);
+                }
             }
         }
     }
 
     public void addSelectedContact(Contact contact) {
-        if(isInSelectedContacts(contact)) return;
+        if (isInSelectedContacts(contact)) return;
 
         selectedContacts.add(contact);
         RVContactAdapter.RVContactdapterViewHolder.CustomItemClick listener = new RVContactAdapter.RVContactdapterViewHolder.CustomItemClick() {
@@ -70,8 +72,8 @@ public class ExpanableMultipleSelectorRecyclerView extends LinearLayout {
 
     private boolean isInSelectedContacts(Contact contact) {
         boolean isSelected = false;
-        for (Contact selected: selectedContacts) {
-            if (Contact.areSameContact(selected,contact)){
+        for (Contact selected : selectedContacts) {
+            if (Contact.areSameContact(selected, contact)) {
                 isSelected = true;
             }
         }

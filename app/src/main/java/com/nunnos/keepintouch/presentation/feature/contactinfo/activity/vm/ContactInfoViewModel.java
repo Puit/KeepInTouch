@@ -10,7 +10,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.lifecycle.LifecycleObserver;
@@ -36,6 +35,7 @@ import com.nunnos.keepintouch.utils.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ContactInfoViewModel extends ContactInfoNavigationViewModel implements LifecycleObserver {
 
@@ -88,10 +88,6 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         if (thisContactMD != null && thisContactMD.getValue() != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 List<ConversationEntity> conversationEntityList = conversationDao.getAllFromContactId(CONTACTS_SEPARATOR + thisContactMD.getValue().getId() + CONTACTS_SEPARATOR);
-                if (conversationEntityList.isEmpty()) {
-                    //TODO: SHOW ERROR?
-                    return;
-                }
                 ArrayList<Conversation> conversations = new ArrayList<>();
                 for (ConversationEntity entity : conversationEntityList) {
                     conversations.add(Conversation.map(entity));
@@ -108,10 +104,6 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         if (thisContactMD != null && thisContactMD.getValue() != null) {
             AppExecutors.getInstance().diskIO().execute(() -> {
                 List<CommentEntity> commentEntityList = commentDao.getAllFromWhoToldId(thisContactMD.getValue().getId());
-                if (commentEntityList.isEmpty()) {
-                    //TODO: SHOW ERROR?
-                    return;
-                }
                 ArrayList<Comment> comments = new ArrayList<>();
                 for (CommentEntity entity : commentEntityList) {
                     comments.add(Comment.map(entity));
@@ -126,10 +118,6 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     public void retrieveContacts(Context context) {
         setContactDao(context);
         AppExecutors.getInstance().diskIO().execute(() -> {
-            if (contactDao.getAllOrderByLastIndexDes().isEmpty()) {
-                //TODO: SHOW ERROR?
-                return;
-            }
             ArrayList<Contact> contacts = new ArrayList<>();
             for (ContactEntity entity : contactDao.getAllOrderByLastIndexDes()) {
                 contacts.add(Contact.map(entity));
@@ -352,6 +340,7 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
     }
 
     public void deleteNotificationBroadcast(Context context, NotificationEntity notification) {
+        //Delete Notification from pool of notifications
         Notification.cancelCallReminderNotification(context, notification);
         //Update the storage
         NotificationsEntityManager.deleteNotification(context, notification);
@@ -359,5 +348,20 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         thisContactMD.getValue().setNotification(null);
         //Update DB
         updateThisContact(context);
+    }
+    public List<Contact> getThisContactRelatives(){
+        if(contactsMD.getValue() == null ||thisContactMD.getValue() == null)return new ArrayList<>();
+        List<Contact> allContactsList = contactsMD.getValue();
+        String ids = thisContactMD.getValue().getRelatives();
+        List<Contact> relatives = new ArrayList<>();
+
+        if (allContactsList != null) {
+            for (Contact c : allContactsList) {
+                if (ids.contains("," + c.getId() + ",")) {
+                    relatives.add(c);
+                }
+            }
+        }
+        return relatives;
     }
 }

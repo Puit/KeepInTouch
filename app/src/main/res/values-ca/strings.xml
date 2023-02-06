@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="image">Imatge</string>
+    <string name="name">Nom</string>
+    <string name="surname1">1r Cognom</string>
+    <string name="surname2">2n Cognom</string>
+    <string name="gender">Gènere</string>
+    <string name="sexual_orientation">Orientació sexual</string>
+    <string name="birthday">Aniversari</string>
+    <string name="age">Edat</string>
+    <string name="address">Direcció</string>
+    <string name="profession">Professió</string>
+    <string name="place_of_work">Lloc de treball</string>
+    <string name="how_we_met">Com ens vam conèixer</string>
+    <string name="language">Idioma</string>
+    <string name="religion">Religió</string>
+    <string name="relatives">Família</string>
+    <string name="conversations">Converses</string>
+    <string name="favorite">Preferits</string>
+    <string name="alias">Alias</string>
+    <string name="telephone">Telèfon</string>
+    <string name="email">Email</string>
+    <string name="social_media">Xarxes socials</string>
+    <string name="unknown">Desconegut</string>
+    <string name="comments">Comentaris</string>
+    <string name="comment">Comentari</string>
+    <string name="day_of_death">Data de defunció</string>
+    <string name="background_color">Color de la targeta</string>
+    <string name="search">Buscar…</string>
+    <string name="nothing_found">Res trobat</string>
+    <string name="monday_short">Dl</string>
+    <string name="tuesday_short">Dt</string>
+    <string name="wednesday_short">Dc</string>
+    <string name="thursday_short">Dj</string>
+    <string name="friday_short">Dv</string>
+    <string name="saturday_short">Ds</string>
+    <string name="sunday_short">Dg</string>
+    <string name="daily_notification_title">Recorda guardar les teves converses</string>
+    <string name="daily_notification_description">Has parlat amb algú avui? Guarda-ho! T\'ajudarà a recordar el que has estat parlant per a la pròxima vegada.</string>
+    <string name="notification_base_text_with_space">Trucar a</string>
+    <string name="save">Guardar</string>
+    <string name="delete">Eliminar</string>
+    <string name="important">Important</string>
+    <string name="normal">Normal</string>
+    <string name="date">Data</string>
+    <string name="ok">Acceptar</string>
+    <string name="cancel">Cancel·lar</string>
+    <string name="people_in_the_conversation">Participants a la conversa</string>
+
+    <!--Main-->
+    <string name="main_press_to_add">Prem el botó per a afegir un nou contacte</string>
+    <string name="last_chat">Última conversa</string>
+
+    <!--Info-->
+    <string name="chats">Xats</string>
+
+    <!--New Notification-->
+    <string name="new_notification_question_reminder">Quan vols configurar el recordatori?</string>
+    <string name="new_notification_notificaiton_message">Missatge de la notificació</string>
+    <string name="new_notification_at_least_one_day">Almenys s\'ha de seleccionar un dia</string>
+    <string name="new_notification_are_you_sure_delete_alarm">Segur que voleu suprimir aquesta alarma?</string>
+
+    <!--New Comment-->
+    <string name="new_comment_can_t_exceed">El comentari no pot superar els 280 caràcters</string>
+    <string name="new_comment_question_delete_message">Esteu segur que voleu esborrar aquest comentari?</string>
+
+    <!--New Conversation-->
+    <string name="new_conversation_conversation_3_dots">Conversa…</string>
+    <string name="new_conversation_place_3_dots">Lloc…</string>
+    <string name="new_conversation_question_delete_message">Segur que voleu suprimir aquest missatge?</string>
+    <string name="new_conversation_error_max_characters">La conversa no pot excedir els 280 caràcters</string>
+    <string name="new_conversation_error_at_least_one_person_selected">S\'ha de seleccionar almenys una persona</string>
+
+    <!--ARRAYS-->
+    <string-array name="genders">
+        <item>Home</item>
+        <item>Dona</item>
+        <item>No binari</item>
+        <item>Transgènere</item>
+        <item>Desconegut</item>
+    </string-array>
+    <string-array name="sexual_orientation">
+        <item>Heterosexual</item>
+        <item>Gai</item>
+        <item>Lesbiana</item>
+        <item>Bisexual</item>
+        <item>Pansexual</item>
+        <item>Asexual</item>
+        <item>Desconegut</item>
+    </string-array>
+</resources>

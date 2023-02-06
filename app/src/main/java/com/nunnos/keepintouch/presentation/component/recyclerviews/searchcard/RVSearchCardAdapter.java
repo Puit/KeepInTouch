@@ -2,7 +2,6 @@ package com.nunnos.keepintouch.presentation.component.recyclerviews.searchcard;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.domain.model.Contact;
-import com.nunnos.keepintouch.presentation.component.recyclerviews.itemtext.RVITAdapter;
 import com.nunnos.keepintouch.presentation.feature.main.activity.MainActivity;
 import com.nunnos.keepintouch.utils.FileManager;
 import com.nunnos.keepintouch.utils.ImageHelper;
@@ -30,6 +28,7 @@ public class RVSearchCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.items = items;
         this.listener = listener;
     }
+
     public void addItems(List<Contact> items) {
         items.add(new Contact());
         this.items.addAll(items);
@@ -72,6 +71,7 @@ public class RVSearchCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public interface CustomItemClick {
         void onItemClick(int contactId);
     }
+
     /**
      * CLASS VIEWHOLDER
      **/
@@ -118,7 +118,9 @@ public class RVSearchCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         @Override
         public void onClick(View v) {
-            listener.onItemClick(contact.getId());
+            if (listener != null) {
+                listener.onItemClick(contact.getId());
+            }
         }
     }
 }

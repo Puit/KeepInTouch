@@ -211,8 +211,8 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
                 };
                 AlertsManager.showOneButtonAlert(getActivity(),
                         listener,
-                        "At least one person must be selected",
-                        "Accept",
+                        getString(R.string.new_conversation_error_at_least_one_person_selected),
+                        getString(R.string.ok),
                         true);
             }
         } else {
@@ -221,8 +221,8 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
             };
             AlertsManager.showOneButtonAlert(getActivity(),
                     listener,
-                    "The conversation can't exceed 280 characters",
-                    "Accept",
+                    getString(R.string.new_conversation_error_max_characters),
+                    getString(R.string.ok),
                     true);
         }
     }
@@ -245,21 +245,21 @@ public class NewConversationFragment extends BaseFragmentViewModelLiveData<Conta
             }
         };
         AlertsManager.showTwoButtonsAlert(getActivity(), listener,
-                "¿Estas seguro de querer borrar este mensaje?",
-                "Aceptar",
-                "Cancelar",
+                getString(R.string.new_conversation_question_delete_message),
+                getString(R.string.ok),
+                getString(R.string.cancel),
                 true);
 
     }
 
     private void getAllDataFromFields() {
         shareViewModel.getNewConversation().setChat(databinding.ncConversation.getText().toString());
-        if (databinding.ncTime.getText().equals("hh:mm")) {
+        if (databinding.ncTime.getText().equals(getString(R.string.time_format))) {
             shareViewModel.getNewConversation().setTime("");
         } else {
             shareViewModel.getNewConversation().setTime(databinding.ncTime.getText());
         }
-        if (databinding.ncDate.getText().equals("DD/MM/YYYY")) {
+        if (databinding.ncDate.getText().equals(getString(R.string.date_format))) {
             shareViewModel.getNewConversation().setDate("");
         } else {
             shareViewModel.getNewConversation().setDate(databinding.ncDate.getText());

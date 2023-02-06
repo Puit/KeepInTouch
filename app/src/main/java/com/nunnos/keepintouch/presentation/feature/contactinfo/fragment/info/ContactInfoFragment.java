@@ -74,7 +74,7 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
             databinding.contactInfoChatQuantity.setVisibility(View.VISIBLE);
             databinding.contactInfoLastChatDate.setVisibility(View.VISIBLE);
             databinding.contactInfoLastChatDate.setText(mostRecentConversation.getDate());
-            databinding.contactInfoChatQuantity.setText(String.valueOf(conversations.size()));
+            databinding.contactInfoChatQuantity.setText(conversations.size() + " " + getString(R.string.chats));
             if (!mostRecentConversation.getPlace().isEmpty()) {
                 databinding.contactInfoLocation.setVisibility(View.VISIBLE);
                 databinding.contactInfoLocationIcon.setVisibility(View.VISIBLE);
@@ -112,7 +112,7 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
         try {
             for (Conversation c : conversations) {
                 if (!c.getDate().isEmpty()) {
-                    Date cDate = new SimpleDateFormat("dd/MM/yyyy").parse(c.getDate().replaceAll(" ", "").trim());
+                    Date cDate = new SimpleDateFormat(getString(R.string.date_format)).parse(c.getDate().replaceAll(" ", "").trim());
                     if (lastChatDate == null) {
                         lastChatDate = cDate;
                         mostRecentConversation = c;
@@ -128,7 +128,7 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
             e.printStackTrace();
         }
         if (lastChatDate == null) {
-            return null; //ENTRA AQUI
+            return null;
         }
         return mostRecentConversation;
     }
@@ -149,7 +149,7 @@ public class ContactInfoFragment extends BaseFragmentViewModelLiveData<ContactIn
     }
 
     private void initListeners() {
-        databinding.contactInfoAddComment.setOnClickListener(v -> shareViewModel.showNewComment());
+        databinding.contactInfoAddComment.setOnClickListener(__ -> shareViewModel.showNewComment());
     }
 
     //Region Base Methods

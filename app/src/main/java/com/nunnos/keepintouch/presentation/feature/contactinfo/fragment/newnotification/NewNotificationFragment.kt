@@ -113,8 +113,8 @@ class NewNotificationFragment :
                 AlertsManager.showOneButtonAlert(
                     activity,
                     null,
-                    "At least one day must be selected",
-                    "Accept",
+                    getString(R.string.new_notification_at_least_one_day),
+                    getString(R.string.ok),
                     true
                 )
             }
@@ -127,7 +127,7 @@ class NewNotificationFragment :
                 override fun onLeftClick() {
                     shareViewModel.deleteNotificationBroadcast(
                         context,
-                        createNotificationFromForm()
+                        getNotification(context, shareViewModel.thisContact.value?.notification!!.toInt())
                     )
                     activity?.onBackPressed()
                 }
@@ -139,9 +139,9 @@ class NewNotificationFragment :
             AlertsManager.showTwoButtonsAlert(
                 activity,
                 listener,
-                "Are you sure you want to delete this alarm?",
-                "Delete",
-                "Cancel",
+                getString(R.string.new_notification_are_you_sure_delete_alarm),
+                getString(R.string.delete),
+                getString(R.string.cancel),
                 true
             )
         }

@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">Keep in touch</string>
+    <string name="app_name" translatable="false">Keep in touch</string>
     <string name="file_path" translatable="false">Android/data/com.nunnos.keepintouch/files/Pictures</string>
+    <string name="date_format" translatable="false">dd/MM/yyyy</string>
+    <string name="time_format" translatable="false">hh:mm</string>
+    <string name="unknown_value" translatable="false">Unknown</string>
     <string name="lorem_ipsum_280" translatable="false">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat mas</string>
     <string name="image">Image</string>
     <string name="name">Name</string>
@@ -22,8 +25,12 @@
     <string name="alias">Alias</string>
     <string name="telephone">Telephone</string>
     <string name="email">Email</string>
+    <string name="social_media">Social media</string>
+    <string name="unknown">Unknown</string>
     <string name="comments">Comments</string>
-    <string name="day_of_death">Day of death</string>
+    <string name="comment">Comment</string>
+    <string name="day_of_death">Date of death</string>
+    <string name="background_color">Card color</string>
     <string name="search">Search…</string>
     <string name="nothing_found">Nothing found</string>
     <string name="monday_short">Mon</string>
@@ -36,6 +43,39 @@
     <string name="daily_notification_title">Remember to save your conversations</string>
     <string name="daily_notification_description">Did you speak with someone today? Record it, it will help to remember what you\'ve been talking for the next time.</string>
     <string name="notification_base_text_with_space">Call</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="important">Important</string>
+    <string name="normal">Normal</string>
+    <string name="date">Date</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="people_in_the_conversation">People in the conversation</string>
+
+    <!--Main-->
+    <string name="main_press_to_add">Press the button to add a new contact</string>
+    <string name="last_chat">Last chat</string>
+
+    <!--Info-->
+    <string name="chats">Chats</string>
+
+    <!--New Notification-->
+    <string name="new_notification_question_reminder">When do you want to set the reminder?</string>
+    <string name="new_notification_notificaiton_message">Notification message</string>
+    <string name="new_notification_at_least_one_day">At least one day must be selected</string>
+    <string name="new_notification_are_you_sure_delete_alarm">Are you sure you want to delete this alarm?</string>
+
+    <!--New Comment-->
+    <string name="new_comment_can_t_exceed">The comment can\'t exceed 280 characters</string>
+    <string name="new_comment_question_delete_message">Are you sure you want to delete this comment?</string>
+
+    <!--New Conversation-->
+    <string name="new_conversation_conversation_3_dots">Conversation…</string>
+    <string name="new_conversation_place_3_dots">Place…</string>
+    <string name="new_conversation_question_delete_message">Are you sure you want to delete this message?</string>
+    <string name="new_conversation_error_max_characters">The conversation can\'t exceed 280 characters</string>
+    <string name="new_conversation_error_at_least_one_person_selected">At least one person must be selected</string>
+
     <!--ARRAYS-->
 
     <string-array name="genders">

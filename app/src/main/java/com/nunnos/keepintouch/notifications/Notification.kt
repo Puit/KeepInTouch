@@ -69,7 +69,7 @@ class Notification {
             )
 
             val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_logo_black)
+                .setSmallIcon(R.drawable.ic_logo_full_black)
                 .setContentTitle(title)
                 .setContentText(description)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -114,7 +114,7 @@ class Notification {
 
         @JvmStatic
         fun scheduleCallReminderNotification(context: Context, notification: NotificationEntity) {
-            val alarmManager = createAlarmManager(context) ?: return
+            val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
             val alarmPendingIntent = preparePendingIntentForCallReminder(
                 context,
                 notification

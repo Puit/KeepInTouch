@@ -2,13 +2,12 @@ package com.nunnos.keepintouch.domain.model;
 
 import static com.nunnos.keepintouch.utils.Constants.CONTACTS_SEPARATOR;
 
-import android.os.Build;
-import android.text.TextUtils;
+import android.content.Context;
 
-import androidx.annotation.RequiresApi;
-
+import com.nunnos.keepintouch.R;
 import com.nunnos.keepintouch.data.CustomDate;
 import com.nunnos.keepintouch.data.entities.contactdao.ContactEntity;
+import com.nunnos.keepintouch.utils.TextUtils;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -134,26 +133,21 @@ public class Contact {
                 entity.daysToCall, entity.dayOfDeath, entity.socialMedia, entity.notification);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public int getAge() {
         //TODO: Comprobar si ha muerto
-        if (isRealBirthday()) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             CustomDate customDate = CustomDate.dateFromString(birthday);
 
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_MONTH, customDate.getDay());
-            calendar.set(Calendar.MONTH, customDate.getMonth());
+            calendar.set(Calendar.MONTH, customDate.getMonth() - 1); //Los meses empiezan en 0
             calendar.set(Calendar.YEAR, customDate.getYear());
-            LocalDate birthdayLocalDate = Instant.ofEpochMilli(calendar.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate birthdayLocalDate = null;
+            birthdayLocalDate = Instant.ofEpochMilli(calendar.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate();
             Period period = Period.between(LocalDate.from(birthdayLocalDate), LocalDate.now());
             return period.getYears();
-        } else {
-            try {
-                return Integer.parseInt(birthday);
-            } catch (NumberFormatException nfe) {
-                return -1;
-            }
         }
+        return -1;
     }
 
     public String getFullName() {
@@ -555,5 +549,21 @@ public class Contact {
         if (TextUtils.isEmpty(s1) && !TextUtils.isEmpty(s2) || !TextUtils.isEmpty(s1) && TextUtils.isEmpty(s2))
             return false;
         return s1.equals(s2);
+    }
+
+    public static String createFakeBirthdayFromAge(String age, Context context) {
+        if (TextUtils.isNumeric(age)) {
+            return createFakeBirthdayFromAge(Integer.parseInt(age), context);
+        }
+        return age;
+    }
+
+    public static String createFakeBirthdayFromAge(int age, Context context) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.MONTH, 0);//Enero es el 0
+        calendar.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR) - age);
+        calendar.get(Calendar.YEAR); //Requerido para que setee el valor
+        return TextUtils.dateToString(calendar, context.getString(R.string.date_format));
     }
 }

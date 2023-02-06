@@ -52,10 +52,15 @@ public class ContactInfoActivity extends BaseActivityViewModelLiveData<ContactIn
         super.onCreate(savedInstanceState);
         viewModel.retrieveLastIndex(this);
         getContact();
+        getListOfcontacts();
         setView();
         initObservers();
         redirectTo();
         configureResultListener();
+    }
+
+    private void getListOfcontacts() {
+        viewModel.retrieveContacts(this);
     }
 
     @Override

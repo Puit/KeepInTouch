@@ -3,7 +3,6 @@ package com.nunnos.keepintouch.presentation.feature.main.fragment.newcontact;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -64,7 +63,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
 
     private void initObservers() {
         shareViewModel.getNewContactBitmap().observe(getActivity(), this::setPhotoToImageView);
-        shareViewModel.getContacts().observe(getActivity(), this::initRelativesRecyclerView);
+        shareViewModel.getContacts().observe(getActivity(), this::initContactsRecyclerView);
     }
 
     private void setPhotoToImageView(Bitmap bitmap) {
@@ -76,7 +75,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
         databinding.newContactDeleteImageRounder.setVisibility(View.VISIBLE);
     }
 
-    private void initRelativesRecyclerView(List<Contact> relatives) {
+    private void initContactsRecyclerView(List<Contact> relatives) {
         //Entra dos cops i dona problemes, aixi que ho netegem
         databinding.newContactRelatives.clearContacts();
         RVContactAdapter.RVContactdapterViewHolder.CustomItemClick contactListener = new RVContactAdapter.RVContactdapterViewHolder.CustomItemClick() {
@@ -97,6 +96,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
                 false);
         databinding.newContactRelatives.setAdapter(contactsAdapter);
         databinding.newContactRelatives.setHasFixedSize(false);
+        databinding.newContactRelatives.collapse(true);
     }
 
     private void initView() {
@@ -105,6 +105,8 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
         databinding.newContactBackgroundColor.setColorId(Constants.DEFAULT_CARD_BG_COLOR);
         databinding.newContactEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         databinding.newContactTelephone.setInputType(InputType.TYPE_CLASS_NUMBER);
+        databinding.newContactHowWeMet.setInputType(InputType.TYPE_CLASS_TEXT);
+        databinding.newContactAge.setInputType(InputType.TYPE_CLASS_NUMBER);
     }
 
     private void setView() {
@@ -175,14 +177,12 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
         databinding.newContactBirthdaySwitch.setListener(new CustomSwitch.CustomListener() {
             @Override
             public void onLeft() { //Birthday
-                databinding.newContactBirthday.setVisibility(View.VISIBLE);
-                databinding.newContactAge.setVisibility(View.GONE);
+                setViewForBirthdaySelected();
             }
 
             @Override
             public void onRight() { //AGE
-                databinding.newContactAge.setVisibility(View.VISIBLE);
-                databinding.newContactBirthday.setVisibility(View.GONE);
+                setViewForAgeSelected();
             }
         });
 
@@ -210,6 +210,16 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
             databinding.newContactRotateRounder.setVisibility(View.INVISIBLE);
             databinding.newContactDeleteImageRounder.setVisibility(View.INVISIBLE);
         });
+    }
+
+    private void setViewForAgeSelected() {
+        databinding.newContactAge.setVisibility(View.VISIBLE);
+        databinding.newContactBirthday.setVisibility(View.GONE);
+    }
+
+    private void setViewForBirthdaySelected() {
+        databinding.newContactBirthday.setVisibility(View.VISIBLE);
+        databinding.newContactAge.setVisibility(View.GONE);
     }
 
     private void showDatePickerDialog() {
@@ -244,8 +254,10 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
                     databinding.newContactSurname2.getText(),
                     databinding.newContactGenderExpanable.getText(),
                     databinding.newContactSexualOrientationExpanable.getText(),
-                    databinding.newContactBirthdaySwitch.getIsRightClicked() ? databinding.newContactAge.getText() : databinding.newContactBirthday.getText(),
-                    databinding.newContactBirthdaySwitch.getIsRightClicked(),
+                    databinding.newContactBirthdaySwitch.getIsRightClicked() ?
+                            Contact.createFakeBirthdayFromAge(databinding.newContactAge.getText(), getContext()) :
+                            databinding.newContactBirthday.getText(),
+                    !databinding.newContactBirthdaySwitch.getIsRightClicked(),
                     databinding.newContactAdress.getText(),
                     databinding.newContactProfession.getText(),
                     databinding.newContactPlaceofwork.getText(),
@@ -267,8 +279,8 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
                     "",
                     databinding.newContactSocialMedia.getText(),
                     "");
-
             contact.addRelativeList(databinding.newContactRelatives.getSelectedContacts());
+
             shareViewModel.saveContact(getContext(), contact);
             shareViewModel.setRefreshOnBack(true);
             shareViewModel.setNewContactBitmap(null);
