@@ -14,12 +14,18 @@ import com.nunnos.keepintouch.base.baseview.BaseFragmentViewModelLiveData;
 import com.nunnos.keepintouch.databinding.FragmentContactPersonalDataBinding;
 import com.nunnos.keepintouch.domain.model.Contact;
 import com.nunnos.keepintouch.presentation.component.CustomTextView;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.contactsselector.RVContactAdapter;
+import com.nunnos.keepintouch.presentation.component.recyclerviews.searchcard.RVSearchCardAdapter;
 import com.nunnos.keepintouch.presentation.feature.contactinfo.activity.vm.ContactInfoViewModel;
 import com.nunnos.keepintouch.utils.FileManager;
 import com.nunnos.keepintouch.utils.ImageHelper;
 import com.nunnos.keepintouch.utils.TextUtils;
 
+import java.util.List;
+
 public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<ContactInfoViewModel, FragmentContactPersonalDataBinding> {
+
+    private RVSearchCardAdapter contactsAdapter = null;
 
     public ContactPersonalDataFragment() {
         //Required empty public constructor
@@ -65,9 +71,23 @@ public class ContactPersonalDataFragment extends BaseFragmentViewModelLiveData<C
         setTextOrHide(databinding.contactPersonalDataHowWeMet, c.getHowWeMet());
         setTextOrHide(databinding.contactPersonalDataLanguage, c.getLanguage());
         setTextOrHide(databinding.contactPersonalDataReligion, c.getReligion());
-        setTextOrHide(databinding.contactPersonalDataRelatives, c.getRelatives());
+
         setTextOrHide(databinding.contactPersonalDataSocialMedia, c.getSocialMedia());
         setUserImage(c);
+        setRelatives(shareViewModel.getThisContactRelatives());
+    }
+
+    private void setRelatives(List<Contact> relativesList) {
+        if(relativesList.size() == 0){
+            databinding.contactPersonalDataRelativesRecyclerView.setVisibility(View.GONE);
+            databinding.contactPersonalDataRelativesTitle.setVisibility(View.GONE);
+            return;
+        }
+        databinding.contactPersonalDataRelativesRecyclerView.setVisibility(View.VISIBLE);
+        contactsAdapter = new RVSearchCardAdapter(relativesList, null);
+        databinding.contactPersonalDataRelativesRecyclerView.setAdapter(contactsAdapter);
+        contactsAdapter.notifyDataSetChanged();
+        databinding.contactPersonalDataRelativesRecyclerView.setHasFixedSize(false);
     }
 
     private void setTextOrHide(TextView tv, String text) {

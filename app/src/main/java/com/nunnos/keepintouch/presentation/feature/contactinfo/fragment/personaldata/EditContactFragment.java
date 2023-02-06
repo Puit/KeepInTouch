@@ -115,8 +115,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
         databinding.newContactRelatives.setHasFixedSize(false);
         //Add selected contacts
 
-        databinding.newContactRelatives.addSelectedContact(shareViewModel.getThisContact().getValue());
-        databinding.newContactRelatives.addSelectedContacts(shareViewModel.getNewConversation().getContacts(), relatives);
+        databinding.newContactRelatives.addSelectedContacts(shareViewModel.getThisContact().getValue().getRelatives(), relatives);
         databinding.newContactRelatives.collapse(true);
     }
 
@@ -312,6 +311,7 @@ public class EditContactFragment extends BaseFragmentViewModelLiveData<ContactIn
                     databinding.newContactSocialMedia.getText(),
                     shareViewModel.getThisContact().getValue().getNotification());
             contact.addRelativeList(databinding.newContactRelatives.getSelectedContacts());
+
             shareViewModel.updateThisContact(getContext(), contact);
             shareViewModel.updateOnBack();
             shareViewModel.getThisContactBitmap().setValue(null);

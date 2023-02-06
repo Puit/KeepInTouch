@@ -35,6 +35,7 @@ import com.nunnos.keepintouch.utils.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ContactInfoViewModel extends ContactInfoNavigationViewModel implements LifecycleObserver {
 
@@ -347,5 +348,20 @@ public class ContactInfoViewModel extends ContactInfoNavigationViewModel impleme
         thisContactMD.getValue().setNotification(null);
         //Update DB
         updateThisContact(context);
+    }
+    public List<Contact> getThisContactRelatives(){
+        if(contactsMD.getValue() == null ||thisContactMD.getValue() == null)return new ArrayList<>();
+        List<Contact> allContactsList = contactsMD.getValue();
+        String ids = thisContactMD.getValue().getRelatives();
+        List<Contact> relatives = new ArrayList<>();
+
+        if (allContactsList != null) {
+            for (Contact c : allContactsList) {
+                if (ids.contains("," + c.getId() + ",")) {
+                    relatives.add(c);
+                }
+            }
+        }
+        return relatives;
     }
 }

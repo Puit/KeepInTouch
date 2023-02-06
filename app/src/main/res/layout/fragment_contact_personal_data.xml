@@ -186,16 +186,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.nunnos.keepintouch.presentation.component.CustomTextView
-                    android:id="@+id/contact_personal_data_relatives"
-                    style="@style/bold.black.24"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    app:edit_text_hint_text="@string/relatives"
-                    app:text_view_hint_text="@string/relatives"
-                    tools:text_view_text="Mother, Father" />
-
-                <com.nunnos.keepintouch.presentation.component.CustomTextView
                     android:id="@+id/contact_personal_data_social_media"
                     style="@style/bold.black.24"
                     android:layout_width="match_parent"
@@ -205,8 +195,23 @@
                     app:text_view_hint_text="@string/social_media"
                     tools:text_view_text="www.facebook.com/Puit" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/contact_personal_data_relatives_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/relatives" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/contact_personal_data_relatives_recyclerView"
+                    style="@style/bold.black.24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:expanable_recyclerview_hint_text="@string/relatives" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -63,7 +63,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
 
     private void initObservers() {
         shareViewModel.getNewContactBitmap().observe(getActivity(), this::setPhotoToImageView);
-        shareViewModel.getContacts().observe(getActivity(), this::initRelativesRecyclerView);
+        shareViewModel.getContacts().observe(getActivity(), this::initContactsRecyclerView);
     }
 
     private void setPhotoToImageView(Bitmap bitmap) {
@@ -75,7 +75,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
         databinding.newContactDeleteImageRounder.setVisibility(View.VISIBLE);
     }
 
-    private void initRelativesRecyclerView(List<Contact> relatives) {
+    private void initContactsRecyclerView(List<Contact> relatives) {
         //Entra dos cops i dona problemes, aixi que ho netegem
         databinding.newContactRelatives.clearContacts();
         RVContactAdapter.RVContactdapterViewHolder.CustomItemClick contactListener = new RVContactAdapter.RVContactdapterViewHolder.CustomItemClick() {
@@ -96,6 +96,7 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
                 false);
         databinding.newContactRelatives.setAdapter(contactsAdapter);
         databinding.newContactRelatives.setHasFixedSize(false);
+        databinding.newContactRelatives.collapse(true);
     }
 
     private void initView() {
@@ -278,8 +279,8 @@ public class NewContactFragment extends BaseFragmentViewModelLiveData<MainViewMo
                     "",
                     databinding.newContactSocialMedia.getText(),
                     "");
-
             contact.addRelativeList(databinding.newContactRelatives.getSelectedContacts());
+
             shareViewModel.saveContact(getContext(), contact);
             shareViewModel.setRefreshOnBack(true);
             shareViewModel.setNewContactBitmap(null);
