@@ -69,7 +69,7 @@ class Notification {
             )
 
             val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_logo_black)
+                .setSmallIcon(R.drawable.ic_logo_full_black)
                 .setContentTitle(title)
                 .setContentText(description)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
